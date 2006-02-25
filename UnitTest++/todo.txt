@@ -1,0 +1,16 @@
+- Visual studio projects/solutions (2003 and 2005?)
+- Switch expected and actual in macros
+- Deal with exceptions better (at TestRunner, at Test, and at Check)
+- Have make grab all cpp files in the right dirs instead of enumerating them?
+- Figure out why calling make multiple times links and runs the tests
+- Change make to put object files in a different directory?
+- Win32 make??
+- Use makedepend?
+- Set up task system in Sourceforge and get rid of silly todo file?
+- Decide on include path (do we name it src or UnitTestCpp?)
+
+- Merge suite changes from Matt Kimmel
+- Merge GUI from Matt Kimmel 
+
+- OVerall tests times
+- Per-test time (or max test error)
