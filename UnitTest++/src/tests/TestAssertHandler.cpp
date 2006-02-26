@@ -2,15 +2,31 @@
 #include "../AssertException.h"
 #include "../ReportAssert.h"
 
-namespace UnitTest { namespace {
+using namespace UnitTest;
 
-TEST(CallingAssertThrowsAssertException)
+namespace {
+
+TEST (ReportAssertThrowsAssertException)
 {
 	bool caught = false;
 
-	int const lineNumber = 12345;
-	char const* description = "description";
-	char const* filename = "filename";
+	try
+	{
+		ReportAssert("", "", 0);
+	}
+	catch(AssertException const& e)
+	{
+		caught = true;
+	}
+
+	CHECK (true == caught);
+}
+
+TEST (ReportAssertSetsCorrectInfoInException)
+{
+	const int lineNumber = 12345;
+	const char* description = "description";
+	const char* filename = "filename";
 
 	try
 	{
@@ -18,14 +34,12 @@ TEST(CallingAssertThrowsAssertException)
 	}
 	catch(AssertException const& e)
 	{
-		CHECK_EQUAL(std::string(e.what()), description);
-		CHECK_EQUAL(e.Filename(), filename);
-		CHECK_EQUAL(e.LineNumber(), lineNumber);
-
-		caught = true;
+		CHECK_EQUAL(description, std::string(e.what()));
+		CHECK_EQUAL(filename, e.Filename());
+		CHECK_EQUAL(lineNumber, e.LineNumber());
 	}
-
-	CHECK(caught == true);
 }
 
-}}
+
+}
+

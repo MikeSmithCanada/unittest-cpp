@@ -2,8 +2,8 @@
 #define UnitTest_CHECKS_H
 
 #include "Config.h"
-
 #include <sstream>
+
 
 namespace UnitTest
 {
@@ -34,33 +34,33 @@ namespace UnitTest
 #endif
 	}
 
-	template< typename Actual, typename Expected >
-	bool CheckEqual(Actual const actual, Expected const expected)
+	template< typename Expected, typename Actual >
+	bool CheckEqual(Expected const expected, Actual const actual)
 	{
 #ifdef VISUAL_STUDIO
 #	pragma warning(push)
 #	pragma warning(disable:4127) // conditional expression is constant
 #endif
-		return (actual == expected);
+		return (expected == actual);
 #ifdef VISUAL_STUDIO
 #	pragma warning(pop)
 #endif
 	}
 
-	template< typename Actual, typename Expected >
-	bool CheckArrayEqual(Actual const actual, Expected const expected, int const count)
+	template< typename Expected, typename Actual >
+	bool CheckArrayEqual(Expected const expected, Actual const actual, int const count)
 	{
 		for (int i = 0; i < count; ++i)
 		{
-			if (!(actual[i] == expected[i]))
+			if (!(expected[i] == actual[i]))
 				return false;
 		}
 
 		return true;
 	}
 
-	template< typename Actual, typename Expected, typename Tolerance >
-	bool CheckClose(Actual const actual, Expected const expected, Tolerance const tolerance)
+	template< typename Expected, typename Actual, typename Tolerance >
+	bool CheckClose(Expected const expected, Actual const actual, Tolerance const tolerance)
 	{
 		double const diff = double(actual) - double(expected);
 		double const doubleTolerance = double(tolerance);
@@ -74,28 +74,28 @@ namespace UnitTest
 		return true;
 	}
 
-	template< typename Actual, typename Expected, typename Tolerance >
-	bool CheckArrayClose(Actual const actual, Expected const expected, int const count, Tolerance const tolerance)
+	template< typename Expected, typename Actual, typename Tolerance >
+	bool CheckArrayClose(Expected const expected, Actual const actual, int const count, Tolerance const tolerance)
 	{
 		for (int i = 0; i < count; ++i)
 		{
-			if (!CheckClose(actual[i], expected[i], tolerance))
+			if (!CheckClose(expected[i], actual[i], tolerance))
 				return false;
 		}
 
 		return true;
 	}
 
-	template< typename Actual, typename Expected >
-	std::string BuildFailureString(Actual const actual, Expected const expected)
+	template< typename Expected, typename Actual>
+	std::string BuildFailureString(Expected const expected, Actual const actual)
 	{
 		std::stringstream failureStr;
 		failureStr << "Expected " << expected << " but got " << actual << std::endl;
 		return failureStr.str();
 	}
 
-	template< typename Actual, typename Expected >
-	std::string BuildFailureString(Actual const* actual, Expected const* expected, int const count)
+	template< typename Expected, typename Actual >
+	std::string BuildFailureString(Expected const* expected, Actual const* actual, int const count)
 	{
 		std::stringstream failureStr;
 		int i;

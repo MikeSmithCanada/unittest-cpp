@@ -29,7 +29,7 @@ struct MockReporter : public TestReporter
 	virtual void ReportSummary(int, int) {}
 };
 
-TEST(TypedTestCreatorMakesTestOfCorrectType)
+TEST (TypedTestCreatorMakesTestOfCorrectType)
 {
 	TestLauncher* listHead = 0;
 	TypedTestLauncher< MockTest > mockLauncher(&listHead);
@@ -37,7 +37,7 @@ TEST(TypedTestCreatorMakesTestOfCorrectType)
 	MockReporter mr;
 	TestResults tr(mr);
 	mockLauncher.Launch(tr);
-	CHECK_EQUAL(MockTest::instantiationCount, 1);
+	CHECK_EQUAL(1, MockTest::instantiationCount);
 }
 }
 

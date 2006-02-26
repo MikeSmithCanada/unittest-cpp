@@ -16,21 +16,21 @@
 	if (UnitTest::CheckNull(ptr)) \
 		testResults_.ReportFailure(__FILE__, __LINE__, #ptr " is NULL.");
 
-#define CHECK_EQUAL(actual, expected) \
-	if (!UnitTest::CheckEqual(actual, expected)) \
-		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(actual, expected));
+#define CHECK_EQUAL(expected, actual) \
+	if (!UnitTest::CheckEqual(expected, actual)) \
+		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(expected, actual));
 
-#define CHECK_CLOSE(actual, expected, tolerance) \
+#define CHECK_CLOSE(expected, actual, tolerance) \
 	if (!UnitTest::CheckClose(actual, expected, tolerance)) \
-		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(actual, expected));
+		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(expected, actual));
 
-#define CHECK_ARRAY_EQUAL(actual, expected, count) \
+#define CHECK_ARRAY_EQUAL(expected, actual, count) \
 	if (!UnitTest::CheckArrayEqual(actual, expected, count)) \
-		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(actual, expected, count));
+		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(expected, actual, count));
 
-#define CHECK_ARRAY_CLOSE(actual, expected, count, tolerance) \
+#define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
 	if (!UnitTest::CheckArrayClose(actual, expected, count, tolerance)) \
-		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(actual, expected, count));
+		testResults_.ReportFailure(__FILE__, __LINE__, UnitTest::BuildFailureString(expected, actual, count));
 
 #define CHECK_THROW(expression, ExpectedExceptionType) \
 	{ \

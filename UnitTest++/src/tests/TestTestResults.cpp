@@ -1,30 +1,29 @@
 #include "../UnitTest++.h"
-
 #include "../TestReporter.h"
 #include "../TestResults.h"
 
 using namespace UnitTest;
 
-namespace 
-{
+namespace {
+
 
 struct MockTestReporter : public TestReporter
 {
 public:
 	MockTestReporter()
-		: failureCount(0)
+		: failureReported(false)
 	{
 	}
 
 	virtual void ReportFailure(char const*, int, std::string) 
 	{
-		++failureCount;
+		failureReported = true;
 	}
 	
 	virtual void ReportSingleResult(const std::string&, bool) {}
 	virtual void ReportSummary(int, int) {}
 
-	int failureCount;
+	int failureReported;
 };
 
 struct MockTestResultsFixture
@@ -40,20 +39,19 @@ struct MockTestResultsFixture
 
 TEST_FIXTURE(MockTestResultsFixture, TestResultsDefaultToSuccess)
 {
-	CHECK_EQUAL(results.Failed(), false);
+	CHECK (!results.Failed());
 }
 
 TEST_FIXTURE(MockTestResultsFixture, TestResultsRecordFailures)
 {
 	results.ReportFailure("nothing", 0, "expected failure");
-	CHECK_EQUAL(results.Failed(), true);
+	CHECK(results.Failed());
 }
 
 TEST_FIXTURE(MockTestResultsFixture, TestResultsReportFailures)
 {
 	results.ReportFailure("nothing", 0, "expected failure");
-	CHECK_EQUAL(reporter.failureCount, 1);
+	CHECK (reporter.failureReported);
 }
 
 }
-

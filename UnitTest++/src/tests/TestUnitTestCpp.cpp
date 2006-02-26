@@ -3,8 +3,9 @@
 #include "../ReportAssert.h"
 #include "../Config.h"
 
-namespace
-{
+
+namespace {
+
 
 TEST(ValidCheckSucceeds)
 {
@@ -40,8 +41,8 @@ TEST(ValidCheckCloseSucceeds)
 
 TEST(CheckEqualMacroAllowsCharPtrAndStringComparisons)
 {
-	std::string const str("Hello World");
-	CHECK_EQUAL(str, "Hello World");
+	const std::string str("Hello World");
+	CHECK_EQUAL(std::string("Hello World"), str);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
@@ -127,7 +128,7 @@ bool SimpleFixture::constructed = false;
 
 TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
 {
-	CHECK_EQUAL(SimpleFixture::constructed, true);
+	CHECK(SimpleFixture::constructed);
 }
 
 struct SpecializedCtorFixture
@@ -142,7 +143,7 @@ struct SpecializedCtorFixture
 
 TEST_FIXTURE_CTOR(SpecializedCtorFixture, (5), CtorDataGetsPassedToFixture)
 {
-	CHECK_EQUAL(value, 5);
+	CHECK_EQUAL(5, value);
 }
 
 }
