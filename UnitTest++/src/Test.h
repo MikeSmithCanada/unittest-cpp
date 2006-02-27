@@ -10,28 +10,28 @@ class TestResults;
 class Test
 {
 public:
-	virtual ~Test();
-	void Run(TestResults& testResults);
+    virtual ~Test();
+    void Run(TestResults& testResults);
 
-	static Test* GetListHead();
+    static Test* GetListHead();
 
 protected:
-	Test(std::string testName = std::string(), 
-	     std::string filename = std::string(), 
-	     int lineNumber = 0);
+    Test(std::string testName = std::string(), 
+         std::string filename = std::string(), 
+         int lineNumber = 0);
 
 private:
-	virtual void RunImpl(TestResults& testResults_) = 0;
+    virtual void RunImpl(TestResults& testResults_) = 0;
 
-	std::string const m_testName;
-	std::string const m_filename;
-	int const m_lineNumber;
+    std::string const m_testName;
+    std::string const m_filename;
+    int const m_lineNumber;
 
-	Test* m_listNext;
+    Test* m_listNext;
 
-	// revoked
-	Test(Test const&);
-	Test& operator =(Test const&);
+    // revoked
+    Test(Test const&);
+    Test& operator =(Test const&);
 };
 
 }

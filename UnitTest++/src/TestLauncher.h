@@ -9,22 +9,22 @@ class TestRegistry;
 class TestLauncher
 {
 public:
-	virtual void Launch(TestResults& results_) const = 0;
+    virtual void Launch(TestResults& results_) const = 0;
 
-	static TestLauncher** GetHeadAddr();
-	TestLauncher const* GetNext() const;
+    static TestLauncher** GetHeadAddr();
+    TestLauncher const* GetNext() const;
 
 protected:
-	TestLauncher(TestLauncher** listHead);
-	virtual ~TestLauncher();
+    TestLauncher(TestLauncher** listHead);
+    virtual ~TestLauncher();
 
 private:
-	TestLauncher const* m_next;
+    TestLauncher const* m_next;
 
-	// revoked
-	TestLauncher();
-	TestLauncher(TestLauncher const&);
-	TestLauncher& operator =(TestLauncher const&);
+    // revoked
+    TestLauncher();
+    TestLauncher(TestLauncher const&);
+    TestLauncher& operator =(TestLauncher const&);
 };
 }
 

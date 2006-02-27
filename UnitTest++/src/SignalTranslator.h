@@ -11,41 +11,41 @@ template <int SIGNAL>
 class SignalTranslator 
 {
 public:
-	SignalTranslator()
-	{
-		//setup new signal handler
-		struct sigaction act;
-		act.sa_handler = signalHandler;
-		sigemptyset(&act.sa_mask);
-		act.sa_flags = 0;
+    SignalTranslator()
+    {
+        //setup new signal handler
+        struct sigaction act;
+        act.sa_handler = signalHandler;
+        sigemptyset(&act.sa_mask);
+        act.sa_flags = 0;
 
-		sigaction(SIGNAL, &act, &m_oldAction);
+        sigaction(SIGNAL, &act, &m_oldAction);
 
-		if (sigsetjmp(getJumpPoint(), 1) != 0)
-		{
-			//if signal thrown we will return here from handler
-			throw "Unhandled system exception";
-		}
-	}
+        if (sigsetjmp(getJumpPoint(), 1) != 0)
+        {
+            //if signal thrown we will return here from handler
+            throw "Unhandled system exception";
+        }
+    }
 
-	~SignalTranslator()
-	{
-		sigaction(SIGNAL, &m_oldAction, 0);
-	}
+    ~SignalTranslator()
+    {
+        sigaction(SIGNAL, &m_oldAction, 0);
+    }
 
 private:
-	static void signalHandler(int signum)
-	{
-		siglongjmp(getJumpPoint(), signum);
-	}
+    static void signalHandler(int signum)
+    {
+        siglongjmp(getJumpPoint(), signum);
+    }
 
-		static sigjmp_buf& getJumpPoint()
-		{
-			static sigjmp_buf jmpPnt;
-			return jmpPnt;
-		}
+        static sigjmp_buf& getJumpPoint()
+        {
+            static sigjmp_buf jmpPnt;
+            return jmpPnt;
+        }
 
-	struct sigaction m_oldAction;
+    struct sigaction m_oldAction;
 };
 
 }

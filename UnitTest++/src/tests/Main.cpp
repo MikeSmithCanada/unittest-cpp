@@ -2,6 +2,6 @@
 
 int main(int, char const *[])
 {
-	return UnitTest::TestRunner().RunAllTests();
+    return UnitTest::TestRunner().RunAllTests();
 }
 

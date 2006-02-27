@@ -11,20 +11,20 @@ class TestReporter;
 class TestResults
 {
 public:
-	explicit TestResults(TestReporter& reporter);
+    explicit TestResults(TestReporter& reporter);
 
-	void ReportFailure(char const* file, int line, std::string failure);
-	void ReportDone(const std::string& testName);
+    void ReportFailure(char const* file, int line, std::string failure);
+    void ReportDone(const std::string& testName);
 
-	bool Failed() const;
+    bool Failed() const;
 
 private:
-	bool m_failure;
-	TestReporter& m_testReporter;
+    bool m_failure;
+    TestReporter& m_testReporter;
 
-	// revoked
-	TestResults(TestResults const&);
-	TestResults& operator =(TestResults const&);
+    // revoked
+    TestResults(TestResults const&);
+    TestResults& operator =(TestResults const&);
 };
 
 }

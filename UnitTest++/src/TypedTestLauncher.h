@@ -10,15 +10,15 @@ template< typename TestClass >
 class TypedTestLauncher : public TestLauncher
 {
 public:
-	TypedTestLauncher(TestLauncher** listHead)
-		: TestLauncher(listHead)
-	{
-	}
+    TypedTestLauncher(TestLauncher** listHead)
+        : TestLauncher(listHead)
+    {
+    }
 
-	virtual void Launch(TestResults& testResults_) const 
-	{
-		TestClass().Run(testResults_);
-	}
+    virtual void Launch(TestResults& testResults_) const 
+    {
+        TestClass().Run(testResults_);
+    }
 };
 
 }

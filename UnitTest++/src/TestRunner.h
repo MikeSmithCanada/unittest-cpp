@@ -11,19 +11,19 @@ class TestReporter;
 class TestRunner
 {
 public:
-	TestRunner();
-	~TestRunner();
+    TestRunner();
+    ~TestRunner();
 
-	void SetTestReporter(TestReporter* testReporter);
-	void SetTestLauncherListHead(TestLauncher** listHead);
+    void SetTestReporter(TestReporter* testReporter);
+    void SetTestLauncherListHead(TestLauncher** listHead);
 
-	int RunAllTests();
+    int RunAllTests();
 
 private:
-	TestLauncher** m_testLauncherListHead;
+    TestLauncher** m_testLauncherListHead;
 
-	TestReporter* m_testReporter;
-	PrintfTestReporter m_defaultTestReporter;
+    TestReporter* m_testReporter;
+    PrintfTestReporter m_defaultTestReporter;
 };
 
 }

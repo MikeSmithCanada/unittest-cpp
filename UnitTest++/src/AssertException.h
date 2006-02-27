@@ -9,18 +9,18 @@ namespace UnitTest {
 class AssertException : public std::exception
 {
 public:
-	AssertException(char const* description, char const* filename, int lineNumber);
-	virtual ~AssertException() throw();
+    AssertException(char const* description, char const* filename, int lineNumber);
+    virtual ~AssertException() throw();
 
-	virtual char const* what() const throw();
+    virtual char const* what() const throw();
 
-	std::string const& Filename() const;
-	int LineNumber() const;
+    std::string const& Filename() const;
+    int LineNumber() const;
 
 private:
-	std::string m_description;
-	std::string m_filename;
-	int m_lineNumber;
+    std::string m_description;
+    std::string m_filename;
+    int m_lineNumber;
 };
 
 }
