@@ -19,7 +19,7 @@ public:
     {
         failureReported = true;
     }
-    
+
     virtual void ReportSingleResult(const std::string&, bool) {}
     virtual void ReportSummary(int, int) {}
 

@@ -7,6 +7,8 @@
 - Set up task system in Sourceforge and get rid of silly todo file?
 - Overall tests times
 - Use makedepend?
+- Write tests for HTMLTestReporter?
+- Why is SignalTranslator a template??
 
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 
@@ -14,6 +16,7 @@
 - Per-test time (or max test error)
 - Deal with NaN correctly
 - Better kEpsilon check?
+- Memory leak detection
 
 -----
 Discuss::
@@ -21,4 +24,5 @@ Discuss::
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 - Reduce use of mocks
 - Do we need for Failed() and failure count? 
+- const int vs. int const
 

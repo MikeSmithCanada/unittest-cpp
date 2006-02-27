@@ -1,6 +1,6 @@
 #include "HTMLTestReporter.h"
 
-#ifdef _MSC_VER
+#ifdef VISUAL_STUDIO
 #    pragma warning(disable:4996) // shut the secure crt stuff up, ctime is used correctly here.
 #endif
 
@@ -60,7 +60,7 @@ void HTMLTestReporter::ReportSummary(int const testCount, int const failureCount
     {
         os << "<tr>";
         os << "<td><strong>" << i->testName << "</strong></td>";
-        
+
         if (i->failed)
             os << "<td bgcolor=\"#ff0000\"><strong>FAILED</strong></td>";
         else
