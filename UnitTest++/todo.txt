@@ -1,11 +1,12 @@
-- Test that we can use same test name in different files
 - Visual studio projects/solutions (2003 and 2005?)
 - Deal with exceptions better (at TestRunner, at Test, and at Check)
-- Change make to put object files in a different directory?
+- Test that we can use same test name in different files
+- Improve makefile:
+    - Set up object files on a different dir
+    - Follow header dependecies correctly
 - Win32 make??
 - Set up task system in Sourceforge and get rid of silly todo file?
 - Overall tests times
-- Use makedepend?
 - Write tests for HTMLTestReporter?
 
 - Merge suite changes from Matt Kimmel
@@ -18,6 +19,8 @@
 
 -----
 Discuss::
+- std::string vs. const char*
+- std::string by value vs. reference
 - Test/failure count in TestResults, not in reporter
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 - Reduce use of mocks

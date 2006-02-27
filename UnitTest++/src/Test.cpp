@@ -26,9 +26,9 @@ void Test::Run(TestResults& testResults)
     try
     {
 #ifdef LINUX
-        SignalTranslator<SIGSEGV> sigSEGV;
-        SignalTranslator<SIGFPE> sigFPE;
-        SignalTranslator<SIGBUS> sigBUS;
+        SignalTranslator sigSEGV(SIGSEGV);
+        SignalTranslator sigFPE(SIGFPE);
+        SignalTranslator sigBUS(SIGBUS);
 #endif
         RunImpl(testResults);
     }
