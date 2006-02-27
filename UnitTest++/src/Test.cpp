@@ -3,8 +3,8 @@
 #include "TestResults.h"
 #include "AssertException.h"
 
-#ifdef TRANSLATE_POSIX_SIGNALS
-    #include "SignalTranslator.h"
+#ifdef LINUX
+    #include "Linux/SignalTranslator.h"
 #endif
 
 namespace UnitTest
@@ -25,8 +25,7 @@ void Test::Run(TestResults& testResults)
 {
     try
     {
-#ifdef TRANSLATE_POSIX_SIGNALS
-        //add any signals you want translated into system exceptions here
+#ifdef LINUX
         SignalTranslator<SIGSEGV> sigSEGV;
         SignalTranslator<SIGFPE> sigFPE;
         SignalTranslator<SIGBUS> sigBUS;

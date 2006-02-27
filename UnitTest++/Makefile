@@ -13,7 +13,8 @@ src = src/AssertException.cpp \
 	src/TestLauncher.cpp \
 	src/TestReporter.cpp \
 	src/TestResults.cpp \
-	src/TestRunner.cpp
+	src/TestRunner.cpp \
+	src/Linux/SignalTranslator.cpp
 
 test_src = src/tests/Main.cpp \
 	src/tests/TestAssertHandler.cpp \

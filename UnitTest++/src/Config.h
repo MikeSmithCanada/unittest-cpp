@@ -12,7 +12,6 @@
 
 
 #ifdef LINUX
-#   define TRANSLATE_POSIX_SIGNALS
 #endif
 
 
