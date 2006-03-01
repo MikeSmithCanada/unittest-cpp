@@ -1,5 +1,11 @@
+- Exceptions inside a CHECK statements should print CHECK info
+- Deal with exceptions thrown from a fixture
+- Catch throws in array checks
+- Problems building error string from array checks
+- Is the error formatting correctly (F4 doesn't work on KDevelop)
+- Failure errors should print test name
+- Create test list backwards so they're executed in same order as they are in the file
 - Visual studio projects/solutions (2003 and 2005?)
-- Deal with exceptions better (at TestRunner, at Test, and at Check)
 - Test that we can use same test name in different files
 - Improve makefile:
     - Set up object files on a different dir
@@ -19,6 +25,9 @@
 
 -----
 Discuss::
+- Templates for CHECK? Why?
+- Why CHECK_NULL?
+- Clean up pragmas somehow
 - std::string vs. const char*
 - std::string by value vs. reference
 - Test/failure count in TestResults, not in reporter

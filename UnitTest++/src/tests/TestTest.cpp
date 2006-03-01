@@ -13,7 +13,6 @@ public:
     virtual void ReportSummary(int, int) {}
 };
 
-
 struct ResultsFixture
 {
     ResultsFixture() : results(reporter) {}
@@ -22,52 +21,50 @@ struct ResultsFixture
 };
 
 
-
-class PassingTest : public UnitTest::Test
-{
-public:
-    virtual void RunImpl(UnitTest::TestResults& testResults_)
-    {
-        CHECK(true);
-    }
-};
-
 TEST_FIXTURE (ResultsFixture, PassingTestHasNoFailures)
 {
+    class PassingTest : public UnitTest::Test
+    {
+    public:
+        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        {
+            CHECK(true);
+        }
+    };
+
     PassingTest().Run(results);
     CHECK(!results.Failed());
 }
 
 
-class FailingTest : public UnitTest::Test
-{
-public:
-    virtual void RunImpl(UnitTest::TestResults& testResults_)
-    {
-        CHECK(false);
-    }
-};
-
 TEST_FIXTURE (ResultsFixture, FailingTestHasNoFailures)
 {
+    class FailingTest : public UnitTest::Test
+    {
+    public:
+        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        {
+            CHECK(false);
+        }
+    };
+
     FailingTest().Run(results);
     CHECK(results.Failed());
 }
 
 
-class CrashingTest : public UnitTest::Test
-{
-public:
-    virtual void RunImpl(UnitTest::TestResults&)
-    {
-        reinterpret_cast< void (*)() >(0)();
-    }
-};
-
 TEST_FIXTURE (ResultsFixture, CrashingTestsAreReportedAsFailures)
 {
+    class CrashingTest : public UnitTest::Test
+    {
+    public:
+        virtual void RunImpl(UnitTest::TestResults&)
+        {
+            reinterpret_cast< void (*)() >(0)();
+        }
+    };
+
     CrashingTest().Run(results);
-    CHECK(results.Failed());
 }
 
 }

@@ -2,10 +2,8 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
+#include "SignalTranslator.h"
 
-#ifdef LINUX
-    #include "Linux/SignalTranslator.h"
-#endif
 
 namespace UnitTest
 {
@@ -23,13 +21,11 @@ Test::~Test()
 
 void Test::Run(TestResults& testResults)
 {
+    //printf ("%s\n", m_testName.c_str());
+
     try
     {
-#ifdef LINUX
-        SignalTranslator sigSEGV(SIGSEGV);
-        SignalTranslator sigFPE(SIGFPE);
-        SignalTranslator sigBUS(SIGBUS);
-#endif
+        SignalTranslator sig;
         RunImpl(testResults);
     }
     catch (AssertException const& e)
@@ -46,8 +42,8 @@ void Test::Run(TestResults& testResults)
         testResults.ReportFailure(m_filename.c_str(), m_lineNumber, "Unhandled exception: crash!");
     }
 
-
     testResults.ReportDone(m_testName);
 }
+
 }
 

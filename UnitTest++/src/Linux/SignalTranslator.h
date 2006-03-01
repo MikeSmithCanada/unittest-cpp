@@ -9,12 +9,16 @@ namespace UnitTest {
 class SignalTranslator
 {
 public:
-    SignalTranslator(int signal);
+    SignalTranslator();
     ~SignalTranslator();
 
 private:
-    int m_signal;
-    struct sigaction m_oldAction;
+    struct sigaction m_old_SIGFPE_action;
+    struct sigaction m_old_SIGTRAP_action;
+    struct sigaction m_old_SIGSEGV_action;
+    struct sigaction m_old_SIGBUS_action;
+    struct sigaction m_old_SIGABRT_action;
+    struct sigaction m_old_SIGALRM_action;
 };
 
 }

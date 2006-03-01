@@ -56,8 +56,7 @@ TEST(CheckAssertSucceeds)
     CHECK_ASSERT(UnitTest::ReportAssert("desc", "file", 0));
 }
 
-// a reporter that does nothing
-struct MockTestReporter : public UnitTest::TestReporter
+struct DoNothingReporter : public UnitTest::TestReporter
 {
 public:
     virtual void ReportFailure(char const*, int, std::string) {}
@@ -87,7 +86,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
 #endif
     };
 
-    MockTestReporter reporter;
+    DoNothingReporter reporter;
     UnitTest::TestResults results(reporter);
 
     NoThrowTest test;
@@ -106,7 +105,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
         }
     };
 
-    MockTestReporter reporter;
+    DoNothingReporter reporter;
     UnitTest::TestResults results(reporter);
 
     WrongThrowTest test;

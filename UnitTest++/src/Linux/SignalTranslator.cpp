@@ -1,39 +1,49 @@
 #include "SignalTranslator.h"
-
 #include <setjmp.h>
+#include <cstdio>
 
 namespace UnitTest {
 
 namespace {
 
-sigjmp_buf g_jmpPnt;
+sigjmp_buf g_sigMark;
 
-void SignalHandler(int signum)
+void SignalHandler (int sig)
 {
-    siglongjmp(g_jmpPnt, signum);
+    siglongjmp(g_sigMark, sig );
 }
 
 }
 
 
-SignalTranslator::SignalTranslator(const int signal)
-    : m_signal (signal)
+SignalTranslator::SignalTranslator ()
 {
-    struct sigaction act;
-    act.sa_handler = SignalHandler;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
+    struct sigaction action;
+    action.sa_flags = 0;
+    action.sa_handler = SignalHandler;
+    sigemptyset( &action.sa_mask );
 
-    sigaction(m_signal, &act, &m_oldAction);
+    sigaction( SIGSEGV, &action, &m_old_SIGSEGV_action );
+    sigaction( SIGFPE , &action, &m_old_SIGFPE_action  );
+    sigaction( SIGTRAP, &action, &m_old_SIGTRAP_action );
+    sigaction( SIGBUS , &action, &m_old_SIGBUS_action  );
+    //sigaction( SIGABRT, &action, &m_old_SIGABRT_action );
 
-    if (sigsetjmp(g_jmpPnt, 1) != 0)
-        throw "Unhandled system exception";
+    if (sigsetjmp( g_sigMark, 1 ) != 0)
+    {
+        printf ("Throwing!\n");
+        throw ("Unhandled system exception");
+    }
 }
 
 SignalTranslator::~SignalTranslator()
 {
-    sigaction(m_signal, &m_oldAction, 0);
-}
+    //sigaction( SIGABRT, &m_old_SIGABRT_action, 0 );
+    sigaction( SIGBUS , &m_old_SIGBUS_action , 0 );
+    sigaction( SIGTRAP, &m_old_SIGTRAP_action, 0 );
+    sigaction( SIGFPE , &m_old_SIGFPE_action , 0 );
+    sigaction( SIGSEGV, &m_old_SIGSEGV_action, 0 );
 
+}
 
 }
