@@ -1,16 +1,19 @@
-- Exceptions inside a CHECK statements should print CHECK info
 - Deal with exceptions thrown from a fixture
-- Catch throws in array checks
-- Problems building error string from array checks
+- Catch throws exceptions in array checks
+- Problems building error string from array checks with objects with operator[]
+- Simplify things by removing TestLauncher and having the test runner keep a list of tests directly
 - Create test list backwards so they're executed in same order as they are in the file
+- Ensure that there's only one signal translator enabled at the time. Clean up header file and includes.
+- Overall tests times
+
 - Visual studio projects/solutions (2003 and 2005?)
+- Tests failed are being reported as "failures" at the end (even though there could be many more failures)
 - Test that we can use same test name in different files
 - Improve makefile:
     - Set up object files on a different dir
     - Follow header dependecies correctly
 - Win32 make??
 - Set up task system in Sourceforge and get rid of silly todo file?
-- Overall tests times
 - Write tests for HTMLTestReporter?
 
 - Merge suite changes from Matt Kimmel
@@ -19,12 +22,12 @@
 - Per-test time (or max test error)
 - Deal with NaN correctly
 - Better kEpsilon check?
-- Memory leak detection
 
 -----
 Discuss::
 - Templates for CHECK? Why?
-- Why CHECK_NULL?
+- Why CHECK_NULL? (not needed if regular check does not use template)
+- Should we have a check string macro to avoid doin std::string everywhere? Or specialize template.
 - Clean up pragmas somehow
 - std::string vs. const char*
 - std::string by value vs. reference
@@ -33,4 +36,7 @@ Discuss::
 - Reduce use of mocks
 - Do we need for Failed() and failure count? 
 - const int vs. int const
+- Combine checks.h and CheckMacros.h to keep files simpler?
+- Memory leak detection
+
 

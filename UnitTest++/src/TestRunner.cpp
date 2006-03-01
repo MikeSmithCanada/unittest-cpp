@@ -14,10 +14,6 @@ TestRunner::TestRunner()
 {
 }
 
-TestRunner::~TestRunner()
-{
-}
-
 void TestRunner::SetTestLauncherListHead(TestLauncher** listHead)
 {
     m_testLauncherListHead = listHead;

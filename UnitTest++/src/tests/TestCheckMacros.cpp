@@ -8,14 +8,16 @@ struct RecordingReporter : public UnitTest::TestReporter
 public:
     RecordingReporter() : lastFailedTestName(0) {}
 
-    virtual void ReportFailure(char const*, int, const char* testName, std::string) 
+    virtual void ReportFailure(char const*, int, const char* testName, std::string failureString) 
     {
         lastFailedTestName = testName;
+        lastFailureString = failureString;
     }
     virtual void ReportSingleResult(const std::string&, bool) {}
     virtual void ReportSummary(int, int) {}
 
     const char* lastFailedTestName;
+    std::string lastFailureString;
 };
 
 
@@ -58,6 +60,20 @@ TEST(FailureReportsCorrectTestName)
     CHECK_EQUAL (m_testName, failureTestName);
 }
 
+TEST(CheckFailureIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const bool yaddayadda = false;
+        CHECK (yaddayadda);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("yaddayadda") != std::string::npos );
+}
+
 int ThrowingFunction()
 {
     throw "Doh";
@@ -75,6 +91,19 @@ TEST(CheckFailsOnException)
     }
 
     CHECK (failure);
+}
+
+TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        CHECK (ThrowingFunction() == 1);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("ThrowingFunction() == 1") != std::string::npos );
 }
 
 TEST(CheckEqualSuceedsOnEqual)
@@ -103,6 +132,21 @@ TEST(CheckEqualFailsOnNotEqual)
     CHECK (failure);
 }
 
+TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const int something = 2;
+        CHECK_EQUAL (1, something);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("xpected 1") != std::string::npos );
+    CHECK (failureString.find("was 2") != std::string::npos );
+}
+
 TEST(CheckEqualFailsOnException)
 {
     bool failure = false;
@@ -114,6 +158,20 @@ TEST(CheckEqualFailsOnException)
     }
 
     CHECK (failure);
+}
+
+TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        CHECK_EQUAL (ThrowingFunction(), 1);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("ThrowingFunction()") != std::string::npos );
+    CHECK (failureString.find("1") != std::string::npos );
 }
 
 TEST(CheckCloseSuceedsOnEqual)
@@ -142,6 +200,22 @@ TEST(CheckCloseFailsOnNotEqual)
     CHECK (failure);
 }
 
+TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float expected = 0.9f;
+        const float actual = 1.1f;
+        CHECK_CLOSE (expected, actual, 0.01f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("xpected 0.9") != std::string::npos );
+    CHECK (failureString.find("was 1.1") != std::string::npos );
+}
+
 TEST(CheckCloseFailsOnException)
 {
     bool failure = false;
@@ -153,6 +227,20 @@ TEST(CheckCloseFailsOnException)
     }
 
     CHECK (failure);
+}
+
+TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("(float)ThrowingFunction()") != std::string::npos );
+    CHECK (failureString.find("1.0001f") != std::string::npos );
 }
 
 TEST(CheckArrayEqualSuceedsOnEqual)
@@ -184,6 +272,22 @@ TEST(CheckArrayEqualFailsOnNotEqual)
     CHECK (failure);
 }
 
+TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float data1[4] = { 0, 1, 2, 3 };
+        const float data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data1, data2, 4);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("xpected [ 0 1 2 3 ]") != std::string::npos );
+    CHECK (failureString.find("was [ 0 1 3 3 ]") != std::string::npos );
+}
+
 TEST(CheckArrayCloseSuceedsOnEqual)
 {
     bool failure = true;
@@ -191,7 +295,7 @@ TEST(CheckArrayCloseSuceedsOnEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(reporter);
         const float data[4] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_CLOSE (data, data, 3, 0.01f);
+        CHECK_ARRAY_CLOSE (data, data, 4, 0.01f);
         failure = testResults_.Failed();
     }
 
@@ -206,12 +310,29 @@ TEST(CheckArrayCloseFailsOnNotEqual)
         UnitTest::TestResults testResults_(reporter);
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_CLOSE (data1, data2, 3, 0.01f);
+        CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         failure = testResults_.Failed();
     }
 
     CHECK (failure);
 }
+
+TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float data1[4] = { 0, 1, 2, 3 };
+        const float data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("xpected [ 0 1 2 3 ]") != std::string::npos );
+    CHECK (failureString.find("was [ 0 1 3 3 ]") != std::string::npos );
+}
+
 
 
 /*

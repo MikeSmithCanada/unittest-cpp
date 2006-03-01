@@ -57,24 +57,6 @@ struct MockTest : public Test
     bool asserted;
 };
 
-struct MockTestLauncher : public TestLauncher
-{
-public:
-    MockTestLauncher(TestLauncher** listHead)
-        : TestLauncher(listHead)
-        , success(true)
-        , asserted(false)
-    {
-    }
-
-    void Launch(TestResults& results) const 
-    { 
-        MockTest(success, asserted).Run(results); 
-    }
-
-    bool success;
-    bool asserted;
-};
 
 struct TestRunnerFixture
 {
@@ -96,6 +78,27 @@ TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
     CHECK_EQUAL(0, reporter.testCount);
     CHECK_EQUAL(0, reporter.execCount);
 }
+
+
+struct MockTestLauncher : public TestLauncher
+{
+public:
+    MockTestLauncher(TestLauncher** listHead)
+        : TestLauncher(listHead)
+        , success(true)
+        , asserted(false)
+    {
+    }
+
+    void Launch(TestResults& results) const 
+    { 
+        MockTest(success, asserted).Run(results); 
+    }
+
+    bool success;
+    bool asserted;
+};
+
 
 TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 {

@@ -28,7 +28,7 @@ private:
     std::string const m_filename;
     int const m_lineNumber;
 
-    Test* m_listNext;
+    //Test* m_listNext;
 
     // revoked
     Test(Test const&);

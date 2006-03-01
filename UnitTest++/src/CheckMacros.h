@@ -10,7 +10,8 @@
             testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), #value); \
     } \
     catch (...) { \
-        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), "Unhandled exception: crash!"); \
+        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                "Unhandled exception in CHECK(" #value ")"); \
     }
 
 #define CHECK_NULL(ptr) \
@@ -24,19 +25,23 @@
 #define CHECK_EQUAL(expected, actual) \
     try { \
         if (!UnitTest::CheckEqual(expected, actual)) \
-            testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), UnitTest::BuildFailureString(expected, actual)); \
+            testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                UnitTest::BuildFailureString(expected, actual)); \
     } \
     catch (...) { \
-        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), "Unhandled exception: crash!"); \
+        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                "Unhandled exception in CHECK_EQUAL(" #expected ", " #actual ")"); \
     }
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \
         if (!UnitTest::CheckClose(expected, actual, tolerance)) \
-            testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), UnitTest::BuildFailureString(expected, actual)); \
+            testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                UnitTest::BuildFailureString(expected, actual)); \
     } \
     catch (...) { \
-        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), "Unhandled exception: crash!"); \
+        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                "Unhandled exception in CHECK_CLOSE(" #expected ", " #actual ")"); \
     }
 
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \

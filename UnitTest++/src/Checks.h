@@ -90,7 +90,7 @@ namespace UnitTest
     std::string BuildFailureString(Expected const expected, Actual const actual)
     {
         std::stringstream failureStr;
-        failureStr << "Expected " << expected << " but got " << actual << std::endl;
+        failureStr << "Expected " << expected << " but was " << actual << std::endl;
         return failureStr.str();
     }
 
@@ -105,7 +105,7 @@ namespace UnitTest
         for (i = 0; i < count; ++i)
             failureStr << expected[i] << ' ';
 
-        failureStr << "] but got [ ";
+        failureStr << "] but was [ ";
 
         for (i = 0; i < count; ++i)
             failureStr << actual[i] << ' ';

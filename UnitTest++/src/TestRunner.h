@@ -12,7 +12,6 @@ class TestRunner
 {
 public:
     TestRunner();
-    ~TestRunner();
 
     void SetTestReporter(TestReporter* testReporter);
     void SetTestLauncherListHead(TestLauncher** listHead);
