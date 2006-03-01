@@ -10,7 +10,7 @@ namespace UnitTest
 class HTMLTestReporter : public TestReporter
 {
 public:
-    virtual void ReportFailure(char const* file, int line, std::string failure);
+    virtual void ReportFailure(char const* file, int line, const char* testName, std::string failure);
     virtual void ReportSingleResult(const std::string& testName, bool failed);
     virtual void ReportSummary(int testCount, int failureCount);
 

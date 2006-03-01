@@ -20,10 +20,11 @@ protected:
          std::string filename = std::string(), 
          int lineNumber = 0);
 
+    std::string const m_testName;
+
 private:
     virtual void RunImpl(TestResults& testResults_) = 0;
 
-    std::string const m_testName;
     std::string const m_filename;
     int const m_lineNumber;
 

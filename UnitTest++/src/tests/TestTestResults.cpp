@@ -15,7 +15,7 @@ public:
     {
     }
 
-    virtual void ReportFailure(char const*, int, std::string) 
+    virtual void ReportFailure(char const*, int, const char*, std::string) 
     {
         failureReported = true;
     }
@@ -37,20 +37,20 @@ struct MockTestResultsFixture
     TestResults results;
 };
 
-TEST_FIXTURE(MockTestResultsFixture, TestResultsDefaultToSuccess)
+TEST_FIXTURE(MockTestResultsFixture, DefaultToSuccess)
 {
     CHECK (!results.Failed());
 }
 
-TEST_FIXTURE(MockTestResultsFixture, TestResultsRecordFailures)
+TEST_FIXTURE(MockTestResultsFixture, RecordsFailures)
 {
-    results.ReportFailure("nothing", 0, "expected failure");
+    results.ReportFailure("nothing", 0, "", "expected failure");
     CHECK(results.Failed());
 }
 
-TEST_FIXTURE(MockTestResultsFixture, TestResultsReportFailures)
+TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
 {
-    results.ReportFailure("nothing", 0, "expected failure");
+    results.ReportFailure("nothing", 0, "", "expected failure");
     CHECK (reporter.failureReported);
 }
 

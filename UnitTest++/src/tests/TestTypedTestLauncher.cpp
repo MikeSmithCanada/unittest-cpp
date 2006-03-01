@@ -24,7 +24,7 @@ int MockTest::instantiationCount = 0;
 
 struct MockReporter : public TestReporter
 {
-    virtual void ReportFailure(char const*, int, std::string) {}
+    virtual void ReportFailure(char const*, int, const char*, std::string) {}
     virtual void ReportSingleResult(const std::string&, bool) {}
     virtual void ReportSummary(int, int) {}
 };

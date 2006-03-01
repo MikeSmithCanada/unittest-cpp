@@ -1,6 +1,5 @@
 #include "SignalTranslator.h"
 #include <setjmp.h>
-#include <cstdio>
 
 namespace UnitTest {
 
@@ -30,10 +29,7 @@ SignalTranslator::SignalTranslator ()
     //sigaction( SIGABRT, &action, &m_old_SIGABRT_action );
 
     if (sigsetjmp( g_sigMark, 1 ) != 0)
-    {
-        printf ("Throwing!\n");
         throw ("Unhandled system exception");
-    }
 }
 
 SignalTranslator::~SignalTranslator()

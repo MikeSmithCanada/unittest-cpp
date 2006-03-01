@@ -17,7 +17,7 @@ public:
     {
     }
 
-    virtual void ReportFailure(char const*, int, std::string)
+    virtual void ReportFailure(char const*, int, const char*, std::string)
     {
         ++failureCount;
     }
@@ -50,7 +50,7 @@ struct MockTest : public Test
         if (asserted)
             ReportAssert("desc", "file", 0);
         else if (!success)
-            testResults_.ReportFailure("filename", 0, "message");
+            testResults_.ReportFailure("filename", 0, "", "message");
     }
 
     bool success;

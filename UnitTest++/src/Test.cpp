@@ -30,16 +30,16 @@ void Test::Run(TestResults& testResults)
     }
     catch (AssertException const& e)
     {
-        testResults.ReportFailure(e.Filename().c_str(), e.LineNumber(), e.what());
+        testResults.ReportFailure(e.Filename().c_str(), e.LineNumber(), m_testName.c_str(), e.what());
     }
     catch (std::exception const& e)
     {
         std::string const msg = std::string("Unhandled exception: ") + e.what();
-        testResults.ReportFailure(m_filename.c_str(), m_lineNumber, msg);
+        testResults.ReportFailure(m_filename.c_str(), m_lineNumber, m_testName.c_str(), msg);
     }
     catch (...)
     {
-        testResults.ReportFailure(m_filename.c_str(), m_lineNumber, "Unhandled exception: crash!");
+        testResults.ReportFailure(m_filename.c_str(), m_lineNumber, m_testName.c_str(), "Unhandled exception: crash!");
     }
 
     testResults.ReportDone(m_testName);

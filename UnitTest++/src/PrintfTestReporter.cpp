@@ -5,9 +5,10 @@
 namespace UnitTest
 {
 
-void PrintfTestReporter::ReportFailure(char const* file, int const line, std::string const failure)
+void PrintfTestReporter::ReportFailure(char const* file, int const line, 
+                const char* testName, std::string const failure)
 {
-    printf("%s(%d) : failure: %s\n", file, line, failure.c_str());
+    printf("%s(%d): Failure in %s: %s\n", file, line, testName, failure.c_str());
 }
 
 void PrintfTestReporter::ReportSingleResult(const std::string& /*testName*/, bool /*failed*/)

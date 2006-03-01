@@ -10,10 +10,11 @@ TestResults::TestResults(TestReporter& testReporter)
 {
 }
 
-void TestResults::ReportFailure(char const* file, int const line, std::string const failure)
+void TestResults::ReportFailure(char const* file, int const line, 
+        const char* testName, std::string const failure)
 {
     m_failure = true;
-    m_testReporter.ReportFailure(file, line, failure);
+    m_testReporter.ReportFailure(file, line, testName, failure);
 }
 
 void TestResults::ReportDone(const std::string& testName)

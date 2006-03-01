@@ -11,7 +11,8 @@
 namespace UnitTest
 {
 
-void HTMLTestReporter::ReportFailure(char const* file, int const line, std::string const failure)
+void HTMLTestReporter::ReportFailure(char const* file, int const line, 
+        const char* testName, std::string const failure)
 {
     std::stringstream msg;
     msg << file << "(" << line << ") : " << failure;

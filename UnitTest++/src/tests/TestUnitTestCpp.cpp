@@ -59,7 +59,7 @@ TEST(CheckAssertSucceeds)
 struct DoNothingReporter : public UnitTest::TestReporter
 {
 public:
-    virtual void ReportFailure(char const*, int, std::string) {}
+    virtual void ReportFailure(char const*, int, const char* testName, std::string) {}
     virtual void ReportSingleResult(const std::string&, bool) {}
     virtual void ReportSummary(int, int) {}
 };
