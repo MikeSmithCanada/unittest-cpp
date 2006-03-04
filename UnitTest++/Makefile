@@ -1,5 +1,7 @@
-COMPILER = g++
+CC = g++
 CCFLAGS = -g -ansi -Wall -DLINUX
+SED = sed
+MV = mv
 .SUFFIXES: .o .cpp
 
 lib = TestUnit++.a
@@ -29,6 +31,20 @@ test_src = src/tests/Main.cpp \
 
 objects = $(patsubst %.cpp, %.o, $(src))
 test_objects = $(patsubst %.cpp, %.o, $(test_src))
+dependencies = $(subst .o,.d,$(objects))
+test_dependencies = $(subst .o,.d,$(test_objects))
+
+define make-depend
+  $(CC) $(CCFLAGS) -M $1 | \
+  $(SED) -e 's,\($(notdir $2)\) *:,$(dir $2)\1: ,' > $3.tmp
+  $(SED) -e 's/#.*//' \
+      -e 's/^[^:]*: *//' \
+      -e 's/ *\\$$//' \
+      -e '/^$$/ d' \
+      -e 's/$$/ :/' $3.tmp >> $3.tmp
+  $(MV) $3.tmp $3
+endef
+
 
 all: $(test)
 
@@ -39,13 +55,20 @@ $(lib): $(objects)
     
 $(test): $(lib) $(test_objects)
 	@echo Linking $(test)...
-	@$(COMPILER) -o $(test) $(test_objects) $(lib)
+	@$(CC) -o $(test) $(test_objects) $(lib)
 	@echo Running unit tests...
 	@./$(test)
 
 clean:
-	@rm $(objects) $(test_objects) $(test) $(lib) 2> /dev/null
+	@rm $(objects) $(test_objects) $(dependencies) $(test_dependencies) $(test) $(lib) 2> /dev/null
 
 %.o : %.cpp
 	@echo $<
-	@$(COMPILER) $(CCFLAGS) -c $< -o $(patsubst %.cpp, %.o, $<)
+	@$(call make-depend,$<,$@,$(subst .o,.d,$@))
+	@$(CC) $(CCFLAGS) -c $< -o $(patsubst %.cpp, %.o, $<)
+
+
+ifneq "$(MAKECMDGOALS)" "clean"
+-include $(dependencies)
+-include $(test_dependencies)
+endif

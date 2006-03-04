@@ -9,9 +9,6 @@
 - Visual studio projects/solutions (2003 and 2005?)
 - Tests failed are being reported as "failures" at the end (even though there could be many more failures)
 - Test that we can use same test name in different files
-- Improve makefile:
-    - Set up object files on a different dir
-    - Follow header dependecies correctly
 - Win32 make??
 - Set up task system in Sourceforge and get rid of silly todo file?
 - Write tests for HTMLTestReporter?
