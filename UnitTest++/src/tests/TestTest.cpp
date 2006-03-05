@@ -37,7 +37,7 @@ TEST_FIXTURE (ResultsFixture, PassingTestHasNoFailures)
 }
 
 
-TEST_FIXTURE (ResultsFixture, FailingTestHasNoFailures)
+TEST_FIXTURE (ResultsFixture, FailingTestHasFailures)
 {
     class FailingTest : public UnitTest::Test
     {
@@ -60,7 +60,7 @@ TEST_FIXTURE (ResultsFixture, CrashingTestsAreReportedAsFailures)
     public:
         virtual void RunImpl(UnitTest::TestResults&)
         {
-            reinterpret_cast< void (*)() >(0)();
+            throw "Blah";
         }
     };
 

@@ -113,6 +113,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
     CHECK(results.Failed());
 }
 
+
 struct SimpleFixture
 {
     SimpleFixture()
@@ -129,6 +130,7 @@ TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
 {
     CHECK(SimpleFixture::constructed);
 }
+
 
 struct SpecializedCtorFixture
 {

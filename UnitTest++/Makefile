@@ -2,6 +2,8 @@ CC = g++
 CCFLAGS = -g -ansi -Wall -DLINUX
 SED = sed
 MV = mv
+RM = rm
+
 .SUFFIXES: .o .cpp
 
 lib = TestUnit++.a
@@ -60,7 +62,7 @@ $(test): $(lib) $(test_objects)
 	@./$(test)
 
 clean:
-	@rm $(objects) $(test_objects) $(dependencies) $(test_dependencies) $(test) $(lib) 2> /dev/null
+	-@$(RM) $(objects) $(test_objects) $(dependencies) $(test_dependencies) $(test) $(lib) 2> /dev/null
 
 %.o : %.cpp
 	@echo $<

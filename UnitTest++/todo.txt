@@ -3,7 +3,6 @@
 - Problems building error string from array checks with objects with operator[]
 - Simplify things by removing TestLauncher and having the test runner keep a list of tests directly
 - Create test list backwards so they're executed in same order as they are in the file
-- Ensure that there's only one signal translator enabled at the time. Clean up header file and includes.
 - Overall tests times
 
 - Visual studio projects/solutions (2003 and 2005?)
