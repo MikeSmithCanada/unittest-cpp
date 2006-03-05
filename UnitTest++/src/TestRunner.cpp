@@ -2,26 +2,21 @@
 #include "TestLauncher.h"
 #include "TestResults.h"
 #include "Test.h"
+#include "TestReporter.h"
 
-#include "PrintfTestReporter.h"
 
 namespace UnitTest
 {
 
-TestRunner::TestRunner()
-    : m_testLauncherListHead(TestLauncher::GetHeadAddr())
-    , m_testReporter(&m_defaultTestReporter)
+TestRunner::TestRunner(TestReporter& reporter)
+    : m_testReporter(reporter)
+    , m_testLauncherListHead(TestLauncher::GetHeadAddr())
 {
 }
 
 void TestRunner::SetTestLauncherListHead(TestLauncher** listHead)
 {
     m_testLauncherListHead = listHead;
-}
-
-void TestRunner::SetTestReporter(TestReporter* testReporter)
-{
-    m_testReporter = testReporter;
 }
 
 int TestRunner::RunAllTests()
@@ -34,7 +29,7 @@ int TestRunner::RunAllTests()
     {
         ++testCount;
 
-        TestResults result(*m_testReporter);
+        TestResults result(m_testReporter);
         curLauncher->Launch(result);
 
         if (result.Failed())
@@ -43,7 +38,7 @@ int TestRunner::RunAllTests()
         curLauncher = curLauncher->GetNext();
     }
 
-    m_testReporter->ReportSummary(testCount, failureCount);
+    m_testReporter.ReportSummary(testCount, failureCount);
 
     return failureCount;
 }

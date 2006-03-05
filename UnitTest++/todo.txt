@@ -1,13 +1,12 @@
+- Overall tests times
 - Deal with exceptions thrown from a fixture
 - Catch throws exceptions in array checks
 - Problems building error string from array checks with objects with operator[]
 - Simplify things by removing TestLauncher and having the test runner keep a list of tests directly
 - Create test list backwards so they're executed in same order as they are in the file
-- Overall tests times
 
 - Visual studio projects/solutions (2003 and 2005?)
 - Tests failed are being reported as "failures" at the end (even though there could be many more failures)
-- Test that we can use same test name in different files
 - Win32 make??
 - Set up task system in Sourceforge and get rid of silly todo file?
 - Write tests for HTMLTestReporter?

@@ -61,15 +61,15 @@ struct MockTest : public Test
 struct TestRunnerFixture
 {
     TestRunnerFixture()
-        : listHead(0)
+        : runner(reporter)
+        , listHead(0)
     {
         runner.SetTestLauncherListHead(&listHead);
-        runner.SetTestReporter(&reporter);
     }
 
     MockTestReporter reporter;
-    TestLauncher* listHead;
     TestRunner runner;
+    TestLauncher* listHead;
 };
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
