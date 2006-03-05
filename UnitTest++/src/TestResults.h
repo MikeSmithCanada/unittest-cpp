@@ -15,12 +15,16 @@ public:
 
     void ReportFailure(char const* file, int line, const char* testName, std::string failure);
     void ReportDone(const std::string& testName);
+    void TestsCompleted();
 
     bool Failed() const;
+    float GetTimeElapsed() const;
 
 private:
-    bool m_failure;
     TestReporter& m_testReporter;
+    bool m_failure;
+    int m_startTime;
+    int m_endTime;
 
     // revoked
     TestResults(TestResults const&);

@@ -1,4 +1,6 @@
 - Overall tests times
+- Rename TestResult::ReportDone to TestDone or OnTestDone?
+- Move all reporter interaction inside TestResult (not in TestRunner)
 - Deal with exceptions thrown from a fixture
 - Catch throws exceptions in array checks
 - Problems building error string from array checks with objects with operator[]
@@ -26,12 +28,11 @@ Discuss::
 - Should we have a check string macro to avoid doin std::string everywhere? Or specialize template.
 - Clean up pragmas somehow
 - std::string vs. const char*
+- const int vs. int const
 - std::string by value vs. reference
 - Test/failure count in TestResults, not in reporter
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
-- Reduce use of mocks
 - Do we need for Failed() and failure count? 
-- const int vs. int const
 - Combine checks.h and CheckMacros.h to keep files simpler?
 - Memory leak detection
 

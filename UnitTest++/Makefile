@@ -18,7 +18,8 @@ src = src/AssertException.cpp \
 	src/TestReporter.cpp \
 	src/TestResults.cpp \
 	src/TestRunner.cpp \
-	src/Linux/SignalTranslator.cpp
+	src/Linux/SignalTranslator.cpp \
+	src/Linux/TimeHelpers.cpp
 
 test_src = src/tests/Main.cpp \
 	src/tests/TestAssertHandler.cpp \
