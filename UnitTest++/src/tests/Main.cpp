@@ -3,7 +3,5 @@
 
 int main(int, char const *[])
 {
-    UnitTest::PrintfTestReporter reporter;
-    return UnitTest::TestRunner(reporter).RunAllTests();
+    return UnitTest::Run();
 }
-

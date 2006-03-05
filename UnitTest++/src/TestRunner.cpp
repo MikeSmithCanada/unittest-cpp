@@ -3,6 +3,7 @@
 #include "TestResults.h"
 #include "Test.h"
 #include "TestReporter.h"
+#include "PrintfTestReporter.h"
 
 
 namespace UnitTest
@@ -34,14 +35,23 @@ int TestRunner::RunAllTests()
 
         if (result.Failed())
             ++failureCount;
-
+           
         curLauncher = curLauncher->GetNext();
     }
 
     m_testReporter.ReportSummary(testCount, failureCount);
 
+    
+    
     return failureCount;
 }
 
+
+
+int Run()
+{
+    UnitTest::PrintfTestReporter reporter;
+    return UnitTest::TestRunner(reporter).RunAllTests();
 }
 
+}

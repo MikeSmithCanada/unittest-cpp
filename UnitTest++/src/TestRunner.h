@@ -21,6 +21,10 @@ private:
     TestLauncher** m_testLauncherListHead;
 };
 
+
+int Run();
+
+
 }
 
 #endif
