@@ -90,7 +90,7 @@ namespace UnitTest
     std::string BuildFailureString(Expected const expected, Actual const actual)
     {
         std::stringstream failureStr;
-        failureStr << "Expected " << expected << " but was " << actual << std::endl;
+        failureStr << "Expected " << expected << " but was " << actual;
         return failureStr.str();
     }
 
@@ -110,7 +110,7 @@ namespace UnitTest
         for (i = 0; i < count; ++i)
             failureStr << actual[i] << ' ';
 
-        failureStr << ']' << std::endl;
+        failureStr << ']';
 
         return failureStr.str();
     }

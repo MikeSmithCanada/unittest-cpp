@@ -17,6 +17,7 @@
 - Per-test time (or max test error)
 - Deal with NaN correctly
 - Better kEpsilon check?
+- Run codebase through lint?
 
 -----
 Discuss::
