@@ -1,4 +1,5 @@
 #include "../UnitTest++.h"
+#include <limits>
 
 using namespace UnitTest;
 
@@ -13,6 +14,17 @@ TEST(CheckCloseTrue)
 TEST(CheckCloseFalse)
 {
     CHECK (false == CheckClose(3.12f, 3.0f, 0.1f));
+}
+
+TEST(CheckCloseWithNaNFails)
+{
+    CHECK (false == CheckClose(3.0f, std::numeric_limits<float>::infinity(), 0.1f));
+}
+
+TEST(CheckCloseWithNaNAgainstItselfFails)
+{    
+    const float nan = std::numeric_limits<float>::infinity();
+    CHECK (false == CheckClose(nan, nan, 0.1f));
 }
 
 TEST(CheckArrayEqualTrue)

@@ -1,5 +1,5 @@
-#ifndef HTML_TEST_REPORTER
-#define HTML_TEST_REPORTER
+#ifndef HTML_TEST_REPORTER_H
+#define HTML_TEST_REPORTER_H
 
 #include "TestReporter.h"
 #include <vector>
