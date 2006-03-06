@@ -111,17 +111,22 @@ struct SimpleFixture
 {
     SimpleFixture()
     {
-        constructed = true;
+        ++instanceCount;
     }
 
-    static bool constructed;
+    static int instanceCount;
 };
 
-bool SimpleFixture::constructed = false;
+int SimpleFixture::instanceCount = 0;
 
 TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
 {
-    CHECK(SimpleFixture::constructed);
+    CHECK(SimpleFixture::instanceCount > 0);
+}
+
+TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtTheTime)
+{
+    CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }
 
 
