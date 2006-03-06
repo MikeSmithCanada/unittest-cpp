@@ -50,5 +50,12 @@ void Test::Run(TestResults& testResults)
 }
 
 
+
+TestRegistrar::TestRegistrar(Test*& listHead, Test* test)
+{
+    test->next = listHead;
+    listHead = test;
+}
+
 }
 

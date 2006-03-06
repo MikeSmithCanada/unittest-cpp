@@ -4,6 +4,7 @@
 #include "Checks.h"
 #include "AssertException.h"
 
+
 #define CHECK(value) \
     try { \
         if (!UnitTest::Check(value)) \

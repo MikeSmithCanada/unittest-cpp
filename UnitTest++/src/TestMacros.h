@@ -11,7 +11,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Name##Instance; \
-    UnitTest::TestLauncher registrar##Name (UnitTest::Test::s_listHead, &test##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Name (UnitTest::Test::s_listHead, &test##Name##Instance); \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
     
 
@@ -28,7 +28,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Fixture##Name##Instance; \
-    UnitTest::TestLauncher registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  { \
         Fixture##Name##Helper mt(m_testName);                                                  \
         mt.RunTest(testResults_);                                                          \
@@ -49,7 +49,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Fixture##Name##Instance; \
-    UnitTest::TestLauncher registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  { \
         Fixture##Name##Helper mt(m_testName);                                                  \
         mt.RunTest(testResults_);                                                          \

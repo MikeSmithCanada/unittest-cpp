@@ -70,29 +70,22 @@ struct MockTest : public Test
 
 struct TestRunnerFixture
 {
-    TestRunnerFixture()
-        : listHead(0)
-    {
-    }
-
     MockTestReporter reporter;
     TestRunner runner;
-    Test* listHead;
 };
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, listHead));
+    CHECK_EQUAL(0, runner.RunAllTests(reporter, 0));
     CHECK_EQUAL(0, reporter.testCount);
     CHECK_EQUAL(0, reporter.execCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 {
-    MockTest test(true, false);
-    TestLauncher launcher(listHead, &test);
+    MockTest test(true, false);        
 
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, listHead));
+    CHECK_EQUAL(0, runner.RunAllTests(reporter, &test));
     CHECK_EQUAL(0, reporter.failureCount);
     CHECK_EQUAL(1, reporter.testCount);
 }
@@ -100,11 +93,10 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
 {
     MockTest test1(true, false);
-    TestLauncher launcher1(listHead, &test1);
     MockTest test2(false, false);
-    TestLauncher launcher2(listHead, &test2);
+    test1.next = &test2;
 
-    runner.RunAllTests(reporter, listHead);
+    runner.RunAllTests(reporter, &test1);
     CHECK_EQUAL(2, reporter.execCount);
 }
 
@@ -112,20 +104,18 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
 TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
 {
     MockTest test1(false, false);
-    TestLauncher launcher1(listHead, &test1);
     MockTest test2(false, false);
-    TestLauncher launcher2(listHead, &test2);
+    test1.next = &test2;
 
-    CHECK_EQUAL(2, runner.RunAllTests(reporter, listHead));
+    CHECK_EQUAL(2, runner.RunAllTests(reporter, &test1));
     CHECK_EQUAL(2, reporter.failureCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 {
     MockTest test(true, true);
-    TestLauncher launcher(listHead, &test);
 
-    runner.RunAllTests(reporter, listHead);
+    runner.RunAllTests(reporter, &test);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 

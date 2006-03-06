@@ -14,7 +14,6 @@ src = src/AssertException.cpp \
 	src/PrintfTestReporter.cpp \
 	src/ReportAssert.cpp \
 	src/Test.cpp \
-	src/TestLauncher.cpp \
 	src/TestReporter.cpp \
 	src/TestResults.cpp \
 	src/TestRunner.cpp \

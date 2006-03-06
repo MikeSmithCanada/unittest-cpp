@@ -35,6 +35,15 @@ private:
 };
 
 
+
+class TestRegistrar
+{
+public:
+    TestRegistrar(Test*& listHead, Test* test);
+};
+
+
+
 }
 
 #endif
