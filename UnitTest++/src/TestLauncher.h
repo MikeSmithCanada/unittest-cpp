@@ -14,9 +14,11 @@ public:
     TestLauncher(TestLauncher** listHead, Test* test);
     void Launch(TestResults& results_) const;
 
-    static TestLauncher** GetHeadAddr();
     TestLauncher const* GetNext() const;
     
+    static TestLauncher** GetHeadAddr();    
+    static TestLauncher* s_listHead;    
+        
 private:    
     TestLauncher const* m_next;
     Test* m_test;

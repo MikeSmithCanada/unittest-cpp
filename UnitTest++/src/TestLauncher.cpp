@@ -3,10 +3,7 @@
 namespace UnitTest
 {
 
-namespace
-{
-    TestLauncher* s_listHead;
-}
+TestLauncher* TestLauncher::s_listHead = 0;
 
 TestLauncher::TestLauncher(TestLauncher** listHead, Test* test)
     : m_next(*listHead)    
@@ -22,13 +19,6 @@ void TestLauncher::Launch(TestResults& testResults_) const
 
 TestLauncher** TestLauncher::GetHeadAddr()
 {
-    static bool initialized = false;
-    if (!initialized)
-    {
-        s_listHead = 0;
-        initialized = true;
-    }
-
     return &s_listHead;
 }
 

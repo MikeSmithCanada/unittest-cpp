@@ -9,22 +9,13 @@
 namespace UnitTest
 {
 
-TestRunner::TestRunner()
-    : m_testLauncherListHead(TestLauncher::GetHeadAddr())
-{
-}
 
-void TestRunner::SetTestLauncherListHead(TestLauncher** listHead)
-{
-    m_testLauncherListHead = listHead;
-}
-
-int TestRunner::RunAllTests(TestReporter& reporter)
+int TestRunner::RunAllTests(TestReporter& reporter, TestLauncher* launcherListHead)
 {
     int failureCount = 0;
 
     int testCount = 0;
-    TestLauncher const* curLauncher = *m_testLauncherListHead;
+    TestLauncher const* curLauncher = launcherListHead;
     while (curLauncher)
     {
         ++testCount;
@@ -48,7 +39,7 @@ int TestRunner::RunAllTests(TestReporter& reporter)
 int DefaultRun()
 {
     UnitTest::PrintfTestReporter reporter;
-    return UnitTest::TestRunner().RunAllTests(reporter);
+    return UnitTest::TestRunner().RunAllTests(reporter, TestLauncher::s_listHead);
 }
 
 }

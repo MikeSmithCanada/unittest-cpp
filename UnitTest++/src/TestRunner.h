@@ -10,13 +10,7 @@ class TestReporter;
 class TestRunner
 {
 public:
-    TestRunner();
-    void SetTestLauncherListHead(TestLauncher** listHead);
-
-    int RunAllTests(TestReporter& reporter);
-
-private:
-    TestLauncher** m_testLauncherListHead;
+    int RunAllTests(TestReporter& reporter, TestLauncher* launcherListHead);
 };
 
 

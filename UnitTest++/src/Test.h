@@ -35,6 +35,7 @@ private:
     Test& operator =(Test const&);
 };
 
+
 }
 
 #endif
