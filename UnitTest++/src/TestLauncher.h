@@ -11,12 +11,11 @@ class TestRegistry;
 class TestLauncher
 {
 public:
-    TestLauncher(TestLauncher** listHead, Test* test);
+    TestLauncher(TestLauncher*& listHead, Test* test);
     void Launch(TestResults& results_) const;
 
     TestLauncher const* GetNext() const;
     
-    static TestLauncher** GetHeadAddr();    
     static TestLauncher* s_listHead;    
         
 private:    
