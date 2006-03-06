@@ -49,8 +49,14 @@
         testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), UnitTest::BuildFailureString(expected, actual, count));
 
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
-    if (!UnitTest::CheckArrayClose(expected, actual, count, tolerance)) \
-        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), UnitTest::BuildFailureString(expected, actual, count));
+    try { \
+        if (!UnitTest::CheckArrayClose(expected, actual, count, tolerance)) \
+            testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), UnitTest::BuildFailureString(expected, actual, count)); \
+    } \
+    catch (...) { \
+        testResults_.ReportFailure(__FILE__, __LINE__, m_testName.c_str(), \
+                "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+    }
 
 #define CHECK_THROW(expression, ExpectedExceptionType) \
     { \

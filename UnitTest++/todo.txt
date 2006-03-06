@@ -1,18 +1,15 @@
+- Catch throws exceptions in array checks
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)
 - Deal with exceptions thrown from a fixture
-- Catch throws exceptions in array checks
-- Problems building error string from array checks with objects with operator[]
-- Simplify things by removing TestLauncher and having the test runner keep a list of tests directly
+- Simplify things by removing TestLauncher and having the test runner keep a list of tests directly???
 - Create test list backwards so they're executed in same order as they are in the file
+- Add UNITTEST_ prefix to header guards
 
 - Visual studio projects/solutions (2003 and 2005?)
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
 
-- Tests failed are being reported as "failures" at the end (even though there could be many more failures)
-- Win32 make??
-- Set up task system in Sourceforge and get rid of silly todo file?
 - Write tests for HTMLTestReporter?
 - CHECK_CLOSE failure string should include tolerance
 
@@ -24,13 +21,13 @@
 - Per-test time (or max test error)
 - Better kEpsilon check?
 - Run codebase through lint?
+- Memory leak detection
+
+- PS3 PPU and SPU support
+
 
 -----
 Discuss::
-- Should reporter be optional (easier testing)? Probably not, but mocking it sucks
-- Do we need for Failed() and failure count? 
-- Combine checks.h and CheckMacros.h to keep files simpler?
-- Memory leak detection
-
 - Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
+- Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 

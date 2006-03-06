@@ -19,7 +19,7 @@ void PrintfTestReporter::ReportSingleResult(const std::string& /*testName*/, boo
 void PrintfTestReporter::ReportSummary(int const testCount, int const failureCount)
 {
     printf("%d tests run.\n", testCount);
-    printf("%d failures.\n", failureCount);
+    printf("%d tests failed.\n", failureCount);
 }
 
 }

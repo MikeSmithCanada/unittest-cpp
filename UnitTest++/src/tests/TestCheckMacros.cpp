@@ -336,7 +336,6 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
 
 
 
-/*
 class ThrowingObject
 {
 public:
@@ -362,6 +361,6 @@ TEST(CheckArrayCloseFailsOnException)
 
     CHECK (failure);
 }
-*/
+
 
 }

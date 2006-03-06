@@ -79,7 +79,7 @@ namespace UnitTest
     }
 
     template< typename Expected, typename Actual >
-    std::string BuildFailureString(Expected const* expected, Actual const* actual, int const count)
+    std::string BuildFailureString(Expected const expected, Actual const actual, int const count)
     {
         std::stringstream failureStr;
         int i;
