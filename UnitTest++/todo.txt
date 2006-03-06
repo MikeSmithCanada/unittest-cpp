@@ -1,4 +1,3 @@
-- Catch throws exceptions in array checks
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)

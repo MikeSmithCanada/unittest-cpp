@@ -289,6 +289,49 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     CHECK (failureString.find("was [ 0 1 3 3 ]") != std::string::npos );
 }
 
+class ThrowingObject
+{
+public:
+    float operator[](int index) const
+    {
+        const float data[4] = { 0, 1, 2, 3 };
+        throw "Test throw";
+        return data[index];
+    }
+};
+
+TEST(CheckArrayEqualFailsOnException)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float data[4] = { 0, 1, 2, 3 };
+        ThrowingObject obj;
+        CHECK_ARRAY_EQUAL (data, obj, 3);
+        failure = testResults_.Failed();
+    }
+
+    CHECK (failure);
+}
+
+TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float data[4] = { 0, 1, 2, 3 };
+        ThrowingObject obj;
+        CHECK_ARRAY_EQUAL (data, obj, 3);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("data") != std::string::npos );
+    CHECK (failureString.find("obj") != std::string::npos );
+}
+
+
 TEST(CheckArrayCloseSuceedsOnEqual)
 {
     bool failure = true;
@@ -335,18 +378,6 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
 }
 
 
-
-class ThrowingObject
-{
-public:
-    float operator[](int index) const
-    {
-        const float data[4] = { 0, 1, 2, 3 };
-        throw "Test throw";
-        return data[index];
-    }
-};
-
 TEST(CheckArrayCloseFailsOnException)
 {
     bool failure = false;
@@ -360,6 +391,22 @@ TEST(CheckArrayCloseFailsOnException)
     }
 
     CHECK (failure);
+}
+
+TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(reporter);
+        const float data[4] = { 0, 1, 2, 3 };
+        ThrowingObject obj;
+        CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("data") != std::string::npos );
+    CHECK (failureString.find("obj") != std::string::npos );
 }
 
 
