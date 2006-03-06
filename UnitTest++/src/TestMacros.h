@@ -17,9 +17,9 @@
 
 #define TEST_FIXTURE(Fixture, Name) \
     struct Fixture##Name##Helper : public Fixture {                                             \
-        Fixture##Name##Helper(std::string const& testName) : m_testName(testName) {}                       \
+        Fixture##Name##Helper(char const* testName) : m_testName(testName) {}                       \
         void RunTest(UnitTest::TestResults& testResults_);                                            \
-        std::string const m_testName;   \
+        char const* const m_testName;   \
     };                                                                                  \
     class Test##Fixture##Name : public UnitTest::Test \
     { \
@@ -38,9 +38,9 @@
 
 #define TEST_FIXTURE_CTOR(Fixture, CtorParams, Name) \
     struct Fixture##Name##Helper : public Fixture {                                             \
-        Fixture##Name##Helper(std::string const& testName) : Fixture CtorParams, m_testName(testName) {}   \
+        Fixture##Name##Helper(char const* testName) : Fixture CtorParams, m_testName(testName) {}   \
         void RunTest(UnitTest::TestResults& testResults_);                                            \
-        std::string const m_testName;   \
+        char const* const m_testName;   \
     };                                                                                  \
     class Test##Fixture##Name : public UnitTest::Test \
     { \

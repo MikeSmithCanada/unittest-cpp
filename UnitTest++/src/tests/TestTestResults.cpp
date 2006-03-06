@@ -16,7 +16,7 @@ public:
     {
     }
 
-    virtual void ReportFailure(char const*, int, const char*, std::string) 
+    virtual void ReportFailure(char const*, int, char const*, char const*) 
     {
         failureReported = true;
     }

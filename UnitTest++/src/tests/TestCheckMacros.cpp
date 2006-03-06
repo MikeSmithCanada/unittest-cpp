@@ -9,7 +9,7 @@ struct RecordingReporter : public UnitTest::TestReporter
 public:
     RecordingReporter() : lastFailedTestName(0) {}
 
-    virtual void ReportFailure(char const*, int, const char* testName, std::string failureString) 
+    virtual void ReportFailure(char const*, int, char const* testName, char const* failureString) 
     {
         lastFailedTestName = testName;
         lastFailureString = failureString;

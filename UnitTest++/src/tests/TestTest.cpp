@@ -10,6 +10,7 @@ TEST (PassingTestHasNoFailures)
     class PassingTest : public UnitTest::Test
     {
     public:
+        PassingTest() : Test("", "", 0) {}
         virtual void RunImpl(UnitTest::TestResults& testResults_)
         {
             CHECK(true);
@@ -27,6 +28,7 @@ TEST (FailingTestHasFailures)
     class FailingTest : public UnitTest::Test
     {
     public:
+        FailingTest() : Test("", "", 0) {}
         virtual void RunImpl(UnitTest::TestResults& testResults_)
         {
             CHECK(false);
@@ -44,6 +46,7 @@ TEST (CrashingTestsAreReportedAsFailures)
     class CrashingTest : public UnitTest::Test
     {
     public:
+        CrashingTest() : Test("", "", 0) {}
         virtual void RunImpl(UnitTest::TestResults&)
         {
             throw "Blah";

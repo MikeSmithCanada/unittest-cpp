@@ -19,7 +19,7 @@ public:
     }
 
     
-    virtual void ReportFailure(char const* file, int line, const char* testName, std::string failure)
+    virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure)
     {
         ++failureCount;
         lastFile = file;
@@ -50,7 +50,8 @@ public:
 struct MockTest : public Test
 {
     MockTest(bool const success_, bool const assert_)
-        : success(success_)
+        : Test("", "", 0)
+        , success(success_)
         , asserted(assert_)
     {
     }

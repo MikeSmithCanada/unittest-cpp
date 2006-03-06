@@ -13,7 +13,7 @@ class TestResults
 public:
     explicit TestResults(TestReporter* reporter = 0);
 
-    void ReportFailure(char const* file, int line, const char* testName, std::string failure);
+    void ReportFailure(char const* file, int line, char const* testName, char const* failure);
     void ReportDone(const std::string& testName);
     void TestsCompleted();
 

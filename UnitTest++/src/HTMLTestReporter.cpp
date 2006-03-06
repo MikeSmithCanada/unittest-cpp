@@ -12,7 +12,7 @@ namespace UnitTest
 {
 
 void HTMLTestReporter::ReportFailure(char const* file, int const line, 
-        const char* testName, std::string const failure)
+        char const* testName, char const* failure)
 {
     std::stringstream msg;
     msg << file << "(" << line << ") : " << failure;

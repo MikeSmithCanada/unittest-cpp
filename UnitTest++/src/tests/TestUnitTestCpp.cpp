@@ -62,6 +62,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
     class NoThrowTest : public UnitTest::Test
     {
     public:
+        NoThrowTest() : Test("", "", 0) {}
         void DontThrow()
         {
         }
@@ -91,6 +92,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
     class WrongThrowTest : public UnitTest::Test
     {
     public:
+        WrongThrowTest() : Test("", "", 0) {}
         virtual void RunImpl(UnitTest::TestResults& testResults_)
         {
             CHECK_THROW(throw "oops", int);
