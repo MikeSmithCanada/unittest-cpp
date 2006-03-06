@@ -113,6 +113,10 @@ struct SimpleFixture
     {
         ++instanceCount;
     }
+    ~SimpleFixture()
+    {
+        --instanceCount;
+    }
 
     static int instanceCount;
 };

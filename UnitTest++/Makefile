@@ -27,7 +27,8 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestTest.cpp \
 	src/tests/TestTestResults.cpp \
 	src/tests/TestTestRunner.cpp \
-	src/tests/TestCheckMacros.cpp
+	src/tests/TestCheckMacros.cpp \
+	src/tests/TestTestRegistrar.cpp
 
 
 objects = $(patsubst %.cpp, %.o, $(src))

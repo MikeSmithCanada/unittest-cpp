@@ -10,6 +10,8 @@ namespace UnitTest
 {
 
 Test* Test::s_listHead = 0;
+Test* Test::s_listTail = 0;
+
 
 
 Test::Test(char const* testName, char const* filename, int const lineNumber)
@@ -52,10 +54,14 @@ void Test::Run(TestResults& testResults)
 
 
 
-TestRegistrar::TestRegistrar(Test*& listHead, Test* test)
+TestRegistrar::TestRegistrar(Test*& listHead, Test*& listTail, Test* test)
 {
-    test->next = listHead;
-    listHead = test;
+    if (listTail == 0)
+        listHead = test;
+    else
+        listTail->next = test;
+    listTail = test;
+    test->next = 0;
 }
 
 }

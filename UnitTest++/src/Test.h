@@ -14,6 +14,7 @@ public:
 
     Test* next;
     static Test* s_listHead;
+    static Test* s_listTail;
 
 protected:
     Test(char const* testName, char const* filename, int lineNumber);
@@ -36,7 +37,7 @@ private:
 class TestRegistrar
 {
 public:
-    TestRegistrar(Test*& listHead, Test* test);
+    TestRegistrar(Test*& listHead, Test *& listTail, Test* test);
 };
 
 

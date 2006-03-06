@@ -1,6 +1,5 @@
-#ifndef TEST_MACROS_H
-#define TEST_MACROS_H
-
+#ifndef UNITTEST_TESTMACROS_H
+#define UNITTEST_TESTMACROS_H
 
 
 #define TEST(Name) \
@@ -11,7 +10,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Name##Instance; \
-    UnitTest::TestRegistrar registrar##Name (UnitTest::Test::s_listHead, &test##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Name (UnitTest::Test::s_listHead, UnitTest::Test::s_listTail, &test##Name##Instance); \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
     
 
@@ -28,7 +27,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Fixture##Name##Instance; \
-    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, UnitTest::Test::s_listTail, &test##Fixture##Name##Instance); \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  { \
         Fixture##Name##Helper mt(m_testName);                                                  \
         mt.RunTest(testResults_);                                                          \
@@ -49,7 +48,7 @@
     private: \
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     } test##Fixture##Name##Instance; \
-    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, &test##Fixture##Name##Instance); \
+    UnitTest::TestRegistrar registrar##Fixture##Name (UnitTest::Test::s_listHead, UnitTest::Test::s_listTail, &test##Fixture##Name##Instance); \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  { \
         Fixture##Name##Helper mt(m_testName);                                                  \
         mt.RunTest(testResults_);                                                          \
