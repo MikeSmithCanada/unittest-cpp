@@ -8,8 +8,12 @@
 namespace UnitTest
 {
 
+Test* Test::s_listHead = 0;
+
+
 Test::Test(std::string const testName, std::string const filename, int const lineNumber)
-    : m_testName(testName)
+    : next(0)
+    , m_testName(testName)
     , m_filename(filename)
     , m_lineNumber(lineNumber)
 {
@@ -44,6 +48,7 @@ void Test::Run(TestResults& testResults)
 
     testResults.ReportDone(m_testName);
 }
+
 
 }
 

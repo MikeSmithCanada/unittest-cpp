@@ -4,13 +4,13 @@
 
 namespace UnitTest
 {
-class TestLauncher;
 class TestReporter;
+class Test;
 
 class TestRunner
 {
 public:
-    int RunAllTests(TestReporter& reporter, TestLauncher* launcherListHead);
+    int RunAllTests(TestReporter& reporter, Test* testListHead);
 };
 
 

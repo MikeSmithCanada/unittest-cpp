@@ -125,12 +125,8 @@ TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
 
 struct SpecializedCtorFixture
 {
-    SpecializedCtorFixture(int value_ = 0)
-        : value(value_)
-    {
-    }
-
-    int value;
+    SpecializedCtorFixture(int value_ = 0) : value(value_)  {}
+    int const value;
 };
 
 TEST_FIXTURE_CTOR(SpecializedCtorFixture, (5), CtorDataGetsPassedToFixture)

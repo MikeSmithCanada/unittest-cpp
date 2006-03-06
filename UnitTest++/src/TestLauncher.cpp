@@ -3,24 +3,13 @@
 namespace UnitTest
 {
 
-TestLauncher* TestLauncher::s_listHead = 0;
 
-TestLauncher::TestLauncher(TestLauncher*& listHead, Test* test)
-    : m_next(listHead)    
-    , m_test(test)
+TestLauncher::TestLauncher(Test*& listHead, Test* test)
 {
-    listHead = this;
+    test->next = listHead;
+    listHead = test;
 }
 
-void TestLauncher::Launch(TestResults& testResults_) const
-{
-    m_test->Run(testResults_);
-}
-
-TestLauncher const* TestLauncher::GetNext() const
-{
-    return m_next;
-}
 
 }
 

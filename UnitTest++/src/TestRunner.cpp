@@ -10,23 +10,23 @@ namespace UnitTest
 {
 
 
-int TestRunner::RunAllTests(TestReporter& reporter, TestLauncher* launcherListHead)
+int TestRunner::RunAllTests(TestReporter& reporter, Test* testListHead)
 {
     int failureCount = 0;
 
     int testCount = 0;
-    TestLauncher const* curLauncher = launcherListHead;
-    while (curLauncher)
+    Test* curTest = testListHead;
+    while (curTest != 0)
     {
         ++testCount;
 
         TestResults result(&reporter);
-        curLauncher->Launch(result);
+        curTest->Run(result);
 
         if (result.Failed())
             ++failureCount;
            
-        curLauncher = curLauncher->GetNext();
+        curTest = curTest->next;
     }
 
     reporter.ReportSummary(testCount, failureCount);
@@ -39,7 +39,7 @@ int TestRunner::RunAllTests(TestReporter& reporter, TestLauncher* launcherListHe
 int DefaultRun()
 {
     UnitTest::PrintfTestReporter reporter;
-    return UnitTest::TestRunner().RunAllTests(reporter, TestLauncher::s_listHead);
+    return UnitTest::TestRunner().RunAllTests(reporter, Test::s_listHead);
 }
 
 }

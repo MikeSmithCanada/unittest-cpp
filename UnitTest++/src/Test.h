@@ -13,7 +13,8 @@ public:
     virtual ~Test();
     void Run(TestResults& testResults);
 
-    static Test* GetListHead();
+    Test* next;
+    static Test* s_listHead;
 
 protected:
     Test(std::string testName = std::string(), 
@@ -27,8 +28,6 @@ private:
 
     std::string const m_filename;
     int const m_lineNumber;
-
-    //Test* m_listNext;
 
     // revoked
     Test(Test const&);

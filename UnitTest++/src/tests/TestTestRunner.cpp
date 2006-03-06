@@ -77,7 +77,7 @@ struct TestRunnerFixture
 
     MockTestReporter reporter;
     TestRunner runner;
-    TestLauncher* listHead;
+    Test* listHead;
 };
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
