@@ -61,8 +61,7 @@ struct MockTest : public Test
 struct TestRunnerFixture
 {
     TestRunnerFixture()
-        : runner(reporter)
-        , listHead(0)
+        : listHead(0)
     {
         runner.SetTestLauncherListHead(&listHead);
     }
@@ -74,7 +73,7 @@ struct TestRunnerFixture
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
-    CHECK_EQUAL(0, runner.RunAllTests());
+    CHECK_EQUAL(0, runner.RunAllTests(reporter));
     CHECK_EQUAL(0, reporter.testCount);
     CHECK_EQUAL(0, reporter.execCount);
 }
@@ -105,7 +104,7 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
     MockTestLauncher launcher(&listHead);
     launcher.success = true;
 
-    CHECK_EQUAL(0, runner.RunAllTests());
+    CHECK_EQUAL(0, runner.RunAllTests(reporter));
     CHECK_EQUAL(0, reporter.failureCount);
     CHECK_EQUAL(1, reporter.testCount);
 }
@@ -117,7 +116,7 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
     launcher1.success = false;
     launcher2.success = true;
 
-    runner.RunAllTests();
+    runner.RunAllTests(reporter);
     CHECK_EQUAL(2, reporter.execCount);
 }
 
@@ -128,7 +127,7 @@ TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
     launcher1.success = false;
     launcher2.success = false;
 
-    CHECK_EQUAL(2, runner.RunAllTests());
+    CHECK_EQUAL(2, runner.RunAllTests(reporter));
     CHECK_EQUAL(2, reporter.failureCount);
 }
 
@@ -137,7 +136,7 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
     MockTestLauncher launcher(&listHead);
     launcher.asserted = true;
 
-    runner.RunAllTests();
+    runner.RunAllTests(reporter);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 

@@ -1,4 +1,3 @@
-- Change TestReporter to the RunTests functions
 - Deal with exceptions thrown from a fixture
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
