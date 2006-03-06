@@ -27,7 +27,7 @@ TEST(CheckSuceedsOnTrue)
     bool failure = true;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK (true);
         failure = testResults_.Failed();
     }
@@ -40,7 +40,7 @@ TEST(CheckFailsOnFalse)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK (false);
         failure = testResults_.Failed();
     }
@@ -53,7 +53,7 @@ TEST(FailureReportsCorrectTestName)
     std::string failureTestName;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK (false);
         failureTestName = reporter.lastFailedTestName;
     }
@@ -66,7 +66,7 @@ TEST(CheckFailureIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const bool yaddayadda = false;
         CHECK (yaddayadda);
         failureString = reporter.lastFailureString;
@@ -86,7 +86,7 @@ TEST(CheckFailsOnException)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK (ThrowingFunction() == 1);
         failure = testResults_.Failed();
     }
@@ -99,7 +99,7 @@ TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK (ThrowingFunction() == 1);
         failureString = reporter.lastFailureString;
     }
@@ -112,7 +112,7 @@ TEST(CheckEqualSuceedsOnEqual)
     bool failure = true;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (1, 1);
         failure = testResults_.Failed();
     }
@@ -125,7 +125,7 @@ TEST(CheckEqualFailsOnNotEqual)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (1, 2);
         failure = testResults_.Failed();
     }
@@ -138,7 +138,7 @@ TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const int something = 2;
         CHECK_EQUAL (1, something);
         failureString = reporter.lastFailureString;
@@ -153,7 +153,7 @@ TEST(CheckEqualFailsOnException)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (ThrowingFunction(), 1);
         failure = testResults_.Failed();
     }
@@ -166,7 +166,7 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (ThrowingFunction(), 1);
         failureString = reporter.lastFailureString;
     }
@@ -180,7 +180,7 @@ TEST(CheckCloseSuceedsOnEqual)
     bool failure = true;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE (1.0f, 1.001f, 0.01f);
         failure = testResults_.Failed();
     }
@@ -193,7 +193,7 @@ TEST(CheckCloseFailsOnNotEqual)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE (1.0f, 1.1f, 0.01f);
         failure = testResults_.Failed();
     }
@@ -206,7 +206,7 @@ TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float expected = 0.9f;
         const float actual = 1.1f;
         CHECK_CLOSE (expected, actual, 0.01f);
@@ -222,7 +222,7 @@ TEST(CheckCloseFailsOnException)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
         failure = testResults_.Failed();
     }
@@ -235,7 +235,7 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
         failureString = reporter.lastFailureString;
     }
@@ -249,7 +249,7 @@ TEST(CheckArrayEqualSuceedsOnEqual)
     bool failure = true;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_EQUAL (data, data, 3);
         failure = testResults_.Failed();
@@ -263,7 +263,7 @@ TEST(CheckArrayEqualFailsOnNotEqual)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 3);
@@ -278,7 +278,7 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 4);
@@ -305,7 +305,7 @@ TEST(CheckArrayEqualFailsOnException)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_EQUAL (data, obj, 3);
@@ -320,7 +320,7 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_EQUAL (data, obj, 3);
@@ -337,7 +337,7 @@ TEST(CheckArrayCloseSuceedsOnEqual)
     bool failure = true;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_CLOSE (data, data, 4, 0.01f);
         failure = testResults_.Failed();
@@ -351,7 +351,7 @@ TEST(CheckArrayCloseFailsOnNotEqual)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
@@ -366,7 +366,7 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
@@ -383,7 +383,7 @@ TEST(CheckArrayCloseFailsOnException)
     bool failure = false;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
@@ -398,7 +398,7 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
     std::string failureString;
     {
         RecordingReporter reporter;
-        UnitTest::TestResults testResults_(reporter);
+        UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);

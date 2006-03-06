@@ -5,7 +5,7 @@
 namespace UnitTest
 {
 
-TestResults::TestResults(TestReporter& testReporter)
+TestResults::TestResults(TestReporter* testReporter)
     : m_testReporter(testReporter)
     , m_failure(false)
     , m_startTime(0)
@@ -18,12 +18,14 @@ void TestResults::ReportFailure(char const* file, int const line,
         const char* testName, std::string const failure)
 {
     m_failure = true;
-    m_testReporter.ReportFailure(file, line, testName, failure);
+    if (m_testReporter)
+        m_testReporter->ReportFailure(file, line, testName, failure);
 }
 
 void TestResults::ReportDone(const std::string& testName)
 {
-    m_testReporter.ReportSingleResult(testName, m_failure);
+    if (m_testReporter)
+        m_testReporter->ReportSingleResult(testName, m_failure);
 }
 
 void TestResults::TestsCompleted()

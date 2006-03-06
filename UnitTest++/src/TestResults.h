@@ -11,7 +11,7 @@ class TestReporter;
 class TestResults
 {
 public:
-    explicit TestResults(TestReporter& reporter);
+    explicit TestResults(TestReporter* reporter = 0);
 
     void ReportFailure(char const* file, int line, const char* testName, std::string failure);
     void ReportDone(const std::string& testName);
@@ -21,7 +21,7 @@ public:
     float GetTimeElapsed() const;
 
 private:
-    TestReporter& m_testReporter;
+    TestReporter* m_testReporter;
     bool m_failure;
     int m_startTime;
     int m_endTime;

@@ -1,7 +1,8 @@
+- Change TestReporter to the RunTests functions
+- Deal with exceptions thrown from a fixture
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)
-- Deal with exceptions thrown from a fixture
 - Simplify things by removing TestLauncher and having the test runner keep a list of tests directly???
 - Create test list backwards so they're executed in same order as they are in the file
 - Add UNITTEST_ prefix to header guards
@@ -13,6 +14,7 @@
 - CHECK_CLOSE failure string should include tolerance
 
 - Change std::string to const char*
+- Remove SignalTranslator from Win32 if not needed
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 
 
@@ -22,7 +24,8 @@
 - Run codebase through lint?
 - Memory leak detection
 
-- PS3 PPU and SPU support
+- PS3 PPU and SPU support (email Mark DeLoura about this)
+- Xenon support (email somebody at Xbox DS?)
 
 
 -----

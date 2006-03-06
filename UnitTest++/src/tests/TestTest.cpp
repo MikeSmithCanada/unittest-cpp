@@ -5,23 +5,7 @@
 namespace {
 
 
-struct DoNothingReporter : public UnitTest::TestReporter
-{
-public:
-    virtual void ReportFailure(char const*, int, const char*, std::string) {}
-    virtual void ReportSingleResult(const std::string&, bool) {}
-    virtual void ReportSummary(int, int) {}
-};
-
-struct ResultsFixture
-{
-    ResultsFixture() : results(reporter) {}
-    DoNothingReporter reporter;
-    UnitTest::TestResults results;
-};
-
-
-TEST_FIXTURE (ResultsFixture, PassingTestHasNoFailures)
+TEST (PassingTestHasNoFailures)
 {
     class PassingTest : public UnitTest::Test
     {
@@ -32,12 +16,13 @@ TEST_FIXTURE (ResultsFixture, PassingTestHasNoFailures)
         }
     };
 
+    UnitTest::TestResults results;
     PassingTest().Run(results);
     CHECK(!results.Failed());
 }
 
 
-TEST_FIXTURE (ResultsFixture, FailingTestHasFailures)
+TEST (FailingTestHasFailures)
 {
     class FailingTest : public UnitTest::Test
     {
@@ -48,12 +33,13 @@ TEST_FIXTURE (ResultsFixture, FailingTestHasFailures)
         }
     };
 
+    UnitTest::TestResults results;
     FailingTest().Run(results);
     CHECK(results.Failed());
 }
 
 
-TEST_FIXTURE (ResultsFixture, CrashingTestsAreReportedAsFailures)
+TEST (CrashingTestsAreReportedAsFailures)
 {
     class CrashingTest : public UnitTest::Test
     {
@@ -64,7 +50,9 @@ TEST_FIXTURE (ResultsFixture, CrashingTestsAreReportedAsFailures)
         }
     };
 
+    UnitTest::TestResults results;
     CrashingTest().Run(results);
 }
+
 
 }

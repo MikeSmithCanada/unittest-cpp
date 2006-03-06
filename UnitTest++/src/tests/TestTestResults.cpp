@@ -30,7 +30,7 @@ public:
 struct MockTestResultsFixture
 {
     MockTestResultsFixture()
-        : results(reporter)
+        : results(&reporter)
     {
     }
 

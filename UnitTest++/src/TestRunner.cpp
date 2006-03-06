@@ -30,7 +30,7 @@ int TestRunner::RunAllTests()
     {
         ++testCount;
 
-        TestResults result(m_testReporter);
+        TestResults result(&m_testReporter);
         curLauncher->Launch(result);
 
         if (result.Failed())
