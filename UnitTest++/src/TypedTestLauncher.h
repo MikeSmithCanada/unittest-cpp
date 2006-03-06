@@ -2,6 +2,7 @@
 #define TYPED_TEST_CREATOR_H
 
 #include "TestLauncher.h"
+#include "TestResults.h"
 
 namespace UnitTest
 {
@@ -17,7 +18,15 @@ public:
 
     virtual void Launch(TestResults& testResults_) const 
     {
-        TestClass().Run(testResults_);
+        try 
+        {
+            TestClass().Run(testResults_);
+        }
+        catch (...)
+        {
+            testResults_.ReportFailure("", 0, "", 
+                        "Unhandled exception in fixture");
+        }
     }
 };
 

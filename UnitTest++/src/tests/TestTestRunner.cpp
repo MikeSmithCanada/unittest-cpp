@@ -140,5 +140,31 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
     CHECK_EQUAL(1, reporter.failureCount);
 }
 
+
+struct CrashingFixtureTest : public Test
+{
+    CrashingFixtureTest()
+    {
+        throw "Exception in fixture!";
+    }
+
+    virtual void RunImpl(TestResults& testResults_) {}
+};
+
+
+TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureAreReportedAsFailing)
+{
+    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead);
+    runner.RunAllTests(reporter);
+    CHECK_EQUAL(1, reporter.failureCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureHaveCorrectFailureInfo)
+{
+    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead);
+    runner.RunAllTests(reporter);
+    CHECK_EQUAL(1, reporter.failureCount);
+}
+
 }
 

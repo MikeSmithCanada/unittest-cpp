@@ -1,4 +1,6 @@
 - Deal with exceptions thrown from a fixture
+- Deal with exceptions thrown from a fixture with construction parameters
+- Visual studio projects/solutions (2003 and 2005?)
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)
@@ -6,13 +8,16 @@
 - Create test list backwards so they're executed in same order as they are in the file
 - Add UNITTEST_ prefix to header guards
 
-- Visual studio projects/solutions (2003 and 2005?)
-- Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
-
 - Write tests for HTMLTestReporter?
 - CHECK_CLOSE failure string should include tolerance
+- Better name than TEST_FIXTURE? (seems too much like a test fixture instead of a test with a fixture)
 
 - Change std::string to const char*
+
+<-------- Release version 1.0 ?
+
+- Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
+
 - Remove SignalTranslator from Win32 if not needed
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 

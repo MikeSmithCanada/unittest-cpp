@@ -39,8 +39,6 @@ int TestRunner::RunAllTests(TestReporter& reporter)
     }
 
     reporter.ReportSummary(testCount, failureCount);
-
-    
     
     return failureCount;
 }
