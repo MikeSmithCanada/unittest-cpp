@@ -2,9 +2,8 @@
 #define UNIT_TEST_CPP_H
 
 #include "Test.h"
-#include "TypedTestLauncher.h"
 #include "TestResults.h"
-
+#include "TestLauncher.h"
 #include "TestMacros.h"
 #include "CheckMacros.h"
 

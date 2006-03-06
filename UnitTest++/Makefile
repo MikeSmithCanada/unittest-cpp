@@ -28,7 +28,6 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestTest.cpp \
 	src/tests/TestTestResults.cpp \
 	src/tests/TestTestRunner.cpp \
-	src/tests/TestTypedTestLauncher.cpp \
 	src/tests/TestCheckMacros.cpp
 
 

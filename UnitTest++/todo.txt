@@ -1,5 +1,6 @@
-- Deal with exceptions thrown from a fixture with construction parameters
+- Refactor code so test name and file aren't kept both in the launcher and the test itself
 - Visual studio projects/solutions (2003 and 2005?)
+- In exceptions from a fixture, can we print they came from the fixture?
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)

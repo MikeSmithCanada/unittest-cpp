@@ -88,31 +88,10 @@ TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
     CHECK_EQUAL(0, reporter.execCount);
 }
 
-
-struct MockTestLauncher : public TestLauncher
-{
-public:
-    MockTestLauncher(TestLauncher** listHead)
-        : TestLauncher(listHead, "", 0, "")
-        , success(true)
-        , asserted(false)
-    {
-    }
-
-    void Launch(TestResults& results) const 
-    { 
-        MockTest(success, asserted).Run(results); 
-    }
-
-    bool success;
-    bool asserted;
-};
-
-
 TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 {
-    MockTestLauncher launcher(&listHead);
-    launcher.success = true;
+    MockTest test(true, false);
+    TestLauncher launcher(&listHead, &test);
 
     CHECK_EQUAL(0, runner.RunAllTests(reporter));
     CHECK_EQUAL(0, reporter.failureCount);
@@ -121,21 +100,22 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 
 TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
 {
-    MockTestLauncher launcher1(&listHead);
-    MockTestLauncher launcher2(&listHead);
-    launcher1.success = false;
-    launcher2.success = true;
+    MockTest test1(true, false);
+    TestLauncher launcher1(&listHead, &test1);
+    MockTest test2(false, false);
+    TestLauncher launcher2(&listHead, &test2);
 
     runner.RunAllTests(reporter);
     CHECK_EQUAL(2, reporter.execCount);
 }
 
+
 TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
 {
-    MockTestLauncher launcher1(&listHead);
-    MockTestLauncher launcher2(&listHead);
-    launcher1.success = false;
-    launcher2.success = false;
+    MockTest test1(false, false);
+    TestLauncher launcher1(&listHead, &test1);
+    MockTest test2(false, false);
+    TestLauncher launcher2(&listHead, &test2);
 
     CHECK_EQUAL(2, runner.RunAllTests(reporter));
     CHECK_EQUAL(2, reporter.failureCount);
@@ -143,44 +123,15 @@ TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
 
 TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 {
-    MockTestLauncher launcher(&listHead);
-    launcher.asserted = true;
+    MockTest test(true, true);
+    TestLauncher launcher(&listHead, &test);
 
     runner.RunAllTests(reporter);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 
-
-struct CrashingFixtureTest : public Test
-{
-    CrashingFixtureTest()
-    {
-        throw "Exception in fixture!";
-    }
-
-    virtual void RunImpl(TestResults& testResults_) {}
-};
-
-
-TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureAreReportedAsFailing)
-{
-    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead, "", 0, "");
-    runner.RunAllTests(reporter);
-    CHECK_EQUAL(1, reporter.failureCount);
-}
-
-TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureHaveCorrectFailureInfo)
-{
-    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead, "Hello", 123, "TestNameYadda");
-    runner.RunAllTests(reporter);
-
-    CHECK_EQUAL (std::string("Hello"), reporter.lastFile);
-    CHECK_EQUAL (123, reporter.lastLine);
-    CHECK_EQUAL (std::string("TestNameYadda"), reporter.lastTest);
-    CHECK (reporter.lastFailure.find("fixture") != std::string::npos );
-    CHECK (reporter.lastFailure.find("exception") != std::string::npos );
-
-}
+// TODO: Is there any way to test that a test with a fixture throwing an exception is reported 
+// as a failure with the correct information?
 
 }
 

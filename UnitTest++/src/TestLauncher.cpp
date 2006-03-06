@@ -8,6 +8,18 @@ namespace
     TestLauncher* s_listHead;
 }
 
+TestLauncher::TestLauncher(TestLauncher** listHead, Test* test)
+    : m_next(*listHead)    
+    , m_test(test)
+{
+    *listHead = this;
+}
+
+void TestLauncher::Launch(TestResults& testResults_) const
+{
+    m_test->Run(testResults_);
+}
+
 TestLauncher** TestLauncher::GetHeadAddr()
 {
     static bool initialized = false;
@@ -18,19 +30,6 @@ TestLauncher** TestLauncher::GetHeadAddr()
     }
 
     return &s_listHead;
-}
-
-TestLauncher::TestLauncher(TestLauncher** listHead, char const* filename, int line, char const* testName)
-    : m_filename(filename)
-    , m_line(line)
-    , m_testName(testName)
-    , m_next(*listHead)    
-{
-    *listHead = this;
-}
-
-TestLauncher::~TestLauncher()
-{
 }
 
 TestLauncher const* TestLauncher::GetNext() const
