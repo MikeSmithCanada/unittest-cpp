@@ -20,8 +20,11 @@ TestLauncher** TestLauncher::GetHeadAddr()
     return &s_listHead;
 }
 
-TestLauncher::TestLauncher(TestLauncher** listHead)
-    : m_next(*listHead)
+TestLauncher::TestLauncher(TestLauncher** listHead, char const* filename, int line, char const* testName)
+    : m_filename(filename)
+    , m_line(line)
+    , m_testName(testName)
+    , m_next(*listHead)    
 {
     *listHead = this;
 }

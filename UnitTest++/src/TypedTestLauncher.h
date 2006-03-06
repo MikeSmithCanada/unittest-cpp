@@ -11,8 +11,8 @@ template< typename TestClass >
 class TypedTestLauncher : public TestLauncher
 {
 public:
-    TypedTestLauncher(TestLauncher** listHead)
-        : TestLauncher(listHead)
+    TypedTestLauncher(TestLauncher** listHead, char const* filename, int line, char const* testName)
+        : TestLauncher(listHead, filename, line, testName)
     {
     }
 
@@ -24,7 +24,7 @@ public:
         }
         catch (...)
         {
-            testResults_.ReportFailure("", 0, "", 
+            testResults_.ReportFailure(m_filename, m_line, m_testName, 
                         "Unhandled exception in fixture");
         }
     }

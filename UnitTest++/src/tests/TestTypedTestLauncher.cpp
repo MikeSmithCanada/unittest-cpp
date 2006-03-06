@@ -26,7 +26,7 @@ int MockTest::instantiationCount = 0;
 TEST (TypedTestCreatorMakesTestOfCorrectType)
 {
     TestLauncher* listHead = 0;
-    TypedTestLauncher< MockTest > mockLauncher(&listHead);
+    TypedTestLauncher< MockTest > mockLauncher(&listHead, "", 0, "");
 
     TestResults results;
     mockLauncher.Launch(results);

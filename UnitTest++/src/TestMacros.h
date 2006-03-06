@@ -11,7 +11,7 @@
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     }; \
     UnitTest::TypedTestLauncher< Test##Name > \
-        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr()); \
+        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr(), __FILE__, __LINE__, #Name); \
     \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
 
@@ -25,7 +25,7 @@
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     }; \
     UnitTest::TypedTestLauncher< Test##Name > \
-        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr()); \
+        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr(), __FILE__, __LINE__, #Name); \
     \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
 
@@ -39,7 +39,7 @@
         virtual void RunImpl(UnitTest::TestResults& testResults_); \
     }; \
     UnitTest::TypedTestLauncher< Test##Name > \
-        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr()); \
+        staticInitTest##Name##Creator(UnitTest::TestLauncher::GetHeadAddr(), __FILE__, __LINE__, #Name); \
     \
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
 

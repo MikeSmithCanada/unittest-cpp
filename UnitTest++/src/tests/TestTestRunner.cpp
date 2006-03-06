@@ -14,12 +14,18 @@ public:
         : failureCount(0)
         , testCount(0)
         , execCount(0)
+        , lastLine(0)
     {
     }
 
-    virtual void ReportFailure(char const*, int, const char*, std::string)
+    
+    virtual void ReportFailure(char const* file, int line, const char* testName, std::string failure)
     {
         ++failureCount;
+        lastFile = file;
+        lastLine = line;
+        lastTest = testName;
+        lastFailure = failure;
     }
 
     virtual void ReportSummary(int testCount_, int) 
@@ -35,6 +41,10 @@ public:
     int failureCount;
     int testCount;
     int execCount;
+    std::string lastFile;
+    int lastLine;
+    std::string lastTest;
+    std::string lastFailure;
 };
 
 struct MockTest : public Test
@@ -83,7 +93,7 @@ struct MockTestLauncher : public TestLauncher
 {
 public:
     MockTestLauncher(TestLauncher** listHead)
-        : TestLauncher(listHead)
+        : TestLauncher(listHead, "", 0, "")
         , success(true)
         , asserted(false)
     {
@@ -154,16 +164,22 @@ struct CrashingFixtureTest : public Test
 
 TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureAreReportedAsFailing)
 {
-    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead);
+    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead, "", 0, "");
     runner.RunAllTests(reporter);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, TestsThatCrashInFixtureHaveCorrectFailureInfo)
 {
-    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead);
+    TypedTestLauncher<CrashingFixtureTest> launcher(&listHead, "Hello", 123, "TestNameYadda");
     runner.RunAllTests(reporter);
-    CHECK_EQUAL(1, reporter.failureCount);
+
+    CHECK_EQUAL (std::string("Hello"), reporter.lastFile);
+    CHECK_EQUAL (123, reporter.lastLine);
+    CHECK_EQUAL (std::string("TestNameYadda"), reporter.lastTest);
+    CHECK (reporter.lastFailure.find("fixture") != std::string::npos );
+    CHECK (reporter.lastFailure.find("exception") != std::string::npos );
+
 }
 
 }
