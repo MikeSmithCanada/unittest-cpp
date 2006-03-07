@@ -1,6 +1,7 @@
 #include "../UnitTest++.h"
 #include "../TestReporter.h"
 #include "../ReportAssert.h"
+#include "../TestList.h"
 
 using namespace UnitTest;
 
@@ -73,20 +74,22 @@ struct TestRunnerFixture
 {
     MockTestReporter reporter;
     TestRunner runner;
+    TestList list;
 };
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, 0));
+    CHECK_EQUAL(0, runner.RunAllTests(reporter, list));
     CHECK_EQUAL(0, reporter.testCount);
     CHECK_EQUAL(0, reporter.execCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
 {
-    MockTest test(true, false);        
+    MockTest test(true, false);
+    list.Add(&test); 
 
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, &test));
+    CHECK_EQUAL(0, runner.RunAllTests(reporter, list));
     CHECK_EQUAL(0, reporter.failureCount);
     CHECK_EQUAL(1, reporter.testCount);
 }
@@ -95,9 +98,10 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
 {
     MockTest test1(true, false);
     MockTest test2(false, false);
-    test1.next = &test2;
+    list.Add(&test1);
+    list.Add(&test2);
 
-    runner.RunAllTests(reporter, &test1);
+    runner.RunAllTests(reporter, list);
     CHECK_EQUAL(2, reporter.execCount);
 }
 
@@ -106,17 +110,19 @@ TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
 {
     MockTest test1(false, false);
     MockTest test2(false, false);
-    test1.next = &test2;
+    list.Add(&test1);
+    list.Add(&test2);
 
-    CHECK_EQUAL(2, runner.RunAllTests(reporter, &test1));
+    CHECK_EQUAL(2, runner.RunAllTests(reporter, list));
     CHECK_EQUAL(2, reporter.failureCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 {
     MockTest test(true, true);
+    list.Add(&test);
 
-    runner.RunAllTests(reporter, &test);
+    runner.RunAllTests(reporter, list);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 

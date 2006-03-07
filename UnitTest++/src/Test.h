@@ -1,5 +1,7 @@
-#ifndef TEST_H
-#define TEST_H
+#ifndef UNITTEST_TEST_H
+#define UNITTEST_TEST_H
+
+#include "TestList.h"
 
 
 namespace UnitTest
@@ -9,20 +11,17 @@ class TestResults;
 class Test
 {
 public:
+    Test(char const* testName, char const* filename = "", int lineNumber = 0);
     virtual ~Test();
     void Run(TestResults& testResults);
 
     Test* next;
-    static Test* s_listHead;
-    static Test* s_listTail;
-
-protected:
-    Test(char const* testName, char const* filename, int lineNumber);
-
     char const* const m_testName;
+    
+    static TestList s_list;
 
 private:
-    virtual void RunImpl(TestResults& testResults_) = 0;
+    virtual void RunImpl(TestResults& testResults_);
 
     char const* const m_filename;
     int const m_lineNumber;
@@ -31,15 +30,6 @@ private:
     Test(Test const&);
     Test& operator =(Test const&);
 };
-
-
-
-class TestRegistrar
-{
-public:
-    TestRegistrar(Test*& listHead, Test *& listTail, Test* test);
-};
-
 
 
 }

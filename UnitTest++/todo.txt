@@ -1,3 +1,4 @@
+- Can tests be const?
 - Visual studio projects/solutions (2003 and 2005?)
 - Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?

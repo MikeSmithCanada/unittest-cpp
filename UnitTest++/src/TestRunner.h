@@ -5,12 +5,12 @@
 namespace UnitTest
 {
 class TestReporter;
-class Test;
+class TestList;
 
 class TestRunner
 {
 public:
-    int RunAllTests(TestReporter& reporter, Test* testListHead);
+    int RunAllTests(TestReporter& reporter, TestList& list);
 };
 
 
