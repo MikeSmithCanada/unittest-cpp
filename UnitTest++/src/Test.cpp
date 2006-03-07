@@ -25,7 +25,7 @@ Test::~Test()
 {
 }
 
-void Test::Run(TestResults& testResults)
+void Test::Run(TestResults& testResults) const
 {
     //printf ("%s\n", m_testName.c_str());
 
@@ -52,7 +52,7 @@ void Test::Run(TestResults& testResults)
 }
 
 
-void Test::RunImpl(TestResults&)
+void Test::RunImpl(TestResults&) const
 {
 }
 

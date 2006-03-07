@@ -51,13 +51,13 @@ public:
 struct MockTest : public Test
 {
     MockTest(bool const success_, bool const assert_)
-        : Test("", "", 0)
+        : Test("mock")
         , success(success_)
         , asserted(assert_)
     {
     }
 
-    virtual void RunImpl(TestResults& testResults_)
+    virtual void RunImpl(TestResults& testResults_) const
     {
         if (asserted)
             ReportAssert("desc", "file", 0);

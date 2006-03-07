@@ -13,7 +13,7 @@ class Test
 public:
     Test(char const* testName, char const* filename = "", int lineNumber = 0);
     virtual ~Test();
-    void Run(TestResults& testResults);
+    void Run(TestResults& testResults) const;
 
     Test* next;
     char const* const m_testName;
@@ -21,7 +21,7 @@ public:
     static TestList s_list;
 
 private:
-    virtual void RunImpl(TestResults& testResults_);
+    virtual void RunImpl(TestResults& testResults_) const;
 
     char const* const m_filename;
     int const m_lineNumber;

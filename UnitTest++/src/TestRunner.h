@@ -10,7 +10,7 @@ class TestList;
 class TestRunner
 {
 public:
-    int RunAllTests(TestReporter& reporter, TestList& list);
+    int RunAllTests(TestReporter& reporter, const TestList& list);
 };
 
 

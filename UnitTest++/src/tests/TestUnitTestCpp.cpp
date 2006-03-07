@@ -62,8 +62,8 @@ TEST(CheckThrowMacroFailsOnMissingException)
     class NoThrowTest : public UnitTest::Test
     {
     public:
-        NoThrowTest() : Test("", "", 0) {}
-        void DontThrow()
+        NoThrowTest() : Test("nothrow") {}
+        void DontThrow() const
         {
         }
 
@@ -71,7 +71,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
 #   pragma warning(push)
 #   pragma warning(disable: 4702) // "unreachable code"
 #endif
-        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const
         {
             CHECK_THROW(DontThrow(), int);
         }
@@ -92,8 +92,8 @@ TEST(CheckThrowMacroFailsOnWrongException)
     class WrongThrowTest : public UnitTest::Test
     {
     public:
-        WrongThrowTest() : Test("", "", 0) {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        WrongThrowTest() : Test("wrongthrow") {}
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const
         {
             CHECK_THROW(throw "oops", int);
         }

@@ -10,12 +10,12 @@ namespace UnitTest
 {
 
 
-int TestRunner::RunAllTests(TestReporter& reporter, TestList& list)
+int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 {
     int failureCount = 0;
 
     int testCount = 0;
-    Test* curTest = list.GetHead();
+    const Test* curTest = list.GetHead();
     while (curTest != 0)
     {
         ++testCount;

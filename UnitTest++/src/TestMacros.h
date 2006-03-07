@@ -8,10 +8,10 @@
     public:                                                                             \
         Test##Name() : Test(#Name, __FILE__, __LINE__) {}                               \
     private:                                                                            \
-        virtual void RunImpl(UnitTest::TestResults& testResults_);                      \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const;                      \
     } test##Name##Instance;                                                             \
     UnitTest::ListAdder adder##Name (UnitTest::Test::s_list, &test##Name##Instance);    \
-    void Test##Name::RunImpl(UnitTest::TestResults& testResults_)
+    void Test##Name::RunImpl(UnitTest::TestResults& testResults_) const
     
     
 #define TEST_FIXTURE(Fixture, Name)                                                 \
@@ -25,10 +25,10 @@
     public:                                                                         \
         Test##Fixture##Name() : Test(#Name, __FILE__, __LINE__) {}                  \
     private:                                                                        \
-        virtual void RunImpl(UnitTest::TestResults& testResults_);                  \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const;                  \
     } test##Fixture##Name##Instance;                                                \
     UnitTest::ListAdder adder##Fixture##Name (UnitTest::Test::s_list, &test##Fixture##Name##Instance); \
-    void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  {       \
+    void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const {  \
         Fixture##Name##Helper mt(m_testName);                                       \
         mt.RunTest(testResults_);                                                   \
     }                                                                               \
@@ -47,10 +47,10 @@
     public:                                                                             \
         Test##Fixture##Name() : Test(#Name, __FILE__, __LINE__) {}                      \
     private:                                                                            \
-        virtual void RunImpl(UnitTest::TestResults& testResults_);                      \
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const;                      \
     } test##Fixture##Name##Instance;                                                    \
     UnitTest::ListAdder adder##Fixture##Name (UnitTest::Test::s_list, &test##Fixture##Name##Instance); \
-    void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_)  {           \
+    void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const {      \
         Fixture##Name##Helper mt(m_testName);                                           \
         mt.RunTest(testResults_);                                                       \
     }                                                                                   \

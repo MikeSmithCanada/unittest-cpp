@@ -30,7 +30,7 @@ void TestList::Add (Test* test)
 }
 
 
-Test* TestList::GetHead()
+const Test* TestList::GetHead() const
 {
     return m_head;
 }

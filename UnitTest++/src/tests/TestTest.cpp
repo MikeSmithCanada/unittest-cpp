@@ -10,8 +10,8 @@ TEST (PassingTestHasNoFailures)
     class PassingTest : public UnitTest::Test
     {
     public:
-        PassingTest() : Test("", "", 0) {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        PassingTest() : Test("passing") {}
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const
         {
             CHECK(true);
         }
@@ -28,8 +28,8 @@ TEST (FailingTestHasFailures)
     class FailingTest : public UnitTest::Test
     {
     public:
-        FailingTest() : Test("", "", 0) {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_)
+        FailingTest() : Test("failing") {}
+        virtual void RunImpl(UnitTest::TestResults& testResults_) const
         {
             CHECK(false);
         }
@@ -46,8 +46,8 @@ TEST (CrashingTestsAreReportedAsFailures)
     class CrashingTest : public UnitTest::Test
     {
     public:
-        CrashingTest() : Test("", "", 0) {}
-        virtual void RunImpl(UnitTest::TestResults&)
+        CrashingTest() : Test("crashing") {}
+        virtual void RunImpl(UnitTest::TestResults&) const
         {
             throw "Blah";
         }

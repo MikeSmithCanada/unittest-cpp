@@ -13,7 +13,7 @@ public:
     TestList();
     void Add (Test* test);
 
-    Test* GetHead();    
+    const Test* GetHead() const;
     
 private:
     Test* m_head;
