@@ -1,6 +1,4 @@
-- Clean up source in VS to avoid warnings in level 4
 - Win32 support for timers
-- Win32 signal handling for VS2005, or is that not needed?
 - Visual studio projects/solutions (2003)
 
 - In exceptions from a fixture, can we print they came from the fixture? 
