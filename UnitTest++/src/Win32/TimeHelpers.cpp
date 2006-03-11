@@ -16,7 +16,7 @@ int Timer::GetTimeInMs() const
 }
 
 
-void TimeHelpers::SleepMs (int ms)
+void TimeHelpers::SleepMs (int /*ms*/)
 {
 }
 
