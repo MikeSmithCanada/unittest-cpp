@@ -39,9 +39,23 @@ TEST(ValidCheckCloseSucceeds)
     CHECK_CLOSE(2.001f, 2.0f, 0.01f);
 }
 
+TEST(ArrayEqualSucceeds)
+{
+    int const a1[] = {1,2,3};
+    int const a2[] = {1,2,3};
+    CHECK_ARRAY_EQUAL (a1, a2, 3);
+}
+
+TEST(ArrayCloseSucceeds)
+{
+    float const a1[] = {1, 2, 3};
+    float const a2[] = {1, 2.01f, 3};
+    CHECK_ARRAY_CLOSE (a1, a2, 3, 0.1f);
+}
+
 TEST(CheckEqualMacroAllowsCharPtrAndStringComparisons)
 {
-    const std::string str("Hello World");
+    std::string const str("Hello World");
     CHECK_EQUAL(std::string("Hello World"), str);
 }
 

@@ -362,8 +362,8 @@ TEST(CheckArrayCloseFailsOnNotEqual)
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        const float data1[4] = { 0, 1, 2, 3 };
-        const float data2[4] = { 0, 1, 3, 3 };
+        float const data1[4] = { 0, 1, 2, 3 };
+        float const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         failure = testResults_.Failed();
     }
@@ -377,14 +377,30 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        const float data1[4] = { 0, 1, 2, 3 };
-        const float data2[4] = { 0, 1, 3, 3 };
+        float const data1[4] = { 0, 1, 2, 3 };
+        float const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         failureString = reporter.lastFailureString;
     }
 
     CHECK (failureString.find("xpected [ 0 1 2 3 ]") != std::string::npos );
     CHECK (failureString.find("was [ 0 1 3 3 ]") != std::string::npos );
+}
+
+
+TEST(CheckArrayCloseFailureIncludesTolerance)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(&reporter);
+        float const data1[4] = { 0, 1, 2, 3 };
+        float const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("0.01") != std::string::npos );
 }
 
 

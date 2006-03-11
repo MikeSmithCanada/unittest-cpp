@@ -60,7 +60,7 @@
     try { \
         if (!UnitTest::CheckArrayClose(expected, actual, count, tolerance)) \
             testResults_.ReportFailure(__FILE__, __LINE__, m_testName, \
-                    UnitTest::BuildFailureString(expected, actual, count).c_str()); \
+                    UnitTest::BuildFailureString(expected, actual, count, tolerance).c_str()); \
     } \
     catch (...) { \
         testResults_.ReportFailure(__FILE__, __LINE__, m_testName, \
