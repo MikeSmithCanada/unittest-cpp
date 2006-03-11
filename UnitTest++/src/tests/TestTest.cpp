@@ -58,7 +58,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
     CHECK(results.Failed());
 }
 
-#ifndef USE_SIGNAL_TRANSLATOR
+#ifndef LINUX
 
 TEST (CrashingTestsAreReportedAsFailures)
 {

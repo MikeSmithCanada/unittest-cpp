@@ -2,7 +2,11 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
-#include "SignalTranslator.h"
+
+#ifdef LINUX
+    #include "Linux/SignalTranslator.h"
+#endif
+
 #include <string>
 
 
@@ -31,7 +35,9 @@ void Test::Run(TestResults& testResults) const
 
     try
     {
+#ifdef LINUX
         SignalTranslator sig;
+#endif
         RunImpl(testResults);
     }
     catch (AssertException const& e)
