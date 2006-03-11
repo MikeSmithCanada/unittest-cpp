@@ -1,14 +1,29 @@
 #ifndef TIMEHELPERS_H
 #define TIMEHELPERS_H
 
-namespace TimeHelpers
+#include <sys/time.h>
+
+namespace UnitTest {
+
+class ScopedTimer
 {
+public:
+    ScopedTimer();
+    int GetTimeInMs() const;    
+
+private:
+    struct timeval m_startTime;    
+};
+
 
 int GetTimeInMs();
-void Sleep (int ms);
+
+namespace TimeHelpers
+{
+void SleepMs (int ms);
+}
 
 
 }
-
 
 #endif

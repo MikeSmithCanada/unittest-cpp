@@ -13,6 +13,8 @@
 
 <-------- Release version 1.0 ?
 
+- MacOS support
+- Look into nightly builds?
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
 
 - Remove SignalTranslator from Win32 if not needed
@@ -30,7 +32,9 @@
 
 
 -----
-Discuss::
+Discuss:
+- How should we print the time spent in the tests? Reporter should do it somehow.
+- Look into object-based fixtures
 - Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 

@@ -1,7 +1,6 @@
 #include "../UnitTest++.h"
 #include "../TestReporter.h"
 #include "../TestResults.h"
-#include "../TimeHelpers.h"
 
 using namespace UnitTest;
 
@@ -54,20 +53,5 @@ TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
     results.ReportFailure("nothing", 0, "", "expected failure");
     CHECK (reporter.failureReported);
 }
-
-TEST_FIXTURE(MockTestResultsFixture, TimeElapsedIsZeroBeforeTestsCompleted)
-{
-    TimeHelpers::Sleep(10);
-    CHECK_EQUAL (0, results.GetTimeElapsed());
-}
-
-/*
-TEST_FIXTURE(MockTestResultsFixture, TimeElapsedIsNonZeroAfterTestsCompleted)
-{
-    TimeHelpers::Sleep(1000);
-    results.TestsCompleted();
-    CHECK (results.GetTimeElapsed() > 0);
-}
-*/
 
 }

@@ -2,6 +2,7 @@
 #include "../TestReporter.h"
 #include "../ReportAssert.h"
 #include "../TestList.h"
+#include "../TimeHelpers.h"
 
 using namespace UnitTest;
 
@@ -128,6 +129,34 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 
 // TODO: Is there any way to test that a test with a fixture throwing an exception is reported 
 // as a failure with the correct information?
+
+
+TEST_FIXTURE(TestRunnerFixture, TimeElapsedStartsAtZero)
+{
+    CHECK (runner.GetSecondsElapsed() == 0);
+}
+
+struct SlowTest : public Test
+{
+    SlowTest() : Test("slow")
+    {
+    }
+
+    virtual void RunImpl(TestResults& testResults_) const
+    {
+        TimeHelpers::SleepMs(100);
+    }
+};
+
+TEST_FIXTURE(TestRunnerFixture, TimeElapsedForRunIsNonZero)
+{
+    SlowTest test;
+    list.Add(&test); 
+
+    runner.RunAllTests(reporter, list);    
+    CHECK (runner.GetSecondsElapsed() > 0);
+}
+
 
 }
 

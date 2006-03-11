@@ -18,13 +18,10 @@ public:
     void TestsCompleted();
 
     bool Failed() const;
-    float GetTimeElapsed() const;
 
 private:
     TestReporter* m_testReporter;
     bool m_failure;
-    int m_startTime;
-    int m_endTime;
 
     // revoked
     TestResults(TestResults const&);
