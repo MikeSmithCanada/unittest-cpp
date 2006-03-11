@@ -18,8 +18,10 @@ void PrintfTestReporter::ReportSingleResult(const std::string& /*testName*/, boo
 
 void PrintfTestReporter::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {
-    printf("%d tests run.\n", testCount);
-    printf("%d tests failed.\n", failureCount);
+    if (failureCount > 0)
+        printf("FAILURE: %d out of %d tests failed.\n", failureCount, testCount);
+    else
+        printf("Success: %d tests passed.\n", testCount);
     printf("Test time: %.2f seconds.\n", secondsElapsed);
 }
 

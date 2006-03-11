@@ -33,8 +33,8 @@
 -----
 Discuss:
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
-- Should we change the format of the printf reporter to emphasize failure/no failure? How do other frameworks do it?
 - Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
+
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 - Look into object-based fixtures (other approaches combining fixtures?)
 
