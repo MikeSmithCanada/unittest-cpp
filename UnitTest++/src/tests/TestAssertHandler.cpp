@@ -14,7 +14,7 @@ TEST (ReportAssertThrowsAssertException)
     {
         ReportAssert("", "", 0);
     }
-    catch(AssertException const& e)
+    catch(AssertException const&)
     {
         caught = true;
     }
