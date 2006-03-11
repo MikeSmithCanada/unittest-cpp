@@ -1,6 +1,7 @@
 #ifndef UNITTEST_CHECKMACROS_H 
 #define UNITTEST_CHECKMACROS_H
 
+#include "BuildFailureString.h"
 #include "Checks.h"
 #include "AssertException.h"
 
