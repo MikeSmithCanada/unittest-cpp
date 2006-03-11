@@ -37,7 +37,7 @@ public:
         secondsElapsed = secondsElapsed_;
     }
 
-    virtual void ReportSingleResult(const std::string&, bool)
+    virtual void ReportSingleResult(char const*, bool)
     {
         ++execCount;
     }

@@ -1,8 +1,6 @@
 #ifndef UNITTEST_TESTRESULTS_H
 #define UNITTEST_TESTRESULTS_H
 
-#include <string>
-
 namespace UnitTest
 {
 
@@ -14,7 +12,7 @@ public:
     explicit TestResults(TestReporter* reporter = 0);
 
     void ReportFailure(char const* file, int line, char const* testName, char const* failure);
-    void ReportDone(const std::string& testName);
+    void ReportDone(char const* testName);
     void TestsCompleted();
 
     bool Failed() const;

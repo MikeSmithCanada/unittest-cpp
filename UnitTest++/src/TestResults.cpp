@@ -18,7 +18,7 @@ void TestResults::ReportFailure(char const* file, int const line,
         m_testReporter->ReportFailure(file, line, testName, failure);
 }
 
-void TestResults::ReportDone(const std::string& testName)
+void TestResults::ReportDone(char const* testName)
 {
     if (m_testReporter)
         m_testReporter->ReportSingleResult(testName, m_failure);

@@ -2,7 +2,7 @@
 #define UNITTEST_ASSERTEXCEPTION_H
 
 #include <exception>
-#include <string>
+
 
 namespace UnitTest {
 
@@ -14,12 +14,12 @@ public:
 
     virtual char const* what() const throw();
 
-    std::string const& Filename() const;
+    char const* Filename() const;
     int LineNumber() const;
 
 private:
-    std::string m_description;
-    std::string m_filename;
+    char m_description[512];
+    char m_filename[256];
     int m_lineNumber;
 };
 

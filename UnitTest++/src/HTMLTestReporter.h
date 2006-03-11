@@ -3,6 +3,7 @@
 
 #include "TestReporter.h"
 #include <vector>
+#include <string>
 
 namespace UnitTest
 {

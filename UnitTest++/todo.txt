@@ -5,13 +5,14 @@
 
 - CHECK_CLOSE failure string should include tolerance
 
-- Change std::string to const char*
 - Minimal web page on Sourceforge
 - Write tests for HTMLTestReporter?
 - Package release
+- Template specialization/overload of CheckEqual for (const char* and std::string)
 
 <-------- Release version 1.0 ?
 
+- More cleanup of std::string?
 - MacOS support
 - Look into nightly builds?
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
@@ -20,7 +21,6 @@
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 
 
-- Template specialization/overload of CheckEqual for (const char* and std::string)
 - Per-test time (or max test error)
 - Better kEpsilon check?
 - Run codebase through lint?

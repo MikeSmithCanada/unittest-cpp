@@ -14,7 +14,7 @@ public:
         lastFailedTestName = testName;
         lastFailureString = failureString;
     }
-    virtual void ReportSingleResult(const std::string&, bool) {}
+    virtual void ReportSingleResult(char const*, bool) {}
     virtual void ReportSummary(int, int, float) {}
 
     const char* lastFailedTestName;

@@ -7,7 +7,7 @@
     #include "Linux/SignalTranslator.h"
 #endif
 
-#include <string>
+#include <cstring>
 
 
 namespace UnitTest
@@ -42,12 +42,14 @@ void Test::Run(TestResults& testResults) const
     }
     catch (AssertException const& e)
     {
-        testResults.ReportFailure(e.Filename().c_str(), e.LineNumber(), m_testName, e.what());
+        testResults.ReportFailure(e.Filename(), e.LineNumber(), m_testName, e.what());
     }
     catch (std::exception const& e)
     {
-        std::string const msg = std::string("Unhandled exception: ") + e.what();
-        testResults.ReportFailure(m_filename, m_lineNumber, m_testName, msg.c_str());
+        char msg[512];
+        std::strcpy (msg, "Unhandled exception: ");
+        std::strcat (msg, e.what());
+        testResults.ReportFailure(m_filename, m_lineNumber, m_testName, msg);
     }
     catch (...)
     {
