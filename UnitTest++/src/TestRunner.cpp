@@ -13,7 +13,7 @@ namespace UnitTest
 
 int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 {
-    ScopedTimer timer;
+    Timer timer;
     timer.Start();
     
     int failureCount = 0;

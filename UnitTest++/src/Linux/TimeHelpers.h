@@ -5,10 +5,10 @@
 
 namespace UnitTest {
 
-class ScopedTimer
+class Timer
 {
 public:
-    ScopedTimer();
+    Timer();
     void Start();
     int GetTimeInMs() const;    
 

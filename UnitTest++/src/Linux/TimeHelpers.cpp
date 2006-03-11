@@ -3,19 +3,19 @@
 
 namespace UnitTest {
 
-ScopedTimer::ScopedTimer()
+Timer::Timer()
 {
     m_startTime.tv_sec = 0;
     m_startTime.tv_usec = 0;
 }
 
-void ScopedTimer::Start()
+void Timer::Start()
 {
     gettimeofday(&m_startTime, 0);
 }
 
     
-int ScopedTimer::GetTimeInMs() const
+int Timer::GetTimeInMs() const
 {
     struct timeval currentTime;
     gettimeofday(&currentTime, 0);
