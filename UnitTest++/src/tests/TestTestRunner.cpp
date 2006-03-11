@@ -142,7 +142,7 @@ struct SlowTest : public Test
     {
     }
 
-    virtual void RunImpl(TestResults& testResults_) const
+    virtual void RunImpl(TestResults&) const
     {
         TimeHelpers::SleepMs(100);
     }

@@ -219,10 +219,6 @@
 			Name="Win32"
 			>
 			<File
-				RelativePath=".\src\Win32\SignalTranslator.h"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Win32\TimeHelpers.cpp"
 				>
 			</File>
