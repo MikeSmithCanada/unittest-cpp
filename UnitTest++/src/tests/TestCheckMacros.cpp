@@ -78,7 +78,6 @@ TEST(CheckFailureIncludesCheckContents)
 int ThrowingFunction()
 {
     throw "Doh";
-    return 1;
 }
 
 TEST(CheckFailsOnException)
@@ -292,11 +291,9 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
 class ThrowingObject
 {
 public:
-    float operator[](int index) const
+    float operator[](int) const
     {
-        const float data[4] = { 0, 1, 2, 3 };
         throw "Test throw";
-        return data[index];
     }
 };
 
