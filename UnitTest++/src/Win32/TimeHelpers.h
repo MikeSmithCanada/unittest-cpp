@@ -3,11 +3,12 @@
 
 namespace UnitTest {
 
-class ScopedTimer
+class Timer
 {
 public:
-    ScopedTimer();
-    int GetTimeInMs() const;    
+    Timer();
+	void Start();
+	int GetTimeInMs() const;    
 
 private:
 };

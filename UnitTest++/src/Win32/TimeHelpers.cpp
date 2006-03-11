@@ -2,11 +2,15 @@
 
 namespace UnitTest {
 
-ScopedTimer::ScopedTimer()
+Timer::Timer()
 {
 }
 
-int ScopedTimer::GetTimeInMs() const
+void Timer::Start()
+{
+}
+
+int Timer::GetTimeInMs() const
 {
 	return 0;
 }
