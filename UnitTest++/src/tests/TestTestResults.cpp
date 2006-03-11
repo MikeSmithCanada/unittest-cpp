@@ -37,6 +37,7 @@ struct MockTestResultsFixture
     TestResults results;
 };
 
+
 TEST_FIXTURE(MockTestResultsFixture, DefaultToSuccess)
 {
     CHECK (!results.Failed());
@@ -53,5 +54,6 @@ TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
     results.ReportFailure("nothing", 0, "", "expected failure");
     CHECK (reporter.failureReported);
 }
+
 
 }

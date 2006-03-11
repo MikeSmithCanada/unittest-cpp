@@ -133,17 +133,5 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtTheTime)
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }
 
-
-struct SpecializedCtorFixture
-{
-    SpecializedCtorFixture(int value_ = 0) : value(value_)  {}
-    int const value;
-};
-
-TEST_FIXTURE_CTOR(SpecializedCtorFixture, (5), CtorDataGetsPassedToFixture)
-{
-    CHECK_EQUAL(5, value);
-}
-
 }
 

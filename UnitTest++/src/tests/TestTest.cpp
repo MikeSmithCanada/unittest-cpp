@@ -41,12 +41,12 @@ TEST (FailingTestHasFailures)
 }
 
 
-TEST (CrashingTestsAreReportedAsFailures)
+TEST (ThrowingTestsAreReportedAsFailures)
 {
     class CrashingTest : public UnitTest::Test
     {
     public:
-        CrashingTest() : Test("crashing") {}
+        CrashingTest() : Test("throwing") {}
         virtual void RunImpl(UnitTest::TestResults&) const
         {
             throw "Blah";
@@ -55,7 +55,28 @@ TEST (CrashingTestsAreReportedAsFailures)
 
     UnitTest::TestResults results;
     CrashingTest().Run(results);
+    CHECK(results.Failed());
 }
 
+#ifndef USE_SIGNAL_TRANSLATOR
+
+TEST (CrashingTestsAreReportedAsFailures)
+{
+    class CrashingTest : public UnitTest::Test
+    {
+    public:
+        CrashingTest() : Test("crashing") {}
+        virtual void RunImpl(UnitTest::TestResults&) const
+        {
+            reinterpret_cast< void (*)() >(0)();
+        }
+    };
+
+    UnitTest::TestResults results;
+    CrashingTest().Run(results);
+    CHECK(results.Failed());
+}
+
+#endif
 
 }

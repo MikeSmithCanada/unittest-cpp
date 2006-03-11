@@ -12,6 +12,7 @@
 
 
 #ifdef LINUX
+#   define USE_SIGNAL_TRANSLATOR
 #endif
 
 
