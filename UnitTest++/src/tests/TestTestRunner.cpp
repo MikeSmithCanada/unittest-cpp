@@ -14,9 +14,10 @@ struct MockTestReporter : public TestReporter
 public:
     MockTestReporter()
         : failureCount(0)
-        , testCount(0)
-        , execCount(0)
         , lastLine(0)
+        , execCount(0)        
+        , testCount(0)
+        , secondsElapsed(0)
     {
     }
 
@@ -30,9 +31,10 @@ public:
         lastFailure = failure;
     }
 
-    virtual void ReportSummary(int testCount_, int) 
+    virtual void ReportSummary(int testCount_, int, float secondsElapsed_) 
     {
         testCount = testCount_;
+        secondsElapsed = secondsElapsed_;
     }
 
     virtual void ReportSingleResult(const std::string&, bool)
@@ -41,12 +43,15 @@ public:
     }
 
     int failureCount;
-    int testCount;
-    int execCount;
     std::string lastFile;
     int lastLine;
     std::string lastTest;
     std::string lastFailure;
+    
+    int execCount;
+    
+    int testCount;
+    float secondsElapsed;
 };
 
 struct MockTest : public Test
@@ -131,11 +136,6 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 // as a failure with the correct information?
 
 
-TEST_FIXTURE(TestRunnerFixture, TimeElapsedStartsAtZero)
-{
-    CHECK (runner.GetSecondsElapsed() == 0);
-}
-
 struct SlowTest : public Test
 {
     SlowTest() : Test("slow")
@@ -148,13 +148,13 @@ struct SlowTest : public Test
     }
 };
 
-TEST_FIXTURE(TestRunnerFixture, TimeElapsedForRunIsNonZero)
+TEST_FIXTURE(TestRunnerFixture, ReportedTimeElapsedForRunIsNonZero)
 {
     SlowTest test;
     list.Add(&test); 
 
     runner.RunAllTests(reporter, list);    
-    CHECK (runner.GetSecondsElapsed() > 0);
+    CHECK (reporter.secondsElapsed > 0);
 }
 
 

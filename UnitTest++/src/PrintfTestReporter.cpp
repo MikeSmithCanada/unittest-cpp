@@ -16,10 +16,11 @@ void PrintfTestReporter::ReportSingleResult(const std::string& /*testName*/, boo
     //empty
 }
 
-void PrintfTestReporter::ReportSummary(int const testCount, int const failureCount)
+void PrintfTestReporter::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {
     printf("%d tests run.\n", testCount);
     printf("%d tests failed.\n", failureCount);
+    printf("Test time: %.2f seconds.\n", secondsElapsed);
 }
 
 }

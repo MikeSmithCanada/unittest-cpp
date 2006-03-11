@@ -10,11 +10,6 @@
 namespace UnitTest
 {
 
-TestRunner::TestRunner()
-    : m_secondsElapsed(0)
-{
-}
-
 
 int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 {
@@ -37,16 +32,11 @@ int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
         curTest = curTest->next;
     }
 
-    reporter.ReportSummary(testCount, failureCount);
+    float const secondsElapsed = timer.GetTimeInMs() / 1000.0f;
     
-    m_secondsElapsed = timer.GetTimeInMs() / 1000.0f;
+    reporter.ReportSummary(testCount, failureCount, secondsElapsed);
+    
     return failureCount;
-}
-
-
-float TestRunner::GetSecondsElapsed() const
-{
-    return m_secondsElapsed;
 }
 
 

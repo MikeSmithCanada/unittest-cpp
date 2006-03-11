@@ -33,7 +33,7 @@ void HTMLTestReporter::ReportSingleResult(const std::string& testName, bool fail
     m_results.push_back(r);
 }
 
-void HTMLTestReporter::ReportSummary(int const testCount, int const failureCount)
+void HTMLTestReporter::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {
     std::ostream& os = std::cout;
 

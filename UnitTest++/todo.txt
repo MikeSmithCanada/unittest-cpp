@@ -1,5 +1,4 @@
 - Visual studio projects/solutions (2003 and 2005?)
-- Overall tests times (in test runner)
 - Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Move all reporter interaction inside TestResult (not in TestRunner)
 - In exceptions from a fixture, can we print they came from the fixture?
@@ -10,6 +9,7 @@
 - Better name than TEST_FIXTURE? (seems too much like a test fixture instead of a test with a fixture)
 
 - Change std::string to const char*
+- Minimal web page on Sourceforge
 
 <-------- Release version 1.0 ?
 
@@ -33,7 +33,7 @@
 
 -----
 Discuss:
-- How should we print the time spent in the tests? Reporter should do it somehow.
+- Should we change the format of the printf reporter to emphasize failure/no failure? How do other frameworks do it?
 - Look into object-based fixtures
 - Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks

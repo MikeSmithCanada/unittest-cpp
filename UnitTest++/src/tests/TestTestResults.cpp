@@ -21,7 +21,7 @@ public:
     }
 
     virtual void ReportSingleResult(const std::string&, bool) {}
-    virtual void ReportSummary(int, int) {}
+    virtual void ReportSummary(int, int, float) {}
 
     int failureReported;
 };

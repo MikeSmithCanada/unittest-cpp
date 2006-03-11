@@ -10,14 +10,8 @@ class TestList;
 class TestRunner
 {
 public:
-    TestRunner();
-
     int RunAllTests(TestReporter& reporter, const TestList& list);
     
-    float GetSecondsElapsed() const;
-    
-private:
-    float m_secondsElapsed;
 };
 
 
