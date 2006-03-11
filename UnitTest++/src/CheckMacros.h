@@ -1,5 +1,5 @@
-#ifndef CHECK_MACROS_H 
-#define CHECK_MACROS_H
+#ifndef UNITTEST_CHECKMACROS_H 
+#define UNITTEST_CHECKMACROS_H
 
 #include "Checks.h"
 #include "AssertException.h"

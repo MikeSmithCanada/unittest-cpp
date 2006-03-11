@@ -1,5 +1,5 @@
-#ifndef HTML_TEST_REPORTER_H
-#define HTML_TEST_REPORTER_H
+#ifndef UNITTEST_HTMLTESTREPORTER_H
+#define UNITTEST_HTMLTESTREPORTER_H
 
 #include "TestReporter.h"
 #include <vector>
@@ -32,5 +32,5 @@ private:
 
 }
 
-#endif //HTML_TEST_REPORTER
+#endif
 

@@ -1,15 +1,18 @@
-- Visual studio projects/solutions (2003 and 2005?)
-- Rename TestResult::ReportDone to TestDone or OnTestDone?
-- Move all reporter interaction inside TestResult (not in TestRunner)
-- In exceptions from a fixture, can we print they came from the fixture?
+- Clean up source in VS to avoid warnings in level 4
+- Win32 support for timers
+- Win32 signal handling for VS2005, or is that not needed?
+- Visual studio projects/solutions (2003)
 
-- Add UNITTEST_ prefix to header guards
-- Write tests for HTMLTestReporter?
-- CHECK_CLOSE failure string should include tolerance
+- In exceptions from a fixture, can we print they came from the fixture? 
+    (no need with object-based fixtures)
 - Better name than TEST_FIXTURE? (seems too much like a test fixture instead of a test with a fixture)
+    (no need with object-based fixtures)    
+
+- CHECK_CLOSE failure string should include tolerance
 
 - Change std::string to const char*
 - Minimal web page on Sourceforge
+- Write tests for HTMLTestReporter?
 
 <-------- Release version 1.0 ?
 
@@ -33,8 +36,9 @@
 
 -----
 Discuss:
+- Rename TestResult::ReportDone to TestDone or OnTestDone?
 - Should we change the format of the printf reporter to emphasize failure/no failure? How do other frameworks do it?
-- Look into object-based fixtures
 - Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
+- Look into object-based fixtures
 - Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 

@@ -1,5 +1,5 @@
-#ifndef TEST_REPORTER_H
-#define TEST_REPORTER_H
+#ifndef UNITTEST_TESTREPORTER_H
+#define UNITTEST_TESTREPORTER_H
 
 #include <string>
 

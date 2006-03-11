@@ -1,5 +1,5 @@
-#ifndef TEST_RUNNER_H
-#define TEST_RUNNER_H
+#ifndef UNITTEST_TESTRUNNER_H
+#define UNITTEST_TESTRUNNER_H
 
 
 namespace UnitTest

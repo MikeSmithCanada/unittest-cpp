@@ -1,5 +1,5 @@
-#ifndef TIMEHELPERS_H
-#define TIMEHELPERS_H
+#ifndef UNITTEST_TIMEHELPERS_H
+#define UNITTEST_TIMEHELPERS_H
 
 #include <sys/time.h>
 
@@ -9,14 +9,13 @@ class ScopedTimer
 {
 public:
     ScopedTimer();
+    void Start();
     int GetTimeInMs() const;    
 
 private:
     struct timeval m_startTime;    
 };
 
-
-int GetTimeInMs();
 
 namespace TimeHelpers
 {

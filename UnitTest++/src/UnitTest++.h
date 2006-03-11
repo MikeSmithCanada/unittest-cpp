@@ -1,5 +1,5 @@
-#ifndef UNIT_TEST_CPP_H
-#define UNIT_TEST_CPP_H
+#ifndef UNITTESTCPP_H
+#define UNITTESTCPP_H
 
 #include "Test.h"
 #include "TestResults.h"

@@ -1,5 +1,5 @@
-#ifndef UnitTest_CHECKS_H
-#define UnitTest_CHECKS_H
+#ifndef UNITTEST_CHECKS_H
+#define UNITTEST_CHECKS_H
 
 #include "Config.h"
 #include <sstream>

@@ -5,9 +5,16 @@ namespace UnitTest {
 
 ScopedTimer::ScopedTimer()
 {
+    m_startTime.tv_sec = 0;
+    m_startTime.tv_usec = 0;
+}
+
+void ScopedTimer::Start()
+{
     gettimeofday(&m_startTime, 0);
 }
 
+    
 int ScopedTimer::GetTimeInMs() const
 {
     struct timeval currentTime;

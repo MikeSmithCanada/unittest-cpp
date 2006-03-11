@@ -1,5 +1,5 @@
-#ifndef UnitTest_Config_H
-#define UnitTest_Config_H
+#ifndef UNITTEST_CONFIG_H
+#define UNITTEST_CONFIG_H
 
 #ifdef _MSC_VER
 #   define VISUAL_STUDIO

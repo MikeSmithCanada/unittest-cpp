@@ -1,5 +1,5 @@
-#ifndef TEST_RESULTS_H
-#define TEST_RESULTS_H
+#ifndef UNITTEST_TESTRESULTS_H
+#define UNITTEST_TESTRESULTS_H
 
 #include <string>
 

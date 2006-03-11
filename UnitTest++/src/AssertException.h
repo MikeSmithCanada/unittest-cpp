@@ -1,5 +1,5 @@
-#ifndef ASSERT_EXCEPTION_H
-#define ASSERT_EXCEPTION_H
+#ifndef UNITTEST_ASSERTEXCEPTION_H
+#define UNITTEST_ASSERTEXCEPTION_H
 
 #include <exception>
 #include <string>

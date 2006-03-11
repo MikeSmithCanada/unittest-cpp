@@ -1,5 +1,5 @@
-#ifndef UnitTest_ASSERT_H
-#define UnitTest_ASSERT_H
+#ifndef UNITTEST_ASSERT_H
+#define UNITTEST_ASSERT_H
 
 namespace UnitTest
 {

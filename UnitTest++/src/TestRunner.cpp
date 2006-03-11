@@ -14,10 +14,11 @@ namespace UnitTest
 int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 {
     ScopedTimer timer;
+    timer.Start();
     
     int failureCount = 0;
-
     int testCount = 0;
+    
     Test const* curTest = list.GetHead();
     while (curTest != 0)
     {
