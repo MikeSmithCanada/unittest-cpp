@@ -1,12 +1,13 @@
 #include "HTMLTestReporter.h"
+#include "Config.h"
+#include <iostream>
+#include <ctime>
+#include <sstream>
 
 #ifdef VISUAL_STUDIO
 #    pragma warning(disable:4996) // shut the secure crt stuff up, ctime is used correctly here.
 #endif
 
-#include <iostream>
-#include <ctime>
-#include <sstream>
 
 namespace UnitTest
 {
@@ -15,7 +16,7 @@ void HTMLTestReporter::ReportFailure(char const* file, int const line,
         char const* testName, char const* failure)
 {
     std::stringstream msg;
-    msg << file << "(" << line << ") : " << failure;
+	msg << file << "(" << line << ") : Failure in " << testName << ": " << failure;
 
     m_failureMessages.push_back(msg.str());
 }
@@ -26,7 +27,6 @@ void HTMLTestReporter::ReportSingleResult(const std::string& testName, bool fail
     r.testName = testName;
     r.failed = failed;
 
-    //get reported failures and clear temp list
     r.failureMessages = m_failureMessages;  
     m_failureMessages.clear();
 
@@ -52,11 +52,11 @@ void HTMLTestReporter::ReportSummary(int const testCount, int const failureCount
     os << "<p><em>";
     os << testCount << " tests run.<br />\n";
     os << failureCount << " failed.<br />\n";
+	os << "Test time: " << secondsElapsed << ".<br />\n";
     os << "</em></p>";
 
     os << "<table border=1 bgcolor=\"#dddddd\">";
 
-    //for each single test
     for (ResultList::iterator i = m_results.begin(); i != m_results.end(); ++i)
     {
         os << "<tr>";
