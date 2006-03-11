@@ -19,6 +19,9 @@
         Fixture##Name##Helper(char const* testName) : m_testName(testName) {}       \
         void RunTest(UnitTest::TestResults& testResults_);                          \
         char const* const m_testName;                                               \
+	private:																		\
+		Fixture##Name##Helper(Fixture##Name##Helper const&);						\
+		Fixture##Name##Helper& operator =(Fixture##Name##Helper const&);			\
     };                                                                              \
     class Test##Fixture##Name : public UnitTest::Test                               \
     {                                                                               \
