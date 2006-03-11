@@ -1,12 +1,9 @@
 #ifndef UNITTEST_BUILDFAILURESTRING_H
 #define UNITTEST_BUILDFAILURESTRING_H
 
-
 #include <sstream>
 
-
 namespace UnitTest {
-
     
     template< typename Expected, typename Actual>
     std::string BuildFailureString(Expected const expected, Actual const actual)

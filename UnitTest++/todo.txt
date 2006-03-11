@@ -4,13 +4,11 @@
 - In exceptions from a fixture, can we print they came from the fixture? 
 
 - Minimal web page on Sourceforge
-- Write tests for HTMLTestReporter?
 - Package release
 - Template specialization/overload of CheckEqual for (const char* and std::string)
 
 <-------- Release version 1.0 ?
 
-- More cleanup of std::string?
 - MacOS support
 - Look into nightly builds?
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
@@ -19,14 +17,18 @@
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 
 
+- figure out what to do with HTMLTestReporter.
+
+
 - Per-test time (or max test error)
 - Better kEpsilon check?
 - Run codebase through lint?
 - Memory leak detection
 
 - PS3 PPU and SPU support (email Mark DeLoura about this)
-- Xenon support (email somebody at Xbox DS?)
+- More cleanup of std::string? (note: involves writing replacement for stringstream)
 
+- Xenon support (email somebody at Xbox DS?)
 
 -----
 Discuss:

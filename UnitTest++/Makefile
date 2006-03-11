@@ -10,7 +10,6 @@ lib = TestUnit++.a
 test = TestTestUnit++
 
 src = src/AssertException.cpp \
-	src/HTMLTestReporter.cpp \
 	src/PrintfTestReporter.cpp \
 	src/ReportAssert.cpp \
 	src/Test.cpp \
