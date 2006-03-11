@@ -78,6 +78,14 @@ namespace UnitTest
         return failureStr.str();
     }
 
+    template< typename Expected, typename Actual, typename Tolerance>
+    std::string BuildFailureString(Expected const expected, Actual const actual, Tolerance const tolerance)
+    {
+        std::stringstream failureStr;
+        failureStr << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
+        return failureStr.str();
+    }
+
     template< typename Expected, typename Actual >
     std::string BuildFailureString(Expected const expected, Actual const actual, int const count)
     {

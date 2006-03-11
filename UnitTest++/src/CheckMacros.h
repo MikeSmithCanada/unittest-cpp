@@ -38,7 +38,7 @@
     try { \
         if (!UnitTest::CheckClose(expected, actual, tolerance)) \
             testResults_.ReportFailure(__FILE__, __LINE__, m_testName, \
-                UnitTest::BuildFailureString(expected, actual).c_str()); \
+                UnitTest::BuildFailureString(expected, actual, tolerance).c_str()); \
     } \
     catch (...) { \
         testResults_.ReportFailure(__FILE__, __LINE__, m_testName, \

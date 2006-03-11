@@ -216,6 +216,19 @@ TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
     CHECK (failureString.find("was 1.1") != std::string::npos );
 }
 
+TEST(CheckCloseFailureIncludesTolerance)
+{
+    std::string failureString;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(&reporter);
+        CHECK_CLOSE (2, 3, 0.01f);
+        failureString = reporter.lastFailureString;
+    }
+
+    CHECK (failureString.find("0.01") != std::string::npos );
+}
+
 TEST(CheckCloseFailsOnException)
 {
     bool failure = false;
