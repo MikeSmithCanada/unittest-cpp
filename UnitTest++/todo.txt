@@ -1,6 +1,5 @@
 - Visual studio projects/solutions (2003)
 
-- Minimal web page on Sourceforge
 - Package release
 
 <-------- Release version 1.0 ?
