@@ -9,13 +9,14 @@
 
 #include <cstring>
 
-
 namespace UnitTest
 {
 
-TestList Test::s_list;
-
-
+TestList& Test::GetTestList()
+{
+	static TestList s_list;
+	return s_list;
+}
 
 Test::Test(char const* testName, char const* filename, int const lineNumber)
     : next(0)

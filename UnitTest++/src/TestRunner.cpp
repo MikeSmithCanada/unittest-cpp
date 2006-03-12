@@ -45,7 +45,7 @@ int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 int DefaultRun()
 {
     UnitTest::PrintfTestReporter reporter;
-    return UnitTest::TestRunner().RunAllTests(reporter, Test::s_list);
+    return UnitTest::TestRunner().RunAllTests(reporter, Test::GetTestList());
 }
 
 }

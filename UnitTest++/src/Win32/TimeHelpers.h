@@ -11,6 +11,8 @@ public:
 	int GetTimeInMs() const;    
 
 private:
+	__int64 m_startTime;
+	__int64 m_frequency;
 };
 
 

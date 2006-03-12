@@ -1,10 +1,9 @@
 #include "TestList.h"
 #include "Test.h"
+
 #include <cassert>
 
-
 namespace UnitTest {
-
 
 TestList::TestList() 
     : m_head(0)
@@ -12,8 +11,7 @@ TestList::TestList()
 {
 }
 
-
-void TestList::Add (Test* test)
+void TestList::Add(Test* test)
 {
     if (m_tail == 0)
     {
@@ -29,18 +27,14 @@ void TestList::Add (Test* test)
     
 }
 
-
 const Test* TestList::GetHead() const
 {
     return m_head;
 }
 
-
-
 ListAdder::ListAdder(TestList& list, Test* test)
 {
     list.Add(test);
 }
-
 
 }

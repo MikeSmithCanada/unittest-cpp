@@ -17,8 +17,8 @@ public:
 
     Test* next;
     char const* const m_testName;
-    
-    static TestList s_list;
+
+    static TestList& GetTestList();
 
 private:
     virtual void RunImpl(TestResults& testResults_) const;
