@@ -1,4 +1,3 @@
-- Win32 support for timers
 - Visual studio projects/solutions (2003)
 
 - In exceptions from a fixture, can we print they came from the fixture? 

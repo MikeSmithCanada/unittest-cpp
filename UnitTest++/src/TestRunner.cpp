@@ -11,7 +11,7 @@ namespace UnitTest
 {
 
 
-int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
+int RunAllTests(TestReporter& reporter, const TestList& list)
 {
     Timer timer;
     timer.Start();
@@ -41,11 +41,10 @@ int TestRunner::RunAllTests(TestReporter& reporter, const TestList& list)
 }
 
 
-
-int DefaultRun()
+int RunAllTests()
 {
-    UnitTest::PrintfTestReporter reporter;
-    return UnitTest::TestRunner().RunAllTests(reporter, Test::GetTestList());
+    PrintfTestReporter reporter;
+    return RunAllTests(reporter, Test::GetTestList());
 }
 
 }

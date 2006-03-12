@@ -3,5 +3,5 @@
 
 int main(int, char const *[])
 {
-    return UnitTest::DefaultRun();
+    return UnitTest::RunAllTests();
 }

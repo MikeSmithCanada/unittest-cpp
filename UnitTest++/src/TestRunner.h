@@ -4,21 +4,16 @@
 
 namespace UnitTest
 {
+
 class TestReporter;
 class TestList;
 
-class TestRunner
-{
-public:
-    int RunAllTests(TestReporter& reporter, const TestList& list);
-    
-};
 
-
-int DefaultRun();
-
+int RunAllTests();        
+int RunAllTests(TestReporter& reporter, const TestList& list);
 
 }
+
 
 #endif
 

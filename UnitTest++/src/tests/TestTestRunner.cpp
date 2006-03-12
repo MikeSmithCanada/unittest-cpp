@@ -79,13 +79,12 @@ struct MockTest : public Test
 struct TestRunnerFixture
 {
     MockTestReporter reporter;
-    TestRunner runner;
     TestList list;
 };
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, list));
+    CHECK_EQUAL(0, RunAllTests(reporter, list));
     CHECK_EQUAL(0, reporter.testCount);
     CHECK_EQUAL(0, reporter.execCount);
 }
@@ -95,7 +94,7 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreNotReportedAsFailures)
     MockTest test(true, false);
     list.Add(&test); 
 
-    CHECK_EQUAL(0, runner.RunAllTests(reporter, list));
+    CHECK_EQUAL(0, RunAllTests(reporter, list));
     CHECK_EQUAL(0, reporter.failureCount);
     CHECK_EQUAL(1, reporter.testCount);
 }
@@ -107,7 +106,7 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
     list.Add(&test1);
     list.Add(&test2);
 
-    runner.RunAllTests(reporter, list);
+    RunAllTests(reporter, list);
     CHECK_EQUAL(2, reporter.execCount);
 }
 
@@ -119,7 +118,7 @@ TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
     list.Add(&test1);
     list.Add(&test2);
 
-    CHECK_EQUAL(2, runner.RunAllTests(reporter, list));
+    CHECK_EQUAL(2, RunAllTests(reporter, list));
     CHECK_EQUAL(2, reporter.failureCount);
 }
 
@@ -128,7 +127,7 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
     MockTest test(true, true);
     list.Add(&test);
 
-    runner.RunAllTests(reporter, list);
+    RunAllTests(reporter, list);
     CHECK_EQUAL(1, reporter.failureCount);
 }
 
@@ -153,7 +152,7 @@ TEST_FIXTURE(TestRunnerFixture, ReportedTimeElapsedForRunIsNonZero)
     SlowTest test;
     list.Add(&test); 
 
-    runner.RunAllTests(reporter, list);    
+    RunAllTests(reporter, list);    
     CHECK (reporter.secondsElapsed > 0);
 }
 
