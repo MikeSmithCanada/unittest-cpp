@@ -22,7 +22,7 @@ public:
     }
     virtual void ReportSummary(int, int, float) {}
 
-    int failureReported;
+    bool failureReported;
 };
 
 struct MockTestResultsFixture

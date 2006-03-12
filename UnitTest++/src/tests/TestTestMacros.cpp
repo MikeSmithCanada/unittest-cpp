@@ -3,6 +3,7 @@
 #include "../TestList.h"
 #include "../TestResults.h"
 #include "../TestReporter.h"
+#include "RecordingReporter.h"
 
 using namespace UnitTest;
 
@@ -19,25 +20,6 @@ TEST (TestsAreAddedToTheListThroughMacro)
     CHECK (list1.GetHead() != 0);
     CHECK (list1.GetHead()->next == 0);
 }
-
-
-struct RecordingReporter : public UnitTest::TestReporter
-{
-public:
-    RecordingReporter() : lastFailedTestName(0) {}
-
-    virtual void ReportFailure(char const*, int, char const* testName, char const* failureString) 
-    {
-        lastFailedTestName = testName;
-        lastFailureString = failureString;
-    }
-    virtual void ReportTestStart(char const*) {}
-    virtual void ReportSummary(int, int, float) {}
-
-    const char* lastFailedTestName;
-    const char* lastFailureString;
-};
-
 
 struct ThrowingThingie
 {
@@ -59,9 +41,9 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
     TestResults result(&reporter);
     list2.GetHead()->Run(result);
     
-    CHECK (strstr(reporter.lastFailureString, "xception"));
-    CHECK (strstr(reporter.lastFailureString, "fixture"));
-    CHECK (strstr(reporter.lastFailureString, "ThrowingThingie"));
+    CHECK (strstr(reporter.lastFailedMessage, "xception"));
+    CHECK (strstr(reporter.lastFailedMessage, "fixture"));
+    CHECK (strstr(reporter.lastFailedMessage, "ThrowingThingie"));
 }
 
 

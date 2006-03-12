@@ -1,5 +1,5 @@
 #include "../UnitTest++.h"
-#include "../TestReporter.h"
+#include "RecordingReporter.h"
 #include "../ReportAssert.h"
 #include "../TestList.h"
 #include "../TimeHelpers.h"
@@ -8,59 +8,6 @@ using namespace UnitTest;
 
 namespace
 {
-
-struct MockTestReporter : public TestReporter
-{
-public:
-    MockTestReporter()
-        : testRunCount(0)        
-        , lastReportedTest(0)
-        , testFailedCount(0)
-        , lastFailedFile(0)
-        , lastFailedLine(0)
-        , lastFailedTest(0)
-        , lastFailedMessage(0)
-        , summaryTestCount(0)
-        , summaryFailureCount(0)
-        , summarySecondsElapsed(0)
-    {
-    }
-    
-    virtual void ReportTestStart(char const* testName)
-    {
-        ++testRunCount;
-        lastReportedTest = testName;
-    }
-
-    virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure)
-    {
-        ++testFailedCount;
-        lastFailedFile = file;
-        lastFailedLine = line;
-        lastFailedTest = testName;
-        lastFailedMessage = failure;
-    }
-
-    virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed) 
-    {
-        summaryTestCount = testCount;
-        summaryFailureCount = failureCount;
-        summarySecondsElapsed = secondsElapsed;
-    }
-
-    int testRunCount;    
-    char const* lastReportedTest;
-    
-    int testFailedCount;
-    char const* lastFailedFile;
-    int lastFailedLine;
-    char const* lastFailedTest;
-    char const* lastFailedMessage;
-    
-    int summaryTestCount;
-    int summaryFailureCount;
-    float summarySecondsElapsed;
-};
 
 struct MockTest : public Test
 {
@@ -86,7 +33,7 @@ struct MockTest : public Test
 
 struct TestRunnerFixture
 {
-    MockTestReporter reporter;
+    RecordingReporter reporter;
     TestList list;
 };
 

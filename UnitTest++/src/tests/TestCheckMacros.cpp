@@ -1,29 +1,8 @@
 #include "../UnitTest++.h"
-#include "../TestReporter.h"
+#include "RecordingReporter.h"
 
 
 namespace {
-
-struct RecordingReporter : public UnitTest::TestReporter
-{
-public:
-    RecordingReporter() 
-        : lastFailedTestName(0)
-        , lastFailureString(0)
-    {}
-
-    virtual void ReportFailure(char const*, int, char const* testName, char const* failureString) 
-    {
-        lastFailedTestName = testName;
-        lastFailureString = failureString;
-    }
-    virtual void ReportTestStart(char const*) {}
-    virtual void ReportSummary(int, int, float) {}
-
-    char const* lastFailedTestName;
-    char const* lastFailureString;
-};
-
 
 TEST(CheckSuceedsOnTrue)
 {
@@ -59,7 +38,7 @@ TEST(FailureReportsCorrectTestName)
         CHECK (false);
     }
 
-    CHECK (!strcmp(m_testName, reporter.lastFailedTestName));
+    CHECK (!strcmp(m_testName, reporter.lastFailedTest));
 }
 
 TEST(CheckFailureIncludesCheckContents)
@@ -71,7 +50,7 @@ TEST(CheckFailureIncludesCheckContents)
         CHECK (yaddayadda);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "yaddayadda"));
+    CHECK (strstr(reporter.lastFailedMessage, "yaddayadda"));
 }
 
 int ThrowingFunction()
@@ -100,7 +79,7 @@ TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
         CHECK (ThrowingFunction() == 1);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "ThrowingFunction() == 1"));
+    CHECK (strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
 }
 
 TEST(CheckEqualSuceedsOnEqual)
@@ -138,8 +117,8 @@ TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
         CHECK_EQUAL (1, something);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "xpected 1"));
-    CHECK (strstr(reporter.lastFailureString, "was 2"));
+    CHECK (strstr(reporter.lastFailedMessage, "xpected 1"));
+    CHECK (strstr(reporter.lastFailedMessage, "was 2"));
 }
 
 TEST(CheckEqualFailsOnException)
@@ -163,8 +142,8 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
         CHECK_EQUAL (ThrowingFunction(), 123);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "ThrowingFunction()"));
-    CHECK (strstr(reporter.lastFailureString, "123"));
+    CHECK (strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
+    CHECK (strstr(reporter.lastFailedMessage, "123"));
 }
 
 TEST(CheckCloseSuceedsOnEqual)
@@ -203,8 +182,8 @@ TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
         CHECK_CLOSE (expected, actual, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "xpected 0.9"));
-    CHECK (strstr(reporter.lastFailureString, "was 1.1"));
+    CHECK (strstr(reporter.lastFailedMessage, "xpected 0.9"));
+    CHECK (strstr(reporter.lastFailedMessage, "was 1.1"));
 }
 
 TEST(CheckCloseFailureIncludesTolerance)
@@ -215,7 +194,7 @@ TEST(CheckCloseFailureIncludesTolerance)
         CHECK_CLOSE (2, 3, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "0.01"));
+    CHECK (strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 TEST(CheckCloseFailsOnException)
@@ -239,8 +218,8 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "(float)ThrowingFunction()"));
-    CHECK (strstr(reporter.lastFailureString, "1.0001f"));
+    CHECK (strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
+    CHECK (strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
 TEST(CheckArrayEqualSuceedsOnEqual)
@@ -282,8 +261,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "xpected [ 0 1 2 3 ]"));
-    CHECK (strstr(reporter.lastFailureString, "was [ 0 1 3 3 ]"));
+    CHECK (strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK (strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 class ThrowingObject
@@ -320,8 +299,8 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_EQUAL (data, obj, 3);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "data"));
-    CHECK (strstr(reporter.lastFailureString, "obj"));
+    CHECK (strstr(reporter.lastFailedMessage, "data"));
+    CHECK (strstr(reporter.lastFailedMessage, "obj"));
 }
 
 
@@ -364,8 +343,8 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "xpected [ 0 1 2 3 ]"));
-    CHECK (strstr(reporter.lastFailureString, "was [ 0 1 3 3 ]"));
+    CHECK (strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK (strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 
@@ -379,7 +358,7 @@ TEST(CheckArrayCloseFailureIncludesTolerance)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "0.01"));
+    CHECK (strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 
@@ -408,8 +387,8 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailureString, "data"));
-    CHECK (strstr(reporter.lastFailureString, "obj"));
+    CHECK (strstr(reporter.lastFailedMessage, "data"));
+    CHECK (strstr(reporter.lastFailedMessage, "obj"));
 }
 
 
