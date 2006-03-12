@@ -1,5 +1,5 @@
 #include "../UnitTest++.h"
-#include <limits>
+
 
 using namespace UnitTest;
 
@@ -18,12 +18,23 @@ TEST(CheckCloseFalse)
 
 TEST(CheckCloseWithNaNFails)
 {
-    CHECK (false == CheckClose(3.0f, std::numeric_limits<float>::infinity(), 0.1f));
+    union
+    {
+        unsigned int bitpattern;
+        float nan;
+    };
+    bitpattern = 0xFFFFFFFF;
+    CHECK (false == CheckClose(3.0f, nan, 0.1f));
 }
 
 TEST(CheckCloseWithNaNAgainstItselfFails)
 {    
-    const float nan = std::numeric_limits<float>::infinity();
+    union
+    {
+        unsigned int bitpattern;
+        float nan;
+    };
+    bitpattern = 0xFFFFFFFF;
     CHECK (false == CheckClose(nan, nan, 0.1f));
 }
 

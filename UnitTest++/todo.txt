@@ -1,5 +1,6 @@
 - Visual studio projects/solutions (2003)
 
+- Fix Nan test with correct bit pattern (non inf)
 - In exceptions from a fixture, can we print they came from the fixture? 
 
 - Create readme/license/credits file

@@ -1,21 +1,21 @@
-#include "PrintfTestReporter.h"
+#include "TestReporterStdout.h"
 #include <cstdio>
 
 namespace UnitTest
 {
 
-void PrintfTestReporter::ReportFailure(char const* file, int const line, 
+void TestReporterStdout::ReportFailure(char const* file, int const line, 
                 char const* testName, char const* failure)
 {
     std::printf("%s(%d): Failure in %s: %s\n", file, line, testName, failure);
 }
 
-void PrintfTestReporter::ReportTestStart(char const*)
+void TestReporterStdout::ReportTestStart(char const*)
 {
     //empty
 }
 
-void PrintfTestReporter::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
+void TestReporterStdout::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {
     if (failureCount > 0)
         std::printf("FAILURE: %d out of %d tests failed.\n", failureCount, testCount);

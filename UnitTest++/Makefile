@@ -10,12 +10,12 @@ lib = TestUnit++.a
 test = TestTestUnit++
 
 src = src/AssertException.cpp \
-	src/PrintfTestReporter.cpp \
-	src/ReportAssert.cpp \
 	src/Test.cpp \
-	src/TestReporter.cpp \
-	src/TestResults.cpp \
 	src/TestRunner.cpp \
+	src/TestResults.cpp \
+	src/TestReporter.cpp \
+	src/TestReporterStdout.cpp \
+	src/ReportAssert.cpp \
 	src/TestList.cpp \
 	src/Linux/SignalTranslator.cpp \
 	src/Linux/TimeHelpers.cpp

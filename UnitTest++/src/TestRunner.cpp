@@ -3,7 +3,7 @@
 #include "Test.h"
 #include "TestList.h"
 #include "TestReporter.h"
-#include "PrintfTestReporter.h"
+#include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 
 
@@ -34,7 +34,7 @@ int RunAllTests(TestReporter& reporter, const TestList& list)
 
 int RunAllTests()
 {
-    PrintfTestReporter reporter;
+    TestReporterStdout reporter;
     return RunAllTests(reporter, Test::GetTestList());
 }
 
