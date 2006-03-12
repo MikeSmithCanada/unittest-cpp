@@ -14,7 +14,7 @@ public:
         lastFailedTestName = testName;
         lastFailureString = failureString;
     }
-    virtual void ReportSingleResult(char const*, bool) {}
+    virtual void ReportTestStart(char const*) {}
     virtual void ReportSummary(int, int, float) {}
 
     const char* lastFailedTestName;

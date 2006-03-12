@@ -11,7 +11,7 @@ void PrintfTestReporter::ReportFailure(char const* file, int const line,
     printf("%s(%d): Failure in %s: %s\n", file, line, testName, failure);
 }
 
-void PrintfTestReporter::ReportSingleResult(char const* /*testName*/, bool /*failed*/)
+void PrintfTestReporter::ReportTestStart(char const*)
 {
     //empty
 }

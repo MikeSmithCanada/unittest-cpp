@@ -10,18 +10,18 @@ TestResults::TestResults(TestReporter* testReporter)
 {
 }
 
-void TestResults::ReportFailure(char const* file, int const line, 
+void TestResults::OnTestStart(char const* testName)
+{
+    if (m_testReporter)
+        m_testReporter->ReportTestStart(testName);
+}
+
+void TestResults::OnTestFailure(char const* file, int const line, 
         char const* testName, char const* failure)
 {
     m_failure = true;
     if (m_testReporter)
         m_testReporter->ReportFailure(file, line, testName, failure);
-}
-
-void TestResults::ReportDone(char const* testName)
-{
-    if (m_testReporter)
-        m_testReporter->ReportSingleResult(testName, m_failure);
 }
 
 bool TestResults::Failed() const

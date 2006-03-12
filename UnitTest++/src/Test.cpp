@@ -2,7 +2,6 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
-
 #ifdef LINUX
     #include "Linux/SignalTranslator.h"
 #endif
@@ -34,6 +33,8 @@ void Test::Run(TestResults& testResults) const
 {
     //printf ("%s\n", m_testName.c_str());
 
+    testResults.OnTestStart(m_testName);
+    
     try
     {
 #ifdef LINUX
@@ -43,21 +44,19 @@ void Test::Run(TestResults& testResults) const
     }
     catch (AssertException const& e)
     {
-        testResults.ReportFailure(e.Filename(), e.LineNumber(), m_testName, e.what());
+        testResults.OnTestFailure(e.Filename(), e.LineNumber(), m_testName, e.what());
     }
     catch (std::exception const& e)
     {
         char msg[512];
         std::strcpy (msg, "Unhandled exception: ");
         std::strcat (msg, e.what());
-        testResults.ReportFailure(m_filename, m_lineNumber, m_testName, msg);
+        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, msg);
     }
     catch (...)
     {
-        testResults.ReportFailure(m_filename, m_lineNumber, m_testName, "Unhandled exception: crash!");
+        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, "Unhandled exception: crash!");
     }
-
-    testResults.ReportDone(m_testName);
 }
 
 

@@ -9,8 +9,8 @@ namespace UnitTest
 class PrintfTestReporter : public TestReporter
 {
 private:
+    virtual void ReportTestStart(char const* testName);
     virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure);
-    virtual void ReportSingleResult(char const* testName, bool failed);
     virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed);
 };
 

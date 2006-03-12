@@ -15,12 +15,11 @@ public:
     {
     }
 
+    virtual void ReportTestStart(char const*) {}
     virtual void ReportFailure(char const*, int, char const*, char const*) 
     {
         failureReported = true;
     }
-
-    virtual void ReportSingleResult(char const*, bool) {}
     virtual void ReportSummary(int, int, float) {}
 
     int failureReported;
@@ -45,13 +44,13 @@ TEST_FIXTURE(MockTestResultsFixture, DefaultToSuccess)
 
 TEST_FIXTURE(MockTestResultsFixture, RecordsFailures)
 {
-    results.ReportFailure("nothing", 0, "", "expected failure");
+    results.OnTestFailure("nothing", 0, "", "expected failure");
     CHECK(results.Failed());
 }
 
 TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
 {
-    results.ReportFailure("nothing", 0, "", "expected failure");
+    results.OnTestFailure("nothing", 0, "", "expected failure");
     CHECK (reporter.failureReported);
 }
 
