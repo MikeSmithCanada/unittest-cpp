@@ -15,7 +15,7 @@ void TestList::Add(Test* test)
 {
     if (m_tail == 0)
     {
-        assert(m_head == 0);
+        std::assert(m_head == 0);
         m_head = test;
         m_tail = test;
     }

@@ -2,6 +2,7 @@
 
 - In exceptions from a fixture, can we print they came from the fixture? 
 
+- Create readme/license/credits file
 - Minimal web page on Sourceforge
 - Package release
 - Template specialization/overload of CheckEqual for (const char* and std::string)
@@ -12,16 +13,12 @@
 - Look into nightly builds?
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
 
-- Remove SignalTranslator from Win32 if not needed
 - Merge suite changes from Matt Kimmel
 - Merge GUI from Matt Kimmel 
-
-- figure out what to do with HTMLTestReporter.
-
+- Figure out what to do with HTMLTestReporter.
 
 - Per-test time (or max test error)
 - Better kEpsilon check?
-- Run codebase through lint?
 - Memory leak detection
 
 - PS3 PPU and SPU support (email Mark DeLoura about this)
@@ -31,5 +28,6 @@
 
 -----
 Discuss:
+- Inherit from std::exception or not?
 - Look into object-based fixtures (other approaches combining fixtures?)
 
