@@ -1,12 +1,11 @@
 - Visual studio projects/solutions (2003)
 
-- Create readme/license/credits file
 - Minimal web page on Sourceforge
 - Package release
-- Template specialization/overload of CheckEqual for (const char* and std::string)
 
 <-------- Release version 1.0 ?
 
+- Template specialization/overload of CheckEqual for (const char* and std::string)
 - MacOS support
 - Look into nightly builds?
 - Try to remove CHECK_NULL and CHECK_NOT_NULL (if possible w/o Visual Studio warnings)
