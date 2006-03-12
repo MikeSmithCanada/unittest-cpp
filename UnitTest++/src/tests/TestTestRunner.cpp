@@ -141,10 +141,6 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
     CHECK_EQUAL(1, reporter.summaryFailureCount);
 }
 
-// TODO: Is there any way to test that a test with a fixture throwing an exception is reported 
-// as a failure with the correct information?
-
-
 struct SlowTest : public Test
 {
     SlowTest() : Test("slow")

@@ -1,8 +1,5 @@
 - Visual studio projects/solutions (2003)
 
-- Fix Nan test with correct bit pattern (non inf)
-- In exceptions from a fixture, can we print they came from the fixture? 
-
 - Create readme/license/credits file
 - Minimal web page on Sourceforge
 - Package release
@@ -22,8 +19,8 @@
 - Better kEpsilon check?
 - Memory leak detection
 
+- Remove remaining std::string and stringstream in BuildFailureString
 - PS3 PPU and SPU support (email Mark DeLoura about this)
-- More cleanup of std::string? (note: involves writing replacement for stringstream)
 
 - Xenon support (email somebody at Xbox DS?)
 
