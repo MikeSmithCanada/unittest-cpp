@@ -31,9 +31,5 @@
 
 -----
 Discuss:
-- Rename TestResult::ReportDone to TestDone or OnTestDone?
-- Test/failure count in TestResults, not in reporter. Maybe get rid of TestResults completely?
-
-- Should reporter be optional (easier testing)? Probably not, but mocking it sucks
 - Look into object-based fixtures (other approaches combining fixtures?)
 

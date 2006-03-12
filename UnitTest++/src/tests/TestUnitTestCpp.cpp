@@ -98,7 +98,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
 
     NoThrowTest test;
     test.Run(results);
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 TEST(CheckThrowMacroFailsOnWrongException)
@@ -117,7 +117,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
 
     WrongThrowTest test;
     test.Run(results);
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 

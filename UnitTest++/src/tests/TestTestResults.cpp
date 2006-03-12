@@ -37,16 +37,42 @@ struct MockTestResultsFixture
 };
 
 
-TEST_FIXTURE(MockTestResultsFixture, DefaultToSuccess)
+TEST_FIXTURE(MockTestResultsFixture, StartsWithNoTestsRun)
 {
-    CHECK (!results.Failed());
+    CHECK_EQUAL (0, results.GetTestCount());
+}
+
+TEST_FIXTURE(MockTestResultsFixture, RecordsNumbersOfTests)
+{
+    results.OnTestStart("testname1");
+    results.OnTestStart("testname2");
+    results.OnTestStart("testname3");
+    CHECK_EQUAL(3, results.GetTestCount());
+}
+
+TEST_FIXTURE(MockTestResultsFixture, StartsWithNoTestsFailing)
+{
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST_FIXTURE(MockTestResultsFixture, RecordsFailures)
 {
     results.OnTestFailure("nothing", 0, "", "expected failure");
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
+
+TEST_FIXTURE(MockTestResultsFixture, StartsWithNoFailures)
+{
+    CHECK_EQUAL (0, results.GetFailureCount());
+}
+
+TEST_FIXTURE(MockTestResultsFixture, RecordsNumberOfFailures)
+{
+    results.OnTestFailure("nothing", 0, "", "expected failure");
+    results.OnTestFailure("nothing", 0, "", "expected failure");
+    CHECK_EQUAL(2, results.GetFailureCount());
+}
+
 
 TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
 {

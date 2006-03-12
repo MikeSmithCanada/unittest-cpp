@@ -6,12 +6,14 @@ namespace UnitTest
 
 TestResults::TestResults(TestReporter* testReporter)
     : m_testReporter(testReporter)
-    , m_failure(false)
+    , m_testCount(0)
+    , m_failureCount(0)
 {
 }
 
 void TestResults::OnTestStart(char const* testName)
 {
+    ++m_testCount;
     if (m_testReporter)
         m_testReporter->ReportTestStart(testName);
 }
@@ -19,15 +21,22 @@ void TestResults::OnTestStart(char const* testName)
 void TestResults::OnTestFailure(char const* file, int const line, 
         char const* testName, char const* failure)
 {
-    m_failure = true;
+    ++m_failureCount;
     if (m_testReporter)
         m_testReporter->ReportFailure(file, line, testName, failure);
 }
 
-bool TestResults::Failed() const
+
+int TestResults::GetTestCount() const
 {
-    return m_failure;
+    return m_testCount;
 }
+
+int TestResults::GetFailureCount() const
+{
+    return m_failureCount;
+}
+
 
 }
 

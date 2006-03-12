@@ -14,11 +14,13 @@ public:
     void OnTestStart(char const* testName);
     void OnTestFailure(char const* file, int line, char const* testName, char const* failure);
 
-    bool Failed() const;
+    int GetTestCount() const;
+    int GetFailureCount() const;
 
 private:
     TestReporter* m_testReporter;
-    bool m_failure;
+    int m_testCount;
+    int m_failureCount;
 
     // revoked
     TestResults(TestResults const&);

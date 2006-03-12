@@ -29,7 +29,7 @@ TEST(CheckSuceedsOnTrue)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK (true);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (!failure);
@@ -42,7 +42,7 @@ TEST(CheckFailsOnFalse)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK (false);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -87,7 +87,7 @@ TEST(CheckFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK (ThrowingFunction() == 1);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -113,7 +113,7 @@ TEST(CheckEqualSuceedsOnEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (1, 1);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (!failure);
@@ -126,7 +126,7 @@ TEST(CheckEqualFailsOnNotEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (1, 2);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -154,7 +154,7 @@ TEST(CheckEqualFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_EQUAL (ThrowingFunction(), 1);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -181,7 +181,7 @@ TEST(CheckCloseSuceedsOnEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE (1.0f, 1.001f, 0.01f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (!failure);
@@ -194,7 +194,7 @@ TEST(CheckCloseFailsOnNotEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE (1.0f, 1.1f, 0.01f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -236,7 +236,7 @@ TEST(CheckCloseFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -264,7 +264,7 @@ TEST(CheckArrayEqualSuceedsOnEqual)
         UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_EQUAL (data, data, 3);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (!failure);
@@ -279,7 +279,7 @@ TEST(CheckArrayEqualFailsOnNotEqual)
         const float data1[4] = { 0, 1, 2, 3 };
         const float data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 3);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -319,7 +319,7 @@ TEST(CheckArrayEqualFailsOnException)
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_EQUAL (data, obj, 3);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -350,7 +350,7 @@ TEST(CheckArrayCloseSuceedsOnEqual)
         UnitTest::TestResults testResults_(&reporter);
         const float data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_CLOSE (data, data, 4, 0.01f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (!failure);
@@ -365,7 +365,7 @@ TEST(CheckArrayCloseFailsOnNotEqual)
         float const data1[4] = { 0, 1, 2, 3 };
         float const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);
@@ -413,7 +413,7 @@ TEST(CheckArrayCloseFailsOnException)
         const float data[4] = { 0, 1, 2, 3 };
         ThrowingObject obj;
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
-        failure = testResults_.Failed();
+        failure = (testResults_.GetFailureCount() > 0);
     }
 
     CHECK (failure);

@@ -19,7 +19,7 @@ TEST (PassingTestHasNoFailures)
 
     UnitTest::TestResults results;
     PassingTest().Run(results);
-    CHECK(!results.Failed());
+    CHECK_EQUAL(0, results.GetFailureCount());
 }
 
 
@@ -37,7 +37,7 @@ TEST (FailingTestHasFailures)
 
     UnitTest::TestResults results;
     FailingTest().Run(results);
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 
@@ -55,7 +55,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
 
     UnitTest::TestResults results;
     CrashingTest().Run(results);
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 #ifndef LINUX

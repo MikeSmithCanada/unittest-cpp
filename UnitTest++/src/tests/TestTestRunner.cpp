@@ -111,8 +111,8 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreReportedCorrectly)
 TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
 {
     MockTest test1("test", false, false);
-    MockTest test2("test", false, false);
     list.Add(&test1);
+    MockTest test2("test", false, false);
     list.Add(&test2);
 
     CHECK_EQUAL(2, RunAllTests(reporter, list));

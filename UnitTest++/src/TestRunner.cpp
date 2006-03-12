@@ -12,32 +12,23 @@ namespace UnitTest
 
 
 int RunAllTests(TestReporter& reporter, const TestList& list)
-{
+{  
+    TestResults result(&reporter);
+ 
     Timer timer;
     timer.Start();
-    
-    int failureCount = 0;
-    int testCount = 0;
-    
+               
     Test const* curTest = list.GetHead();
     while (curTest != 0)
     {
-        ++testCount;
-
-        TestResults result(&reporter);
-        curTest->Run(result);
-
-        if (result.Failed())
-            ++failureCount;
-           
+        curTest->Run(result);           
         curTest = curTest->next;
     }
 
-    float const secondsElapsed = timer.GetTimeInMs() / 1000.0f;
+    float const secondsElapsed = timer.GetTimeInMs() / 1000.0f;    
+    reporter.ReportSummary(result.GetTestCount(), result.GetFailureCount(), secondsElapsed);
     
-    reporter.ReportSummary(testCount, failureCount, secondsElapsed);
-    
-    return failureCount;
+    return result.GetFailureCount();
 }
 
 
