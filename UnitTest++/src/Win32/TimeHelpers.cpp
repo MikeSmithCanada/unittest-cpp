@@ -9,12 +9,14 @@ Timer::Timer()
 {
 	BOOL const success = ::QueryPerformanceFrequency(reinterpret_cast< LARGE_INTEGER* >(&m_frequency));
 	assert(success);
+	(void) success;
 }
 
 void Timer::Start()
 {
 	BOOL const success = ::QueryPerformanceCounter(reinterpret_cast< LARGE_INTEGER* >(&m_startTime));
 	assert(success);
+	(void) success;
 }
 
 int Timer::GetTimeInMs() const
@@ -22,6 +24,7 @@ int Timer::GetTimeInMs() const
 	LARGE_INTEGER curTime;
 	BOOL const success = ::QueryPerformanceCounter(&curTime);
 	assert(success);
+	(void) success;
 
 	LARGE_INTEGER elapsedTime;
 	elapsedTime.QuadPart = curTime.QuadPart - m_startTime;
