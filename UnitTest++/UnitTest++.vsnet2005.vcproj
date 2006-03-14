@@ -180,14 +180,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\PrintfTestReporter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\src\PrintfTestReporter.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\ReportAssert.cpp"
 			>
 		</File>
@@ -221,6 +213,14 @@
 		</File>
 		<File
 			RelativePath=".\src\TestReporter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\TestReporterStdout.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\TestReporterStdout.h"
 			>
 		</File>
 		<File

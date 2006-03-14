@@ -23,16 +23,16 @@ public:
     virtual void ReportTestStart(char const* testName)
     {
         ++testRunCount;
-        strcpy(lastReportedTest, testName);
+        std::strcpy(lastReportedTest, testName);
     }
 
     virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure)
     {
         ++testFailedCount;
-        strcpy(lastFailedFile, file);
+        std::strcpy(lastFailedFile, file);
         lastFailedLine = line;
-        strcpy(lastFailedTest, testName);
-        strcpy(lastFailedMessage, failure);
+        std::strcpy(lastFailedTest, testName);
+        std::strcpy(lastFailedMessage, failure);
     }
 
     virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed) 

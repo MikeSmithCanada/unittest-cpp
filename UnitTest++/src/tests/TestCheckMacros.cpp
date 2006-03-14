@@ -50,7 +50,7 @@ TEST(CheckFailureIncludesCheckContents)
         CHECK (yaddayadda);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "yaddayadda"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "yaddayadda"));
 }
 
 int ThrowingFunction()
@@ -79,7 +79,7 @@ TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
         CHECK (ThrowingFunction() == 1);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
 }
 
 TEST(CheckEqualSuceedsOnEqual)
@@ -117,8 +117,8 @@ TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
         CHECK_EQUAL (1, something);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "xpected 1"));
-    CHECK (strstr(reporter.lastFailedMessage, "was 2"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "xpected 1"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "was 2"));
 }
 
 TEST(CheckEqualFailsOnException)
@@ -142,8 +142,8 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
         CHECK_EQUAL (ThrowingFunction(), 123);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
-    CHECK (strstr(reporter.lastFailedMessage, "123"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "123"));
 }
 
 TEST(CheckCloseSuceedsOnEqual)
@@ -182,8 +182,8 @@ TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
         CHECK_CLOSE (expected, actual, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "xpected 0.9"));
-    CHECK (strstr(reporter.lastFailedMessage, "was 1.1"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "xpected 0.9"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "was 1.1"));
 }
 
 TEST(CheckCloseFailureIncludesTolerance)
@@ -194,7 +194,7 @@ TEST(CheckCloseFailureIncludesTolerance)
         CHECK_CLOSE (2, 3, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "0.01"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 TEST(CheckCloseFailsOnException)
@@ -218,8 +218,8 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
-    CHECK (strstr(reporter.lastFailedMessage, "1.0001f"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
 TEST(CheckArrayEqualSuceedsOnEqual)
@@ -261,8 +261,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK (strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 class ThrowingObject
@@ -299,8 +299,8 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_EQUAL (data, obj, 3);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "data"));
-    CHECK (strstr(reporter.lastFailedMessage, "obj"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
 
 
@@ -343,8 +343,8 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK (strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 
@@ -358,7 +358,7 @@ TEST(CheckArrayCloseFailureIncludesTolerance)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "0.01"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 
@@ -387,8 +387,8 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
     }
 
-    CHECK (strstr(reporter.lastFailedMessage, "data"));
-    CHECK (strstr(reporter.lastFailedMessage, "obj"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
 
 

@@ -3,7 +3,7 @@
 
 #include "Config.h"
 
-#if defined(VISUAL_STUDIO_2005) && defined(NDEBUG)
+#if defined(VISUAL_STUDIO) && defined(NDEBUG)
 #	pragma warning(push)
 #	pragma warning(disable:4702) // unreachable code
 #endif
@@ -75,7 +75,7 @@ namespace UnitTest
 
 }
 
-#if defined(VISUAL_STUDIO_2005) && defined(NDEBUG)
+#if defined(VISUAL_STUDIO) && defined(NDEBUG)
 #	pragma warning(pop)
 #endif
 

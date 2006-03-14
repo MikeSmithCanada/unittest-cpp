@@ -74,7 +74,7 @@ TEST (CrashingTestsAreReportedAsFailures)
 
     UnitTest::TestResults results;
     CrashingTest().Run(results);
-    CHECK(results.Failed());
+    CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 #endif
