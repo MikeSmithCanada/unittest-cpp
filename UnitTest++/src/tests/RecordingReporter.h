@@ -6,15 +6,14 @@
 
 struct RecordingReporter : public UnitTest::TestReporter
 {
+private:
+    enum { kMaxStringLength = 256 };
+
 public:
     RecordingReporter()
         : testRunCount(0)        
-        , lastReportedTest(0)
         , testFailedCount(0)
-        , lastFailedFile(0)
         , lastFailedLine(0)
-        , lastFailedTest(0)
-        , lastFailedMessage(0)
         , summaryTestCount(0)
         , summaryFailureCount(0)
         , summarySecondsElapsed(0)
@@ -24,16 +23,16 @@ public:
     virtual void ReportTestStart(char const* testName)
     {
         ++testRunCount;
-        lastReportedTest = testName;
+        strcpy(lastReportedTest, testName);
     }
 
     virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure)
     {
         ++testFailedCount;
-        lastFailedFile = file;
+        strcpy(lastFailedFile, file);
         lastFailedLine = line;
-        lastFailedTest = testName;
-        lastFailedMessage = failure;
+        strcpy(lastFailedTest, testName);
+        strcpy(lastFailedMessage, failure);
     }
 
     virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed) 
@@ -44,13 +43,13 @@ public:
     }
 
     int testRunCount;    
-    char const* lastReportedTest;
+    char lastReportedTest[kMaxStringLength];
     
     int testFailedCount;
-    char const* lastFailedFile;
+    char lastFailedFile[kMaxStringLength];
     int lastFailedLine;
-    char const* lastFailedTest;
-    char const* lastFailedMessage;
+    char lastFailedTest[kMaxStringLength];
+    char lastFailedMessage[kMaxStringLength];
     
     int summaryTestCount;
     int summaryFailureCount;
