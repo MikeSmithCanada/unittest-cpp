@@ -1,6 +1,8 @@
 #ifndef UNITTEST_BUILDFAILURESTRING_H
 #define UNITTEST_BUILDFAILURESTRING_H
 
+#include "Config.h"
+
 #include <sstream>
 
 namespace UnitTest {
@@ -25,16 +27,14 @@ namespace UnitTest {
     std::string BuildFailureString(Expected const expected, Actual const actual, int const count)
     {
         std::stringstream failureStr;
-        int i;
-
         failureStr << "Expected [ ";
 
-        for (i = 0; i < count; ++i)
+        for (int i = 0; i < count; ++i)
             failureStr << expected[i] << ' ';
 
         failureStr << "] but was [ ";
 
-        for (i = 0; i < count; ++i)
+		for (int i = 0; i < count; ++i)
             failureStr << actual[i] << ' ';
 
         failureStr << ']';
@@ -47,24 +47,20 @@ namespace UnitTest {
                                     int const count, Tolerance const tolerance)
     {
         std::stringstream failureStr;
-        int i;
-
         failureStr << "Expected [ ";
 
-        for (i = 0; i < count; ++i)
+        for (int i = 0; i < count; ++i)
             failureStr << expected[i] << ' ';
 
         failureStr << "] +/- " << tolerance << " but was [ ";
 
-        for (i = 0; i < count; ++i)
+        for (int i = 0; i < count; ++i)
             failureStr << actual[i] << ' ';
 
         failureStr << ']';
 
         return failureStr.str();
     }
-    
-
 }
     
         
