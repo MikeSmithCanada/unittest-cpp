@@ -178,6 +178,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\tests\RecordingReporter.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\tests\TestAssertHandler.cpp"
 			>
 		</File>
