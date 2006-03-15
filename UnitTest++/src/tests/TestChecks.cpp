@@ -35,7 +35,6 @@ TEST(CheckCloseWithNaNAgainstItselfFails)
         float nan;
     };
     bitpattern = 0xFFFFFFFF;
-
 	CHECK(false == CheckClose(nan, nan, 0.1f));
 }
 

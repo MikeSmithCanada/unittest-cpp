@@ -3,16 +3,11 @@
 
 #include "Config.h"
 
-#if defined(VISUAL_STUDIO) && defined(NDEBUG)
-#	pragma warning(push)
-#	pragma warning(disable:4702) // unreachable code
-#endif
 
 namespace UnitTest
 {
 #ifdef VISUAL_STUDIO
 #   pragma warning(push)
-#   pragma warning(disable:4127) // conditional expression is constant
 #   pragma warning(disable:4800) // forcing value to bool true/false, performance warning
 #endif
     template< typename Value >
@@ -52,13 +47,7 @@ namespace UnitTest
     template< typename Expected, typename Actual, typename Tolerance >
     bool CheckClose(Expected const expected, Actual const actual, Tolerance const tolerance)
     {
-        double const diff = double(actual) - double(expected);
-        double const doubleTolerance = double(tolerance);
-
-        if (diff > -doubleTolerance && diff < doubleTolerance)
-            return true;
-
-        return false;
+		return (actual > expected - tolerance && actual < expected + tolerance);
     }
 
     template< typename Expected, typename Actual, typename Tolerance >
@@ -75,9 +64,6 @@ namespace UnitTest
 
 }
 
-#if defined(VISUAL_STUDIO) && defined(NDEBUG)
-#	pragma warning(pop)
-#endif
 
 #endif 
 
