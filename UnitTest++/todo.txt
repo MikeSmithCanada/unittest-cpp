@@ -1,5 +1,3 @@
-- Visual studio projects/solutions (2003)
-
 - Package release
 
 <-------- Release version 1.0 ?
