@@ -62,6 +62,5 @@ namespace UnitTest {
         return failureStr.str();
     }
 }
-    
-        
+
 #endif

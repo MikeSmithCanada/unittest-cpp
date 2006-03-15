@@ -8,6 +8,11 @@
 #   elif _MSC_VER == 1400
 #       define VISUAL_STUDIO_2005
 #   endif
+
+#ifndef _DEBUG
+	#pragma warning(disable:4702)  // bogus unreachable code in release mode
+#endif
+
 #endif
 
 #ifdef LINUX
