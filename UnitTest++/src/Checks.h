@@ -47,7 +47,7 @@ namespace UnitTest
     template< typename Expected, typename Actual, typename Tolerance >
     bool CheckClose(Expected const expected, Actual const actual, Tolerance const tolerance)
     {
-		return (actual > expected - tolerance && actual < expected + tolerance);
+        return (actual > expected - tolerance && actual < expected + tolerance);
     }
 
     template< typename Expected, typename Actual, typename Tolerance >
