@@ -81,17 +81,10 @@ TEST(CheckThrowMacroFailsOnMissingException)
         {
         }
 
-#ifdef VISUAL_STUDIO_2003
-#   pragma warning(push)
-#   pragma warning(disable: 4702) // "unreachable code"
-#endif
         virtual void RunImpl(UnitTest::TestResults& testResults_) const
         {
             CHECK_THROW(DontThrow(), int);
         }
-#ifdef VISUAL_STUDIO_2003
-#   pragma warning(pop)
-#endif
     };
 
     UnitTest::TestResults results;
