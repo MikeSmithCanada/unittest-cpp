@@ -56,7 +56,7 @@ TEST(ArrayCloseSucceeds)
 TEST(CheckEqualMacroAllowsCharPtrAndStringComparisons)
 {
     std::string const str("Hello World");
-    CHECK_EQUAL(std::string("Hello World"), str);
+    CHECK_EQUAL("Hello World", str);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
