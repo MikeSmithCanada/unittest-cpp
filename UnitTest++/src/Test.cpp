@@ -5,6 +5,9 @@
 #ifdef LINUX
     #include "Linux/SignalTranslator.h"
 #endif
+#ifdef __APPLE__
+	#include "Darwin/SignalTranslator.h"
+#endif
 
 #include <cstring>
 
@@ -37,7 +40,7 @@ void Test::Run(TestResults& testResults) const
     
     try
     {
-#ifdef LINUX
+#if defined(LINUX) || defined(__APPLE__)
         SignalTranslator sig;
 #endif
         RunImpl(testResults);
