@@ -17,6 +17,7 @@ src = src/AssertException.cpp \
 	src/TestReporterStdout.cpp \
 	src/ReportAssert.cpp \
 	src/TestList.cpp \
+	src/TimeConstraint.cpp \
 	src/Linux/SignalTranslator.cpp \
 	src/Linux/TimeHelpers.cpp
 
@@ -29,7 +30,8 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestTestRunner.cpp \
 	src/tests/TestCheckMacros.cpp \
 	src/tests/TestTestList.cpp \
-	src/tests/TestTestMacros.cpp 
+	src/tests/TestTestMacros.cpp \
+	src/tests/TestTimeConstraint.cpp
 
 objects = $(patsubst %.cpp, %.o, $(src))
 test_objects = $(patsubst %.cpp, %.o, $(test_src))

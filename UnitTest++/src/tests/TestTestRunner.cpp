@@ -52,7 +52,7 @@ TEST_FIXTURE(TestRunnerFixture, PassingTestsAreReportedCorrectly)
     RunAllTests(reporter, list);
     CHECK_EQUAL(1, reporter.testRunCount);
     CHECK_EQUAL(0, reporter.testFailedCount);
-    CHECK_EQUAL(std::string("goodtest"), reporter.lastReportedTest);
+    CHECK_EQUAL(std::string("goodtest"), reporter.lastStartedTest);
 }
 
 TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)

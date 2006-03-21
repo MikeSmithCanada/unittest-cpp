@@ -13,6 +13,7 @@ public:
 
     void OnTestStart(char const* testName);
     void OnTestFailure(char const* file, int line, char const* testName, char const* failure);
+    void OnTestFinish(char const* testName, float testDuration);
 
     int GetTestCount() const;
     int GetFailureCount() const;

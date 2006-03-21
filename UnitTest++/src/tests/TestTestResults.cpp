@@ -1,83 +1,70 @@
 #include "../UnitTest++.h"
-#include "../TestReporter.h"
 #include "../TestResults.h"
+#include "RecordingReporter.h"
 
 using namespace UnitTest;
 
 namespace {
 
 
-struct MockTestReporter : public TestReporter
+TEST(StartsWithNoTestsRun)
 {
-public:
-    MockTestReporter()
-        : failureReported(false)
-    {
-    }
-
-    virtual void ReportTestStart(char const*) {}
-    virtual void ReportFailure(char const*, int, char const*, char const*) 
-    {
-        failureReported = true;
-    }
-    virtual void ReportSummary(int, int, float) {}
-
-    bool failureReported;
-};
-
-struct MockTestResultsFixture
-{
-    MockTestResultsFixture()
-        : results(&reporter)
-    {
-    }
-
-    MockTestReporter reporter;
     TestResults results;
-};
-
-
-TEST_FIXTURE(MockTestResultsFixture, StartsWithNoTestsRun)
-{
     CHECK_EQUAL (0, results.GetTestCount());
 }
 
-TEST_FIXTURE(MockTestResultsFixture, RecordsNumbersOfTests)
+TEST(RecordsNumbersOfTests)
 {
+    TestResults results;
     results.OnTestStart("testname1");
     results.OnTestStart("testname2");
     results.OnTestStart("testname3");
     CHECK_EQUAL(3, results.GetTestCount());
 }
 
-TEST_FIXTURE(MockTestResultsFixture, StartsWithNoTestsFailing)
+TEST(StartsWithNoTestsFailing)
 {
+    TestResults results;
     CHECK_EQUAL (0, results.GetFailureCount());
 }
 
-TEST_FIXTURE(MockTestResultsFixture, RecordsFailures)
+TEST(RecordsNumberOfFailures)
 {
-    results.OnTestFailure("nothing", 0, "", "expected failure");
-    CHECK_EQUAL(1, results.GetFailureCount());
-}
-
-TEST_FIXTURE(MockTestResultsFixture, StartsWithNoFailures)
-{
-    CHECK_EQUAL (0, results.GetFailureCount());
-}
-
-TEST_FIXTURE(MockTestResultsFixture, RecordsNumberOfFailures)
-{
+    TestResults results;
     results.OnTestFailure("nothing", 0, "", "expected failure");
     results.OnTestFailure("nothing", 0, "", "expected failure");
     CHECK_EQUAL(2, results.GetFailureCount());
 }
 
-
-TEST_FIXTURE(MockTestResultsFixture, PassesFailureToReporter)
+TEST(NotifiesRecorderOfTestStartWithCorrectInfo)
 {
-    results.OnTestFailure("nothing", 0, "", "expected failure");
-    CHECK (reporter.failureReported);
+    RecordingReporter reporter;
+    TestResults results(&reporter);
+    results.OnTestStart("mytest");
+    CHECK_EQUAL (1, reporter.testRunCount);
+    CHECK (!strcmp("mytest", reporter.lastStartedTest));
+}
+
+TEST(NotifiesRecorderOfTestFailureWithCorrectInfo)
+{
+    RecordingReporter reporter;
+    TestResults results(&reporter);
+    results.OnTestFailure("filename", 123, "testname", "failurestring");
+    CHECK_EQUAL (1, reporter.testFailedCount);
+    CHECK (!std::strcmp("filename", reporter.lastFailedFile));
+    CHECK_EQUAL (123, reporter.lastFailedLine);
+    CHECK (!std::strcmp("testname", reporter.lastFailedTest));
+    CHECK (!std::strcmp("failurestring", reporter.lastFailedMessage));
+}
+
+TEST(NotifiesRecorderOfTestEnd)
+{
+    RecordingReporter reporter;
+    TestResults results(&reporter);
+    results.OnTestFinish("mytest", 0.1234f);
+    CHECK_EQUAL (1, reporter.testFinishedCount);
+    CHECK (!std::strcmp("mytest", reporter.lastFinishedTest));
+    CHECK_CLOSE (0.1234f, reporter.lastFinishedTestTime, 0.0001f);
 }
 
 

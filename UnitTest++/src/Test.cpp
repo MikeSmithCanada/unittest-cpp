@@ -6,7 +6,7 @@
     #include "Linux/SignalTranslator.h"
 #endif
 #ifdef __APPLE__
-	#include "Darwin/SignalTranslator.h"
+    #include "Darwin/SignalTranslator.h"
 #endif
 
 #include <cstring>
@@ -16,8 +16,8 @@ namespace UnitTest
 
 TestList& Test::GetTestList()
 {
-	static TestList s_list;
-	return s_list;
+    static TestList s_list;
+    return s_list;
 }
 
 Test::Test(char const* testName, char const* filename, int const lineNumber)
@@ -37,7 +37,7 @@ void Test::Run(TestResults& testResults) const
     //printf ("%s\n", m_testName.c_str());
 
     testResults.OnTestStart(m_testName);
-    
+
     try
     {
 #if defined(LINUX) || defined(__APPLE__)
@@ -69,4 +69,3 @@ void Test::RunImpl(TestResults&) const
 
 
 }
-

@@ -16,8 +16,12 @@ void TestReporterStdout::ReportFailure(char const* file, int const line,
 
 void TestReporterStdout::ReportTestStart(char const*)
 {
-    //empty
 }
+
+void TestReporterStdout::ReportTestFinish(char const*, float)
+{
+}
+
 
 void TestReporterStdout::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {
@@ -29,4 +33,3 @@ void TestReporterStdout::ReportSummary(int const testCount, int const failureCou
 }
 
 }
-

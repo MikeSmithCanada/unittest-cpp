@@ -14,7 +14,7 @@ void Timer::Start()
     gettimeofday(&m_startTime, 0);
 }
 
-    
+
 int Timer::GetTimeInMs() const
 {
     struct timeval currentTime;

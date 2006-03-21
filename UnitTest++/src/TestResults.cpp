@@ -26,6 +26,12 @@ void TestResults::OnTestFailure(char const* file, int const line,
         m_testReporter->ReportFailure(file, line, testName, failure);
 }
 
+void TestResults::OnTestFinish(char const* testName, float testDuration)
+{
+    if (m_testReporter)
+        m_testReporter->ReportTestFinish(testName, testDuration);
+}
+
 
 int TestResults::GetTestCount() const
 {

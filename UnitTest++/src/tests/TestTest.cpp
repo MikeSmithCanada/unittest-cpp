@@ -1,23 +1,32 @@
 #include "../UnitTest++.h"
 #include "../TestReporter.h"
 
+using namespace UnitTest;
 
 namespace {
 
+TEST (ResultIsNotifiedOfTestStart)
+{
+    TestResults results;
+    Test("").Run(results);
+    CHECK_EQUAL(1, results.GetTestCount());
+}
+
+// TODO: Test that OnTestFinished is called and with the correct time
 
 TEST (PassingTestHasNoFailures)
 {
-    class PassingTest : public UnitTest::Test
+    class PassingTest : public Test
     {
     public:
         PassingTest() : Test("passing") {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const
+        virtual void RunImpl(TestResults& testResults_) const
         {
             CHECK(true);
         }
     };
 
-    UnitTest::TestResults results;
+    TestResults results;
     PassingTest().Run(results);
     CHECK_EQUAL(0, results.GetFailureCount());
 }
@@ -25,17 +34,17 @@ TEST (PassingTestHasNoFailures)
 
 TEST (FailingTestHasFailures)
 {
-    class FailingTest : public UnitTest::Test
+    class FailingTest : public Test
     {
     public:
         FailingTest() : Test("failing") {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const
+        virtual void RunImpl(TestResults& testResults_) const
         {
             CHECK(false);
         }
     };
 
-    UnitTest::TestResults results;
+    TestResults results;
     FailingTest().Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
@@ -43,17 +52,17 @@ TEST (FailingTestHasFailures)
 
 TEST (ThrowingTestsAreReportedAsFailures)
 {
-    class CrashingTest : public UnitTest::Test
+    class CrashingTest : public Test
     {
     public:
         CrashingTest() : Test("throwing") {}
-        virtual void RunImpl(UnitTest::TestResults&) const
+        virtual void RunImpl(TestResults&) const
         {
             throw "Blah";
         }
     };
 
-    UnitTest::TestResults results;
+    TestResults results;
     CrashingTest().Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
@@ -62,17 +71,17 @@ TEST (ThrowingTestsAreReportedAsFailures)
 
 TEST (CrashingTestsAreReportedAsFailures)
 {
-    class CrashingTest : public UnitTest::Test
+    class CrashingTest : public Test
     {
     public:
         CrashingTest() : Test("crashing") {}
-        virtual void RunImpl(UnitTest::TestResults&) const
+        virtual void RunImpl(TestResults&) const
         {
             reinterpret_cast< void (*)() >(0)();
         }
     };
 
-    UnitTest::TestResults results;
+    TestResults results;
     CrashingTest().Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }

@@ -2,11 +2,11 @@
 #include <unistd.h>
 
 namespace UnitTest {
-	
+
 Timer::Timer()
 {
-		m_startTime.tv_sec = 0;
-		m_startTime.tv_usec = 0;
+    m_startTime.tv_sec = 0;
+    m_startTime.tv_usec = 0;
 }
 
 void Timer::Start()
