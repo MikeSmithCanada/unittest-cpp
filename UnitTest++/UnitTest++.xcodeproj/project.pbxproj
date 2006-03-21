@@ -146,10 +146,10 @@
 		969AA8CB09C6A76100BE21EF /* TimeHelpers.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeHelpers.h; path = src/TimeHelpers.h; sourceTree = "<group>"; };
 		969AA8CC09C6A76100BE21EF /* UnitTest++.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = "UnitTest++.h"; path = "src/UnitTest++.h"; sourceTree = "<group>"; };
 		969AA8FE09C6A7BB00BE21EF /* TestUnitTest++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TestUnitTest++"; sourceTree = BUILT_PRODUCTS_DIR; };
-		969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TimeHelpers.cpp; path = src/Darwin/TimeHelpers.cpp; sourceTree = "<group>"; };
-		969AA97409C6AB7300BE21EF /* TimeHelpers.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeHelpers.h; path = src/Darwin/TimeHelpers.h; sourceTree = "<group>"; };
-		969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = SignalTranslator.cpp; path = src/Darwin/SignalTranslator.cpp; sourceTree = "<group>"; };
-		969AA99709C6AC4C00BE21EF /* SignalTranslator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SignalTranslator.h; path = src/Darwin/SignalTranslator.h; sourceTree = "<group>"; };
+		969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TimeHelpers.cpp; path = src/Posix/TimeHelpers.cpp; sourceTree = "<group>"; };
+		969AA97409C6AB7300BE21EF /* TimeHelpers.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeHelpers.h; path = src/Posix/TimeHelpers.h; sourceTree = "<group>"; };
+		969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = SignalTranslator.cpp; path = src/Prosix/SignalTranslator.cpp; sourceTree = "<group>"; };
+		969AA99709C6AC4C00BE21EF /* SignalTranslator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SignalTranslator.h; path = src/Prosix/SignalTranslator.h; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libUnitTest++.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUnitTest++.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -194,7 +194,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				969AA97209C6AB6400BE21EF /* Darwin */,
+				969AA97209C6AB6400BE21EF /* Posix */,
 				969AA8AA09C6A76100BE21EF /* AssertException.cpp */,
 				969AA8AB09C6A76100BE21EF /* AssertException.h */,
 				969AA8AC09C6A76100BE21EF /* BuildFailureString.h */,
@@ -251,7 +251,7 @@
 			path = src/tests;
 			sourceTree = "<group>";
 		};
-		969AA97209C6AB6400BE21EF /* Darwin */ = {
+		969AA97209C6AB6400BE21EF /* Posix */ = {
 			isa = PBXGroup;
 			children = (
 				969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */,
@@ -259,7 +259,7 @@
 				969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */,
 				969AA97409C6AB7300BE21EF /* TimeHelpers.h */,
 			);
-			name = Darwin;
+			name = Posix;
 			sourceTree = "<group>";
 		};
 		C6A0FF2B0290797F04C91782 /* Documentation */ = {

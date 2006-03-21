@@ -67,7 +67,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#if !defined(LINUX) && !defined(__APPLE__)
+#ifndef POSIX
 
 TEST (CrashingTestsAreReportedAsFailures)
 {

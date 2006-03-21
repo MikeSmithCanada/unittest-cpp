@@ -2,11 +2,8 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
-#ifdef LINUX
-    #include "Linux/SignalTranslator.h"
-#endif
-#ifdef __APPLE__
-    #include "Darwin/SignalTranslator.h"
+#ifdef POSIX
+    #include "Posix/SignalTranslator.h"
 #endif
 
 #include <cstring>
@@ -40,7 +37,7 @@ void Test::Run(TestResults& testResults) const
 
     try
     {
-#if defined(LINUX) || defined(__APPLE__)
+#ifdef POSIX
         SignalTranslator sig;
 #endif
         RunImpl(testResults);

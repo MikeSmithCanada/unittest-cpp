@@ -10,12 +10,17 @@
 #   endif
 
 #ifndef _DEBUG
-	#pragma warning(disable:4702)  // bogus unreachable code in release mode
+    #pragma warning(disable:4702)  // bogus unreachable code in release mode
 #endif
 
 #endif
 
 #ifdef LINUX
 #endif
+
+#ifdef __APPLE__
+    #define POSIX
+#endif
+
 
 #endif

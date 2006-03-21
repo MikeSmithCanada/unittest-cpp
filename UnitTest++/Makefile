@@ -1,5 +1,5 @@
 CC = g++
-CCFLAGS = -g -ansi -Wall -Wextra -ansi -pedantic -DLINUX
+CCFLAGS = -g -ansi -Wall -Wextra -ansi -pedantic -DPOSIX
 SED = sed
 MV = mv
 RM = rm
@@ -18,8 +18,8 @@ src = src/AssertException.cpp \
 	src/ReportAssert.cpp \
 	src/TestList.cpp \
 	src/TimeConstraint.cpp \
-	src/Linux/SignalTranslator.cpp \
-	src/Linux/TimeHelpers.cpp
+	src/Posix/SignalTranslator.cpp \
+	src/Posix/TimeHelpers.cpp
 
 test_src = src/tests/Main.cpp \
 	src/tests/TestAssertHandler.cpp \
