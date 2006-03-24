@@ -1,18 +1,10 @@
 #include "../UnitTest++.h"
 #include "../TestReporter.h"
+#include "../TimeHelpers.h"
 
 using namespace UnitTest;
 
 namespace {
-
-TEST (ResultIsNotifiedOfTestStart)
-{
-    TestResults results;
-    Test("").Run(results);
-    CHECK_EQUAL(1, results.GetTestCount());
-}
-
-// TODO: Test that OnTestFinished is called and with the correct time
 
 TEST (PassingTestHasNoFailures)
 {

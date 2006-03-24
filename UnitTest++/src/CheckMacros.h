@@ -4,7 +4,7 @@
 #include "BuildFailureString.h"
 #include "Checks.h"
 #include "AssertException.h"
-
+#include "MemoryOutStream.h"
 
 #define CHECK(value) \
     try { \
@@ -24,16 +24,22 @@
     if (UnitTest::CheckNull(ptr)) \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, #ptr " is NULL.");
 
+//             UnitTest::ReportFailure(__FILE__, __LINE__, m_testName, expected, actual); 
+
 #define CHECK_EQUAL(expected, actual) \
     try { \
-        if (!UnitTest::CheckEqual(expected, actual)) \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
-                UnitTest::BuildFailureString(expected, actual).c_str()); \
+        if (!UnitTest::CheckEqual(expected, actual)) { \
+            char txt[256]; \
+            UnitTest::MemoryOutStream stream(txt, sizeof(txt)); \
+            UnitTest::BuildFailureString2(stream, expected, actual); \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, txt); \
+        } \
     } \
     catch (...) { \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
                 "Unhandled exception in CHECK_EQUAL(" #expected ", " #actual ")"); \
     }
+
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \

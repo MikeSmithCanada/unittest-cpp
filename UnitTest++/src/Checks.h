@@ -15,11 +15,14 @@ namespace UnitTest
     {
         return value;
     }
+#ifdef VISUAL_STUDIO
+#   pragma warning(pop)
+#endif
 
     template< typename Value >
     bool CheckNull(Value const value)
     {
-        return value == (void*)(0);
+        return (value == (void*)(0));
     }
 
     template< typename Expected, typename Actual >
@@ -27,10 +30,10 @@ namespace UnitTest
     {
         return (expected == actual);
     }
-#ifdef VISUAL_STUDIO
-#   pragma warning(pop)
-#endif
-    
+    bool CheckEqual(char const* expected, char const* actual);
+    bool CheckEqual(char* expected, char const* actual);
+    bool CheckEqual(char const* expected, char* actual);
+    bool CheckEqual(char* expected, char* actual);
 
     template< typename Expected, typename Actual >
     bool CheckArrayEqual(Expected const expected, Actual const actual, int const count)

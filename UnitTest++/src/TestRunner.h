@@ -10,7 +10,7 @@ class TestList;
 
 
 int RunAllTests();
-int RunAllTests(TestReporter& reporter, const TestList& list);
+int RunAllTests(TestReporter& reporter, TestList const& list, int maxTestTimeInMs = 0);
 
 }
 

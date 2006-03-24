@@ -2,11 +2,17 @@
 #define UNITTEST_BUILDFAILURESTRING_H
 
 #include "Config.h"
-
+#include "MemoryOutStream.h"
 #include <sstream>
 
 namespace UnitTest {
-    
+
+    template< typename Expected, typename Actual>
+    void BuildFailureString2(MemoryOutStream& stream, Expected const expected, Actual const actual)
+    {
+        stream << "Expected " << expected << " but was " << actual;
+    }
+
     template< typename Expected, typename Actual>
     std::string BuildFailureString(Expected const expected, Actual const actual)
     {

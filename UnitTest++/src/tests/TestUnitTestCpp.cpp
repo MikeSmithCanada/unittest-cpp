@@ -53,12 +53,6 @@ TEST(ArrayCloseSucceeds)
     CHECK_ARRAY_CLOSE (a1, a2, 3, 0.1f);
 }
 
-TEST(CheckEqualMacroAllowsCharPtrAndStringComparisons)
-{
-    std::string const str("Hello World");
-    CHECK_EQUAL("Hello World", str);
-}
-
 TEST(CheckThrowMacroSucceedsOnCorrectException)
 {
     struct TestException {};

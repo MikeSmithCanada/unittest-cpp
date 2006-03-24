@@ -37,6 +37,45 @@ struct TestRunnerFixture
     TestList list;
 };
 
+TEST_FIXTURE(TestRunnerFixture, TestStartIsReportedCorrectly)
+{
+    MockTest test("goodtest", true, false);
+    list.Add(&test);
+
+    RunAllTests(reporter, list);
+    CHECK_EQUAL(1, reporter.testRunCount);
+    CHECK_EQUAL("goodtest", reporter.lastStartedTest);
+}
+
+TEST_FIXTURE(TestRunnerFixture, TestFinishIsReportedCorrectly)
+{
+    MockTest test("goodtest", true, false);
+    list.Add(&test);
+
+    RunAllTests(reporter, list);
+    CHECK_EQUAL(1, reporter.testFinishedCount);
+    CHECK_EQUAL("goodtest", reporter.lastFinishedTest);
+}
+
+TEST_FIXTURE(TestRunnerFixture, TestFinishIsCalledWithCorrectTime)
+{
+    class SlowTest : public Test
+    {
+    public:
+        SlowTest() : Test("slow") {}
+        virtual void RunImpl(TestResults&) const
+        {
+            TimeHelpers::SleepMs(10);
+        }
+    };
+
+    SlowTest test;
+    list.Add(&test);
+
+    RunAllTests(reporter, list);
+    CHECK (reporter.lastFinishedTestTime >= 10.0f && reporter.lastFinishedTestTime <= 15.0f);
+}
+
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
     CHECK_EQUAL(0, RunAllTests(reporter, list));
@@ -44,23 +83,14 @@ TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
     CHECK_EQUAL(0, reporter.testFailedCount);
 }
 
-TEST_FIXTURE(TestRunnerFixture, PassingTestsAreReportedCorrectly)
-{
-    MockTest test("goodtest", true, false);
-    list.Add(&test); 
-
-    RunAllTests(reporter, list);
-    CHECK_EQUAL(1, reporter.testRunCount);
-    CHECK_EQUAL(0, reporter.testFailedCount);
-    CHECK_EQUAL(std::string("goodtest"), reporter.lastStartedTest);
-}
-
-TEST_FIXTURE(TestRunnerFixture, TestRunnerCallsReportFailureOncePerFailingTest)
+TEST_FIXTURE(TestRunnerFixture, CallsReportFailureOncePerFailingTest)
 {
     MockTest test1("test", false, false);
     list.Add(&test1);
-    MockTest test2("test", false, false);
+    MockTest test2("test", true, false);
     list.Add(&test2);
+    MockTest test3("test", false, false);
+    list.Add(&test3);
 
     CHECK_EQUAL(2, RunAllTests(reporter, list));
     CHECK_EQUAL(2, reporter.testFailedCount);
@@ -90,13 +120,13 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
 
 struct SlowTest : public Test
 {
-    SlowTest() : Test("slow")
+    SlowTest() : Test("slow", "somefilename", 123)
     {
     }
 
     virtual void RunImpl(TestResults&) const
     {
-        TimeHelpers::SleepMs(100);
+        TimeHelpers::SleepMs(20);
     }
 };
 
@@ -105,10 +135,37 @@ TEST_FIXTURE(TestRunnerFixture, ReportedTimeElapsedForRunIsNonZero)
     SlowTest test;
     list.Add(&test); 
 
-    RunAllTests(reporter, list);    
+    RunAllTests(reporter, list);
     CHECK (reporter.summarySecondsElapsed > 0);
 }
 
+TEST_FIXTURE(TestRunnerFixture, SlowTestPassesForHighTimeThreshold)
+{
+    SlowTest test;
+    list.Add(&test);
+    RunAllTests(reporter, list);
+    CHECK_EQUAL (0, reporter.testFailedCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, SlowTestFailsForLowTimeThreshold)
+{
+    SlowTest test;
+    list.Add(&test);
+    RunAllTests(reporter, list, 5);
+    CHECK_EQUAL (1, reporter.testFailedCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
+{
+    SlowTest test;
+    list.Add(&test);
+    RunAllTests(reporter, list, 3);
+    CHECK_EQUAL (test.m_testName, reporter.lastFailedTest);
+    CHECK (std::strstr(test.m_filename, reporter.lastFailedFile));
+    CHECK_EQUAL (test.m_lineNumber, reporter.lastFailedLine);
+    CHECK (std::strstr(reporter.lastFailedMessage, "Global time constraint failed"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "3 ms"));
+}
 
 }
 

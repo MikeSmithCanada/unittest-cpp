@@ -38,7 +38,7 @@ TEST(FailureReportsCorrectTestName)
         CHECK (false);
     }
 
-    CHECK (!strcmp(m_testName, reporter.lastFailedTest));
+    CHECK_EQUAL (m_testName, reporter.lastFailedTest);
 }
 
 TEST(CheckFailureIncludesCheckContents)

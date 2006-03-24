@@ -34,8 +34,8 @@ TEST (ReportAssertSetsCorrectInfoInException)
     }
     catch(AssertException const& e)
     {
-        CHECK_EQUAL(std::string(description), e.what());
-        CHECK_EQUAL(std::string(filename), e.Filename());
+        CHECK_EQUAL(description, e.what());
+        CHECK_EQUAL(filename, e.Filename());
         CHECK_EQUAL(lineNumber, e.LineNumber());
     }
 }

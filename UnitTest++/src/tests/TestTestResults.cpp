@@ -42,7 +42,7 @@ TEST(NotifiesRecorderOfTestStartWithCorrectInfo)
     TestResults results(&reporter);
     results.OnTestStart("mytest");
     CHECK_EQUAL (1, reporter.testRunCount);
-    CHECK (!strcmp("mytest", reporter.lastStartedTest));
+    CHECK_EQUAL ("mytest", reporter.lastStartedTest);
 }
 
 TEST(NotifiesRecorderOfTestFailureWithCorrectInfo)
@@ -51,10 +51,10 @@ TEST(NotifiesRecorderOfTestFailureWithCorrectInfo)
     TestResults results(&reporter);
     results.OnTestFailure("filename", 123, "testname", "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
-    CHECK (!std::strcmp("filename", reporter.lastFailedFile));
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (123, reporter.lastFailedLine);
-    CHECK (!std::strcmp("testname", reporter.lastFailedTest));
-    CHECK (!std::strcmp("failurestring", reporter.lastFailedMessage));
+    CHECK_EQUAL ("testname", reporter.lastFailedTest);
+    CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
 }
 
 TEST(NotifiesRecorderOfTestEnd)
@@ -63,7 +63,7 @@ TEST(NotifiesRecorderOfTestEnd)
     TestResults results(&reporter);
     results.OnTestFinish("mytest", 0.1234f);
     CHECK_EQUAL (1, reporter.testFinishedCount);
-    CHECK (!std::strcmp("mytest", reporter.lastFinishedTest));
+    CHECK_EQUAL ("mytest", reporter.lastFinishedTest);
     CHECK_CLOSE (0.1234f, reporter.lastFinishedTestTime, 0.0001f);
 }
 

@@ -31,10 +31,6 @@ Test::~Test()
 
 void Test::Run(TestResults& testResults) const
 {
-    //printf ("%s\n", m_testName.c_str());
-
-    testResults.OnTestStart(m_testName);
-
     try
     {
 #ifdef POSIX

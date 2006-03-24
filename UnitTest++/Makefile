@@ -11,6 +11,7 @@ test = TestTestUnit++
 
 src = src/AssertException.cpp \
 	src/Test.cpp \
+	src/Checks.cpp \
 	src/TestRunner.cpp \
 	src/TestResults.cpp \
 	src/TestReporter.cpp \
@@ -18,6 +19,7 @@ src = src/AssertException.cpp \
 	src/ReportAssert.cpp \
 	src/TestList.cpp \
 	src/TimeConstraint.cpp \
+	src/MemoryOutStream.cpp \
 	src/Posix/SignalTranslator.cpp \
 	src/Posix/TimeHelpers.cpp
 
@@ -31,7 +33,8 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestCheckMacros.cpp \
 	src/tests/TestTestList.cpp \
 	src/tests/TestTestMacros.cpp \
-	src/tests/TestTimeConstraint.cpp
+	src/tests/TestTimeConstraint.cpp \
+	src/tests/TestMemoryOutStream.cpp
 
 objects = $(patsubst %.cpp, %.o, $(src))
 test_objects = $(patsubst %.cpp, %.o, $(test_src))

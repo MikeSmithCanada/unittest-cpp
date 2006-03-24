@@ -17,14 +17,13 @@ public:
 
     Test* next;
     char const* const m_testName;
+    char const* const m_filename;
+    int const m_lineNumber;
 
     static TestList& GetTestList();
 
 private:
     virtual void RunImpl(TestResults& testResults_) const;
-
-    char const* const m_filename;
-    int const m_lineNumber;
 
     // revoked
     Test(Test const&);
