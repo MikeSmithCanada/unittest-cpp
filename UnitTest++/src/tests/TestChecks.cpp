@@ -15,6 +15,11 @@ TEST(CheckCloseFalse)
     CHECK(false == CheckClose(3.12f, 3.0f, 0.1f));
 }
 
+TEST(CheckCloseWithZeroEpsilonWorksForSameNumber)
+{
+    CHECK ( CheckClose(0.1f, 0.1f, 0));
+}
+
 TEST(CheckCloseWithNaNFails)
 {
     union
@@ -27,14 +32,14 @@ TEST(CheckCloseWithNaNFails)
 }
 
 TEST(CheckCloseWithNaNAgainstItselfFails)
-{    
+{
     union
     {
         unsigned int bitpattern;
         float nan;
     };
     bitpattern = 0xFFFFFFFF;
-	CHECK(false == CheckClose(nan, nan, 0.1f));
+    CHECK(false == CheckClose(nan, nan, 0.1f));
 }
 
 TEST(CheckArrayEqualTrue)

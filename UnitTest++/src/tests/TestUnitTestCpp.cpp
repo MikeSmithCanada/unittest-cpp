@@ -22,7 +22,7 @@ TEST(ValidCheckEqualsSucceeds)
 
 TEST(CheckNullSucceeds)
 {
-    void const* nullPtr = NULL;
+    void const* nullPtr = 0;
     CHECK_NULL(nullPtr);
 }
 

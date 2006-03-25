@@ -14,7 +14,7 @@ public:
     void Add (Test* test);
 
     const Test* GetHead() const;
-    
+
 private:
     Test* m_head;
     Test* m_tail;

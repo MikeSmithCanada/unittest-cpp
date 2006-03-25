@@ -2,6 +2,7 @@
 #define UNITTEST_RECORDINGREPORTER_H
 
 #include "../TestReporter.h"
+#include <cstring>
 
 
 struct RecordingReporter : public UnitTest::TestReporter

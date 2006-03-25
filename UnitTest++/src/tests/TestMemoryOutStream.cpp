@@ -1,5 +1,6 @@
 #include "../UnitTest++.h"
 #include "../MemoryOutStream.h"
+#include <cstring>
 
 using namespace UnitTest;
 

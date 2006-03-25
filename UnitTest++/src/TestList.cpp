@@ -24,7 +24,6 @@ void TestList::Add(Test* test)
         m_tail->next = test;
         m_tail = test;
     }
-    
 }
 
 const Test* TestList::GetHead() const

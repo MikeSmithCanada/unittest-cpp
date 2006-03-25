@@ -256,8 +256,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        const float data1[4] = { 0, 1, 2, 3 };
-        const float data2[4] = { 0, 1, 3, 3 };
+        const int data1[4] = { 0, 1, 2, 3 };
+        const int data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
@@ -324,8 +324,8 @@ TEST(CheckArrayCloseFailsOnNotEqual)
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        float const data1[4] = { 0, 1, 2, 3 };
-        float const data2[4] = { 0, 1, 3, 3 };
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
         failure = (testResults_.GetFailureCount() > 0);
     }
@@ -338,8 +338,8 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        float const data1[4] = { 0, 1, 2, 3 };
-        float const data2[4] = { 0, 1, 3, 3 };
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
