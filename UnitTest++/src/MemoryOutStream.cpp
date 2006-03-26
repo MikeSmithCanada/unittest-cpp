@@ -28,7 +28,7 @@ char const* MemoryOutStream::GetText() const
 
 MemoryOutStream& MemoryOutStream::operator << (char const* txt)
 {
-    int const bytesLeft = m_bufferSize - std::strlen(m_buffer);
+    size_t const bytesLeft = m_bufferSize - std::strlen(m_buffer);
     std::strncat(m_buffer, txt, bytesLeft-1);
     return *this;
 }

@@ -89,7 +89,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="$(TargetPath)"
+				CommandLine="&quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -167,7 +167,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="$(TargetPath)"
+				CommandLine="&quot;$(TargetPath)&quot;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -195,6 +195,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\tests\TestMemoryOutStream.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\tests\TestTest.cpp"
 			>
 		</File>
@@ -203,11 +207,19 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\tests\TestTestMacros.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\tests\TestTestResults.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\src\tests\TestTestRunner.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\tests\TestTimeConstraint.cpp"
 			>
 		</File>
 		<File

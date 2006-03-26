@@ -173,11 +173,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\Checks.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\Checks.h"
 			>
 		</File>
 		<File
 			RelativePath=".\src\Config.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\MemoryOutStream.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\MemoryOutStream.h"
 			>
 		</File>
 		<File
@@ -238,6 +250,14 @@
 		</File>
 		<File
 			RelativePath=".\src\TestRunner.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\TimeConstraint.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\TimeConstraint.h"
 			>
 		</File>
 		<File

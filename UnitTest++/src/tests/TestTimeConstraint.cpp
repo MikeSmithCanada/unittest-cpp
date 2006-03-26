@@ -64,7 +64,7 @@ TEST (TimeConstraintMacroUsesCorrectInfo)
         TimeHelpers::SleepMs(20);
     }
     CHECK_EQUAL (1, reporter.testFailedCount);
-    CHECK (std::strstr(reporter.lastFailedFile, "TestTimeConstraint.cpp"));
+    CHECK (std::strstr(reporter.lastFailedFile, __FILE__));
     CHECK_EQUAL (testLine, reporter.lastFailedLine);
     CHECK (std::strstr(reporter.lastFailedTest, "TimeConstraintMacroUsesCorrectInfo"));
 }

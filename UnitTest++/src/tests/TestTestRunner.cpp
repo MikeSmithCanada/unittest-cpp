@@ -63,7 +63,7 @@ public:
     SlowTest() : Test("slow", "filename", 123) {}
     virtual void RunImpl(TestResults&) const
     {
-        TimeHelpers::SleepMs(10);
+        TimeHelpers::SleepMs(20);
     }
 };
 
@@ -73,7 +73,7 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsCalledWithCorrectTime)
     list.Add(&test);
 
     RunAllTests(reporter, list);
-    CHECK (reporter.lastFinishedTestTime >= 0.010f && reporter.lastFinishedTestTime <= 0.015f);
+    CHECK (reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
 }
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)

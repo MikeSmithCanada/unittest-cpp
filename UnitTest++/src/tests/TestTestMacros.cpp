@@ -23,10 +23,12 @@ TEST (TestsAreAddedToTheListThroughMacro)
 
 struct ThrowingThingie
 {
-    ThrowingThingie()
+	ThrowingThingie() : dummy(false)
     {
-        throw "Oops";
+		if (!dummy)
+	        throw "Oops";
     }
+	bool dummy;
 };
 
 TestList list2;

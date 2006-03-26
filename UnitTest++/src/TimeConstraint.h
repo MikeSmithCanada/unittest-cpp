@@ -16,6 +16,8 @@ public:
     ~TimeConstraint();
 
 private:
+	void operator=(const TimeConstraint&); 
+
     TestResults& m_result;
     int const m_maxMs;
     char const* const m_filename;
