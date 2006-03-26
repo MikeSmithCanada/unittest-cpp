@@ -8,8 +8,9 @@ namespace UnitTest
 class MemoryOutStream
 {
 public:
-    MemoryOutStream();
-    MemoryOutStream(char* buffer, int size);
+    MemoryOutStream(int size = 256);
+    ~MemoryOutStream();
+    
     char const* GetText() const;
 
     MemoryOutStream& operator << (char const* txt);
@@ -17,9 +18,8 @@ public:
     MemoryOutStream& operator << (float f);
 
 private:
-    char m_localBuffer[256];
-    char* m_buffer;
-    int m_bufferSize;
+    int const m_bufferSize;
+    char* const m_buffer;
 };
 
 

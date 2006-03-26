@@ -16,3 +16,18 @@ Charles Nicholson (cn@cnicholson.net)
 Contributors:
 Dan Lind (podcat@gmail.com)
 Rory Driscoll (rorydriscoll@gmail.com)
+
+
+
+Release notes
+--------------
+
+Version 1.01 (2006-??-??)
+- Added local and global time constraints
+- Removed dependencies on strstream
+- Added XProject build files
+- Fixed Visual Studio projects to work with spaces in directories
+
+
+Version 1.0 (2006-03-15)
+- Initial release

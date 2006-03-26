@@ -6,20 +6,18 @@
 namespace UnitTest
 {
 
-MemoryOutStream::MemoryOutStream()
-    : m_buffer(m_localBuffer)
-    , m_bufferSize(sizeof(m_localBuffer))
+MemoryOutStream::MemoryOutStream(int const size)
+    : m_bufferSize (size)
+    , m_buffer (new char[size])
+
 {
     std::strcpy(m_buffer, "");
 }
 
-MemoryOutStream::MemoryOutStream(char* buffer, int size)
-    : m_buffer(buffer)
-    , m_bufferSize(size)
+MemoryOutStream::~MemoryOutStream()
 {
-    std::strcpy(m_buffer, "");
+    delete [] m_buffer;
 }
-
 
 char const* MemoryOutStream::GetText() const
 {

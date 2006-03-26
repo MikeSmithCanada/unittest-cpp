@@ -43,24 +43,21 @@ TEST (StreamingFloatWritesCorrectCharacters)
 
 TEST (WritingStringLongerThanAvailableMemoryTruncatesString)
 {
-    char txt[64] = {'z'};
-    MemoryOutStream stream(txt, 8);
+    MemoryOutStream stream(8);
     stream << "0123456789ABCDEF";
     CHECK_EQUAL ("0123456", stream.GetText());
 }
 
 TEST (WritingIntLongerThanAvailableMemoryTruncatesString)
 {
-    char txt[64] = {'z'};
-    MemoryOutStream stream(txt, 8);
+    MemoryOutStream stream(8);
     stream << "aaaa" << 123456;;
     CHECK_EQUAL ("aaaa123", stream.GetText());
 }
 
 TEST (WritingFloatLongerThanAvailableMemoryTruncatesString)
 {
-    char txt[64] = {'z'};
-    MemoryOutStream stream(txt, 8);
+    MemoryOutStream stream(8);
     stream << "aaaa" << 123456.0f;;
     CHECK_EQUAL ("aaaa123", stream.GetText());
 }

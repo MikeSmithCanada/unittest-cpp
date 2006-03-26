@@ -15,8 +15,6 @@
 
 #endif
 
-#ifdef LINUX
-#endif
 
 #ifdef __APPLE__
     #define POSIX
