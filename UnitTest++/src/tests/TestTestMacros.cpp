@@ -27,7 +27,7 @@ struct ThrowingThingie
     {
 		if (!dummy)
 	        throw "Oops";
-    }
+    } 
 	bool dummy;
 };
 

@@ -10,7 +10,7 @@ void TestReporterStdout::ReportFailure(char const* file, int const line,
 #ifdef __APPLE__
     std::printf("%s:%d: error: Failure in %s: %s\n", file, line, testName, failure);
 #else
-    std::printf("%s(%d): Failure in %s: %s\n", file, line, testName, failure);
+    std::printf("%s(%d): error: Failure in %s: %s\n", file, line, testName, failure);
 #endif
 }
 
@@ -22,6 +22,7 @@ void TestReporterStdout::ReportTestFinish(char const*, float)
 {
 }
 
+// c:\noel\unittest++\src\testreporterstdout.cpp(26) : error C2144: syntax error : 'void' should be preceded by ';'
 
 void TestReporterStdout::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {

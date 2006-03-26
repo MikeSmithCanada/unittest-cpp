@@ -18,6 +18,8 @@ public:
     MemoryOutStream& operator << (float f);
 
 private:
+    void operator= (MemoryOutStream const&);
+    
     int const m_bufferSize;
     char* const m_buffer;
 };
