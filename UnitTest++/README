@@ -16,7 +16,8 @@ Charles Nicholson (cn@cnicholson.net)
 Contributors:
 Dan Lind (podcat@gmail.com)
 Rory Driscoll (rorydriscoll@gmail.com)
-
+Kim Gräsman (kim@mvps.org)
+Jonathan Jansson (lilliemarck@users.sourceforge.net)
 
 
 Release notes
@@ -26,6 +27,7 @@ Version 1.01 (2006-??-??)
 - Added local and global time constraints
 - Removed dependencies on strstream
 - Added XProject build files
+- Failing tests are added to Visual Studio's error list
 - Fixed Visual Studio projects to work with spaces in directories
 
 

@@ -5,7 +5,6 @@
 #include "TestResults.h"
 #include "TestMacros.h"
 #include "CheckMacros.h"
-
 #include "TestRunner.h"
 
 #endif

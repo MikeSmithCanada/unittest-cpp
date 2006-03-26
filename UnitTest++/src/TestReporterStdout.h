@@ -3,8 +3,7 @@
 
 #include "TestReporter.h"
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class TestReporterStdout : public TestReporter
 {

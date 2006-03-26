@@ -2,8 +2,7 @@
 #define UNITTEST_MEMORYOUTSTREAM_H
 
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class MemoryOutStream
 {

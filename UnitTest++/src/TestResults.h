@@ -1,8 +1,7 @@
 #ifndef UNITTEST_TESTRESULTS_H
 #define UNITTEST_TESTRESULTS_H
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class TestReporter;
 

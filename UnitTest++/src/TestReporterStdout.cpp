@@ -1,17 +1,17 @@
 #include "TestReporterStdout.h"
 #include <cstdio>
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 void TestReporterStdout::ReportFailure(char const* file, int const line, 
                 char const* testName, char const* failure)
 {
 #ifdef __APPLE__
-    std::printf("%s:%d: error: Failure in %s: %s\n", file, line, testName, failure);
+    char const* const errorFormat = "%s:%d: error: Failure in %s: %s\n";
 #else
-    std::printf("%s(%d): error: Failure in %s: %s\n", file, line, testName, failure);
+    char const* const errorFormat = "%s(%d): error: Failure in %s: %s\n";
 #endif
+    std::printf(errorFormat, file, line, testName, failure);
 }
 
 void TestReporterStdout::ReportTestStart(char const*)
@@ -21,8 +21,6 @@ void TestReporterStdout::ReportTestStart(char const*)
 void TestReporterStdout::ReportTestFinish(char const*, float)
 {
 }
-
-// c:\noel\unittest++\src\testreporterstdout.cpp(26) : error C2144: syntax error : 'void' should be preceded by ';'
 
 void TestReporterStdout::ReportSummary(int const testCount, int const failureCount, float secondsElapsed)
 {

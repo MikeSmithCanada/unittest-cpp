@@ -2,8 +2,7 @@
 #define UNITTEST_TESTLIST_H
 
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class Test;
 

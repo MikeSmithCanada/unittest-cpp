@@ -8,8 +8,7 @@
 
 #include <cstring>
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 TestList& Test::GetTestList()
 {

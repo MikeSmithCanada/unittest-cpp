@@ -1,10 +1,11 @@
 #include "AssertException.h"
 
-namespace UnitTest
+namespace UnitTest {
+
+void ReportAssert(char const* description, char const* filename, int const lineNumber)
 {
-    void ReportAssert(char const* description, char const* filename, int const lineNumber)
-    {
-        throw AssertException(description, filename, lineNumber);
-    }
+    throw AssertException(description, filename, lineNumber);
+}
+
 }
 

@@ -3,8 +3,7 @@
 #include <cstdio>
 
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 MemoryOutStream::MemoryOutStream(int const size)
     : m_bufferSize (size)

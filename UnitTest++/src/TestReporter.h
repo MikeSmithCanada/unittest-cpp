@@ -2,8 +2,7 @@
 #define UNITTEST_TESTREPORTER_H
 
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 class TestReporter
 {

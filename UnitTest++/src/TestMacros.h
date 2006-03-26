@@ -34,14 +34,14 @@
     } test##Fixture##Name##Instance;                                                 \
     UnitTest::ListAdder adder##Fixture##Name (List, &test##Fixture##Name##Instance); \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const {   \
-        try { \
-            Fixture##Name##Helper mt(m_testName);                                        \
-            mt.RunTest(testResults_);                                                    \
-        } \
-        catch (...) { \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
-                    "Unhandled exception in fixture " #Fixture); \
-        } \
+        try {                                                                        \
+            Fixture##Name##Helper mt(m_testName);                                    \
+            mt.RunTest(testResults_);                                                \
+        }                                                                            \
+        catch (...) {                                                                \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName,               \
+                    "Unhandled exception in fixture " #Fixture);                     \
+        }                                                                            \
     }                                                                                \
     void Fixture##Name##Helper::RunTest(UnitTest::TestResults& testResults_)
 

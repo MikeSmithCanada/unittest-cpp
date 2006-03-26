@@ -7,8 +7,7 @@
 #include "TimeHelpers.h"
 #include <cstdio>
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 
 int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestTimeInMs )

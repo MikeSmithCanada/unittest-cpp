@@ -1,8 +1,7 @@
 #include "TestResults.h"
 #include "TestReporter.h"
 
-namespace UnitTest
-{
+namespace UnitTest {
 
 TestResults::TestResults(TestReporter* testReporter)
     : m_testReporter(testReporter)

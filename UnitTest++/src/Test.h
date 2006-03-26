@@ -4,8 +4,8 @@
 #include "TestList.h"
 
 
-namespace UnitTest
-{
+namespace UnitTest {
+
 class TestResults;
 
 class Test
