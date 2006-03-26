@@ -36,7 +36,7 @@ int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestT
             result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber, 
                                  curTest->m_testName, txt);
         }
-        result.OnTestFinish(curTest->m_testName, testTimeInMs);
+        result.OnTestFinish(curTest->m_testName, testTimeInMs/1000.0f);
 
         curTest = curTest->next;
     }

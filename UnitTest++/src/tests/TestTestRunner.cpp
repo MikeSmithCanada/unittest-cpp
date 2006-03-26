@@ -57,23 +57,23 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsReportedCorrectly)
     CHECK_EQUAL("goodtest", reporter.lastFinishedTest);
 }
 
+class SlowTest : public Test
+{
+public:
+    SlowTest() : Test("slow", "filename", 123) {}
+    virtual void RunImpl(TestResults&) const
+    {
+        TimeHelpers::SleepMs(10);
+    }
+};
+
 TEST_FIXTURE(TestRunnerFixture, TestFinishIsCalledWithCorrectTime)
 {
-    class SlowTest : public Test
-    {
-    public:
-        SlowTest() : Test("slow") {}
-        virtual void RunImpl(TestResults&) const
-        {
-            TimeHelpers::SleepMs(10);
-        }
-    };
-
     SlowTest test;
     list.Add(&test);
 
     RunAllTests(reporter, list);
-    CHECK (reporter.lastFinishedTestTime >= 10.0f && reporter.lastFinishedTestTime <= 15.0f);
+    CHECK (reporter.lastFinishedTestTime >= 0.010f && reporter.lastFinishedTestTime <= 0.015f);
 }
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
@@ -118,27 +118,6 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
     CHECK_EQUAL(1, reporter.summaryFailureCount);
 }
 
-struct SlowTest : public Test
-{
-    SlowTest() : Test("slow", "somefilename", 123)
-    {
-    }
-
-    virtual void RunImpl(TestResults&) const
-    {
-        TimeHelpers::SleepMs(20);
-    }
-};
-
-TEST_FIXTURE(TestRunnerFixture, ReportedTimeElapsedForRunIsNonZero)
-{
-    SlowTest test;
-    list.Add(&test); 
-
-    RunAllTests(reporter, list);
-    CHECK (reporter.summarySecondsElapsed > 0);
-}
-
 TEST_FIXTURE(TestRunnerFixture, SlowTestPassesForHighTimeThreshold)
 {
     SlowTest test;
@@ -151,7 +130,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestFailsForLowTimeThreshold)
 {
     SlowTest test;
     list.Add(&test);
-    RunAllTests(reporter, list, 5);
+    RunAllTests(reporter, list, 3);
     CHECK_EQUAL (1, reporter.testFailedCount);
 }
 

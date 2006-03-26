@@ -26,10 +26,10 @@ void TestResults::OnTestFailure(char const* file, int const line,
         m_testReporter->ReportFailure(file, line, testName, failure);
 }
 
-void TestResults::OnTestFinish(char const* testName, float testDuration)
+void TestResults::OnTestFinish(char const* testName, float secondsElapsed)
 {
     if (m_testReporter)
-        m_testReporter->ReportTestFinish(testName, testDuration);
+        m_testReporter->ReportTestFinish(testName, secondsElapsed);
 }
 
 

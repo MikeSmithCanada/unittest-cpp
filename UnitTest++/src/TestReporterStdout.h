@@ -11,7 +11,7 @@ class TestReporterStdout : public TestReporter
 private:
     virtual void ReportTestStart(char const* testName);
     virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure);
-    virtual void ReportTestFinish(char const* testName, float testDuration);
+    virtual void ReportTestFinish(char const* testName, float secondsElapsed);
     virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed);
 };
 
