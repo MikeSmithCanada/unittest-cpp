@@ -1,3 +1,5 @@
+#include "Config.h"
+
 #if defined POSIX
     #include "Posix/TimeHelpers.h"
 #else

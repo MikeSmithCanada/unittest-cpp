@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		965D8D6009CE6C740082316D /* SignalTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA99709C6AC4C00BE21EF /* SignalTranslator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		965D8D6209CE6C740082316D /* AssertException.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8AB09C6A76100BE21EF /* AssertException.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		965D8D6309CE6C740082316D /* BuildFailureString.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8AC09C6A76100BE21EF /* BuildFailureString.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		965D8D6409CE6C740082316D /* CheckMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8AD09C6A76100BE21EF /* CheckMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,7 +22,6 @@
 		965D8D6E09CE6C740082316D /* TestRunner.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8BE09C6A76100BE21EF /* TestRunner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		965D8D6F09CE6C740082316D /* TimeHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8CB09C6A76100BE21EF /* TimeHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		965D8D7009CE6C740082316D /* UnitTest++.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8CC09C6A76100BE21EF /* UnitTest++.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		965D8D7109CE6C8A0082316D /* SignalTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */; };
 		965D8D7209CE6C8A0082316D /* TimeHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */; };
 		965D8D7309CE6C8A0082316D /* AssertException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8AA09C6A76100BE21EF /* AssertException.cpp */; };
 		965D8D7409CE6C8A0082316D /* ReportAssert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8B009C6A76100BE21EF /* ReportAssert.cpp */; };
@@ -33,6 +31,20 @@
 		965D8D7809CE6C8A0082316D /* TestReporterStdout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8B909C6A76100BE21EF /* TestReporterStdout.cpp */; };
 		965D8D7909CE6C8A0082316D /* TestResults.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8BB09C6A76100BE21EF /* TestResults.cpp */; };
 		965D8D7A09CE6C8A0082316D /* TestRunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8BD09C6A76100BE21EF /* TestRunner.cpp */; };
+		9665082A09D8ADDA00AE4402 /* SignalTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082809D8ADDA00AE4402 /* SignalTranslator.cpp */; };
+		9665082B09D8ADDA00AE4402 /* SignalTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665082909D8ADDA00AE4402 /* SignalTranslator.h */; };
+		9665082C09D8ADDA00AE4402 /* SignalTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082809D8ADDA00AE4402 /* SignalTranslator.cpp */; };
+		9665082D09D8ADDA00AE4402 /* SignalTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665082909D8ADDA00AE4402 /* SignalTranslator.h */; };
+		9665083309D8ADFA00AE4402 /* Checks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082E09D8ADFA00AE4402 /* Checks.cpp */; };
+		9665083409D8ADFA00AE4402 /* MemoryOutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082F09D8ADFA00AE4402 /* MemoryOutStream.cpp */; };
+		9665083509D8ADFA00AE4402 /* MemoryOutStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665083009D8ADFA00AE4402 /* MemoryOutStream.h */; };
+		9665083609D8ADFA00AE4402 /* TimeConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665083109D8ADFA00AE4402 /* TimeConstraint.cpp */; };
+		9665083709D8ADFA00AE4402 /* TimeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665083209D8ADFA00AE4402 /* TimeConstraint.h */; };
+		9665083809D8ADFA00AE4402 /* Checks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082E09D8ADFA00AE4402 /* Checks.cpp */; };
+		9665083909D8ADFA00AE4402 /* MemoryOutStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665082F09D8ADFA00AE4402 /* MemoryOutStream.cpp */; };
+		9665083A09D8ADFA00AE4402 /* MemoryOutStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665083009D8ADFA00AE4402 /* MemoryOutStream.h */; };
+		9665083B09D8ADFA00AE4402 /* TimeConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9665083109D8ADFA00AE4402 /* TimeConstraint.cpp */; };
+		9665083C09D8ADFA00AE4402 /* TimeConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 9665083209D8ADFA00AE4402 /* TimeConstraint.h */; };
 		969AA8CD09C6A76200BE21EF /* AssertException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA8AA09C6A76100BE21EF /* AssertException.cpp */; };
 		969AA8CE09C6A76200BE21EF /* AssertException.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8AB09C6A76100BE21EF /* AssertException.h */; };
 		969AA8CF09C6A76200BE21EF /* BuildFailureString.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA8AC09C6A76100BE21EF /* BuildFailureString.h */; };
@@ -70,8 +82,6 @@
 		969AA90B09C6A7E900BE21EF /* libUnitTest++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC046055464E500DB518D /* libUnitTest++.a */; };
 		969AA97509C6AB7300BE21EF /* TimeHelpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */; };
 		969AA97609C6AB7300BE21EF /* TimeHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA97409C6AB7300BE21EF /* TimeHelpers.h */; };
-		969AA99809C6AC4C00BE21EF /* SignalTranslator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */; };
-		969AA99909C6AC4C00BE21EF /* SignalTranslator.h in Headers */ = {isa = PBXBuildFile; fileRef = 969AA99709C6AC4C00BE21EF /* SignalTranslator.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
@@ -111,6 +121,13 @@
 /* Begin PBXFileReference section */
 		965D8D5A09CE6C580082316D /* UnitTest++.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "UnitTest++.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		965D8D5B09CE6C580082316D /* UnitTest++-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "UnitTest++-Info.plist"; sourceTree = "<group>"; };
+		9665082809D8ADDA00AE4402 /* SignalTranslator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = SignalTranslator.cpp; path = src/Posix/SignalTranslator.cpp; sourceTree = "<group>"; };
+		9665082909D8ADDA00AE4402 /* SignalTranslator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SignalTranslator.h; path = src/Posix/SignalTranslator.h; sourceTree = "<group>"; };
+		9665082E09D8ADFA00AE4402 /* Checks.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = Checks.cpp; path = src/Checks.cpp; sourceTree = "<group>"; };
+		9665082F09D8ADFA00AE4402 /* MemoryOutStream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MemoryOutStream.cpp; path = src/MemoryOutStream.cpp; sourceTree = "<group>"; };
+		9665083009D8ADFA00AE4402 /* MemoryOutStream.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MemoryOutStream.h; path = src/MemoryOutStream.h; sourceTree = "<group>"; };
+		9665083109D8ADFA00AE4402 /* TimeConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TimeConstraint.cpp; path = src/TimeConstraint.cpp; sourceTree = "<group>"; };
+		9665083209D8ADFA00AE4402 /* TimeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeConstraint.h; path = src/TimeConstraint.h; sourceTree = "<group>"; };
 		969AA8AA09C6A76100BE21EF /* AssertException.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AssertException.cpp; path = src/AssertException.cpp; sourceTree = "<group>"; };
 		969AA8AB09C6A76100BE21EF /* AssertException.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = AssertException.h; path = src/AssertException.h; sourceTree = "<group>"; };
 		969AA8AC09C6A76100BE21EF /* BuildFailureString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = BuildFailureString.h; path = src/BuildFailureString.h; sourceTree = "<group>"; };
@@ -148,8 +165,6 @@
 		969AA8FE09C6A7BB00BE21EF /* TestUnitTest++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TestUnitTest++"; sourceTree = BUILT_PRODUCTS_DIR; };
 		969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TimeHelpers.cpp; path = src/Posix/TimeHelpers.cpp; sourceTree = "<group>"; };
 		969AA97409C6AB7300BE21EF /* TimeHelpers.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TimeHelpers.h; path = src/Posix/TimeHelpers.h; sourceTree = "<group>"; };
-		969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = SignalTranslator.cpp; path = src/Prosix/SignalTranslator.cpp; sourceTree = "<group>"; };
-		969AA99709C6AC4C00BE21EF /* SignalTranslator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SignalTranslator.h; path = src/Prosix/SignalTranslator.h; sourceTree = "<group>"; };
 		D2AAC046055464E500DB518D /* libUnitTest++.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUnitTest++.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -194,6 +209,11 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				9665082E09D8ADFA00AE4402 /* Checks.cpp */,
+				9665082F09D8ADFA00AE4402 /* MemoryOutStream.cpp */,
+				9665083009D8ADFA00AE4402 /* MemoryOutStream.h */,
+				9665083109D8ADFA00AE4402 /* TimeConstraint.cpp */,
+				9665083209D8ADFA00AE4402 /* TimeConstraint.h */,
 				969AA97209C6AB6400BE21EF /* Posix */,
 				969AA8AA09C6A76100BE21EF /* AssertException.cpp */,
 				969AA8AB09C6A76100BE21EF /* AssertException.h */,
@@ -254,8 +274,8 @@
 		969AA97209C6AB6400BE21EF /* Posix */ = {
 			isa = PBXGroup;
 			children = (
-				969AA99609C6AC4C00BE21EF /* SignalTranslator.cpp */,
-				969AA99709C6AC4C00BE21EF /* SignalTranslator.h */,
+				9665082809D8ADDA00AE4402 /* SignalTranslator.cpp */,
+				9665082909D8ADDA00AE4402 /* SignalTranslator.h */,
 				969AA97309C6AB7300BE21EF /* TimeHelpers.cpp */,
 				969AA97409C6AB7300BE21EF /* TimeHelpers.h */,
 			);
@@ -276,7 +296,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				965D8D6009CE6C740082316D /* SignalTranslator.h in Headers */,
 				965D8D6209CE6C740082316D /* AssertException.h in Headers */,
 				965D8D6309CE6C740082316D /* BuildFailureString.h in Headers */,
 				965D8D6409CE6C740082316D /* CheckMacros.h in Headers */,
@@ -292,6 +311,9 @@
 				965D8D6E09CE6C740082316D /* TestRunner.h in Headers */,
 				965D8D6F09CE6C740082316D /* TimeHelpers.h in Headers */,
 				965D8D7009CE6C740082316D /* UnitTest++.h in Headers */,
+				9665082D09D8ADDA00AE4402 /* SignalTranslator.h in Headers */,
+				9665083A09D8ADFA00AE4402 /* MemoryOutStream.h in Headers */,
+				9665083C09D8ADFA00AE4402 /* TimeConstraint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +338,9 @@
 				969AA8ED09C6A76200BE21EF /* TimeHelpers.h in Headers */,
 				969AA8EE09C6A76200BE21EF /* UnitTest++.h in Headers */,
 				969AA97609C6AB7300BE21EF /* TimeHelpers.h in Headers */,
-				969AA99909C6AC4C00BE21EF /* SignalTranslator.h in Headers */,
+				9665082B09D8ADDA00AE4402 /* SignalTranslator.h in Headers */,
+				9665083509D8ADFA00AE4402 /* MemoryOutStream.h in Headers */,
+				9665083709D8ADFA00AE4402 /* TimeConstraint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +520,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				965D8D7109CE6C8A0082316D /* SignalTranslator.cpp in Sources */,
 				965D8D7209CE6C8A0082316D /* TimeHelpers.cpp in Sources */,
 				965D8D7309CE6C8A0082316D /* AssertException.cpp in Sources */,
 				965D8D7409CE6C8A0082316D /* ReportAssert.cpp in Sources */,
@@ -506,6 +529,10 @@
 				965D8D7809CE6C8A0082316D /* TestReporterStdout.cpp in Sources */,
 				965D8D7909CE6C8A0082316D /* TestResults.cpp in Sources */,
 				965D8D7A09CE6C8A0082316D /* TestRunner.cpp in Sources */,
+				9665082C09D8ADDA00AE4402 /* SignalTranslator.cpp in Sources */,
+				9665083809D8ADFA00AE4402 /* Checks.cpp in Sources */,
+				9665083909D8ADFA00AE4402 /* MemoryOutStream.cpp in Sources */,
+				9665083B09D8ADFA00AE4402 /* TimeConstraint.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +566,10 @@
 				969AA8DE09C6A76200BE21EF /* TestResults.cpp in Sources */,
 				969AA8E009C6A76200BE21EF /* TestRunner.cpp in Sources */,
 				969AA97509C6AB7300BE21EF /* TimeHelpers.cpp in Sources */,
-				969AA99809C6AC4C00BE21EF /* SignalTranslator.cpp in Sources */,
+				9665082A09D8ADDA00AE4402 /* SignalTranslator.cpp in Sources */,
+				9665083309D8ADFA00AE4402 /* Checks.cpp in Sources */,
+				9665083409D8ADFA00AE4402 /* MemoryOutStream.cpp in Sources */,
+				9665083609D8ADFA00AE4402 /* TimeConstraint.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
