@@ -2,6 +2,10 @@
 #define UNITTEST_TESTMACROS_H
 
 
+#ifdef TEST
+    #error UnitTest++ redefines TEST
+#endif
+
 #define TEST_EX(Name,List)                                                 \
     class Test##Name : public UnitTest::Test                               \
     {                                                                      \

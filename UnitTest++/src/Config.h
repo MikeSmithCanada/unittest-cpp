@@ -16,9 +16,5 @@
 #endif
 
 
-#ifdef __APPLE__
-    #define POSIX
-#endif
-
 
 #endif

@@ -6,6 +6,10 @@
 #include "AssertException.h"
 #include "MemoryOutStream.h"
 
+#ifdef CHECK
+    #error UnitTest++ redefines CHECK
+#endif
+
 #define CHECK(value) \
     try { \
         if (!UnitTest::Check(value)) \
