@@ -391,5 +391,4 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
 
-
 }

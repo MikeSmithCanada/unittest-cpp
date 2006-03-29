@@ -31,9 +31,9 @@
 #define CHECK_EQUAL(expected, actual) \
     try { \
         if (!UnitTest::CheckEqual(expected, actual)) { \
-            UnitTest::MemoryOutStream stream; \
-            UnitTest::BuildFailureString(stream, expected, actual); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream.GetText()); \
+            UnitTest::MemoryOutStream stream_; \
+            UnitTest::BuildFailureString(stream_, expected, actual); \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
         } \
     } \
     catch (...) { \
@@ -45,9 +45,9 @@
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \
         if (!UnitTest::CheckClose(expected, actual, tolerance)) { \
-            UnitTest::MemoryOutStream stream; \
-            UnitTest::BuildFailureString(stream, expected, actual, tolerance); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream.GetText()); \
+            UnitTest::MemoryOutStream stream_; \
+            UnitTest::BuildFailureString(stream_, expected, actual, tolerance); \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
         } \
     } \
     catch (...) { \
@@ -58,9 +58,9 @@
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
     try { \
         if (!UnitTest::CheckArrayEqual(expected, actual, count)) { \
-            UnitTest::MemoryOutStream stream; \
-            UnitTest::BuildFailureString(stream, expected, actual, count); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream.GetText()); \
+            UnitTest::MemoryOutStream stream_; \
+            UnitTest::BuildFailureString(stream_, expected, actual, count); \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
         } \
     } \
     catch (...) { \
@@ -71,9 +71,9 @@
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
     try { \
         if (!UnitTest::CheckArrayClose(expected, actual, count, tolerance)) { \
-            UnitTest::MemoryOutStream stream; \
-            UnitTest::BuildFailureString(stream, expected, actual, count, tolerance); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream.GetText()); \
+            UnitTest::MemoryOutStream stream_; \
+            UnitTest::BuildFailureString(stream_, expected, actual, count, tolerance); \
+            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
         } \
     } \
     catch (...) { \
