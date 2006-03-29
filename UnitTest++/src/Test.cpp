@@ -2,7 +2,7 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
-#ifdef POSIX
+#ifdef UNITTEST_POSIX
     #include "Posix/SignalTranslator.h"
 #endif
 
@@ -32,7 +32,7 @@ void Test::Run(TestResults& testResults) const
 {
     try
     {
-#ifdef POSIX
+#ifdef UNITTEST_POSIX
         SignalTranslator sig;
 #endif
         RunImpl(testResults);

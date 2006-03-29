@@ -59,7 +59,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#ifndef POSIX
+#ifndef UNITTEST_POSIX
 
 TEST (CrashingTestsAreReportedAsFailures)
 {

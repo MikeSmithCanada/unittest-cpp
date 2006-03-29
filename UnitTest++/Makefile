@@ -1,5 +1,5 @@
 CC = g++
-CCFLAGS = -g -ansi -Wall -Wextra -ansi -pedantic -DPOSIX
+CCFLAGS = -g -ansi -Wall -Wextra -ansi -pedantic
 SED = sed
 MV = mv
 RM = rm

@@ -7,7 +7,7 @@
 namespace UnitTest {
 
 
-#ifdef VISUAL_STUDIO
+#ifdef UNITTEST_VISUALSTUDIO
 #   pragma warning(push)
 #   pragma warning(disable:4800) // forcing value to bool true/false, performance warning
 #endif
@@ -16,7 +16,7 @@ bool Check(Value const value)
 {
     return value;
 }
-#ifdef VISUAL_STUDIO
+#ifdef UNITTEST_VISUALSTUDIO
 #   pragma warning(pop)
 #endif
 
