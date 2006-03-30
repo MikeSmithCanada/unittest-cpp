@@ -4,7 +4,6 @@
 #include "Config.h"
 #include "TestResults.h"
 #include "MemoryOutStream.h"
-#include "BuildFailureString.h"
 
 namespace UnitTest {
 
