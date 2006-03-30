@@ -108,19 +108,6 @@ TEST(CheckEqualFailsOnNotEqual)
     CHECK (failure);
 }
 
-TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        const int something = 2;
-        CHECK_EQUAL (1, something);
-    }
-
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected 1"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was 2"));
-}
-
 TEST(CheckEqualFailsOnException)
 {
     bool failure = false;
@@ -132,6 +119,20 @@ TEST(CheckEqualFailsOnException)
     }
 
     CHECK (failure);
+}
+
+TEST(CheckEqualFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        CHECK_EQUAL (1, 123);    line = __LINE__;
+    }
+
+    CHECK_EQUAL ("CheckEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
 TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
@@ -200,31 +201,6 @@ TEST(CheckCloseFailsOnNotEqual)
     CHECK (failure);
 }
 
-TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        const float expected = 0.9f;
-        const float actual = 1.1f;
-        CHECK_CLOSE (expected, actual, 0.01f);
-    }
-
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected 0.9"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was 1.1"));
-}
-
-TEST(CheckCloseFailureIncludesTolerance)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        CHECK_CLOSE (2, 3, 0.01f);
-    }
-
-    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
-}
-
 TEST(CheckCloseFailsOnException)
 {
     bool failure = false;
@@ -238,6 +214,20 @@ TEST(CheckCloseFailsOnException)
     CHECK (failure);
 }
 
+TEST(CheckCloseFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        CHECK_CLOSE (1.0f, 1.1f, 0.01f);    line = __LINE__;
+    }
+
+    CHECK_EQUAL ("CheckCloseFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL (line, reporter.lastFailedLine);
+}
+
 TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
 {
     RecordingReporter reporter;
@@ -249,6 +239,29 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
     CHECK (std::strstr(reporter.lastFailedMessage, "1.0001f"));
 }
+
+TEST(CheckCloseDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        CHECK_CLOSE (1, FunctionWithSideEffects(), 0.1f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        CHECK_CLOSE (2, FunctionWithSideEffects(), 0.1f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+
+
 
 TEST(CheckArrayEqualSuceedsOnEqual)
 {

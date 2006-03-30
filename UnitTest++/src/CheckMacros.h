@@ -39,11 +39,7 @@
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \
-        if (!UnitTest::CheckClose(expected, actual, tolerance)) { \
-            UnitTest::MemoryOutStream stream_; \
-            UnitTest::BuildFailureString(stream_, expected, actual, tolerance); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
-        } \
+        UnitTest::CheckClose(testResults_, expected, actual, tolerance, m_testName, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \

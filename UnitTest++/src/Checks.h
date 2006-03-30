@@ -35,7 +35,7 @@ void CheckEqual(TestResults& results, Expected const expected, Actual const actu
     if (!(expected == actual))
     {
         UnitTest::MemoryOutStream stream;
-        UnitTest::BuildFailureString(stream, expected, actual);
+        stream << "Expected " << expected << " but was " << actual;
         results.OnTestFailure(filename, line, testName, stream.GetText());
     }
 }
@@ -48,6 +48,19 @@ void CheckEqual(TestResults& results, char* expected, char const* actual,
                 char const* testName, char const* filename, int line);
 void CheckEqual(TestResults& results, char const* expected, char* actual,
                 char const* testName, char const* filename, int line);
+
+template< typename Expected, typename Actual, typename Tolerance >
+void CheckClose(TestResults& results, Expected const expected, Actual const actual, Tolerance const tolerance,
+                char const* const testName, char const* const filename, int const line)
+{
+    if (!((actual >= expected - tolerance) && (actual <= expected + tolerance)))
+    { 
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
+}
+
 
 template< typename Expected, typename Actual >
 bool CheckArrayEqual(Expected const expected, Actual const actual, int const count)
@@ -62,7 +75,7 @@ bool CheckArrayEqual(Expected const expected, Actual const actual, int const cou
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool CheckClose(Expected const expected, Actual const actual, Tolerance const tolerance)
+bool CheckClose2(Expected const expected, Actual const actual, Tolerance const tolerance)
 {
     return ((actual >= expected - tolerance) && (actual <= expected + tolerance));
 }
@@ -72,7 +85,7 @@ bool CheckArrayClose(Expected const expected, Actual const actual, int const cou
 {
     for (int i = 0; i < count; ++i)
     {
-        if (!CheckClose(expected[i], actual[i], tolerance))
+        if (!CheckClose2(expected[i], actual[i], tolerance))
             return false;
     }
 

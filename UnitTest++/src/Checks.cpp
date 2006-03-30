@@ -11,7 +11,7 @@ void CheckStringsEqual(TestResults& results, char const* const expected, char co
     if (std::strcmp(expected, actual))
     {
         UnitTest::MemoryOutStream stream;
-        UnitTest::BuildFailureString(stream, expected, actual);
+        stream << "Expected " << expected << " but was " << actual;
         results.OnTestFailure(filename, line, testName, stream.GetText());
     }
 }
