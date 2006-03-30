@@ -3,24 +3,44 @@
 
 namespace UnitTest {
 
-bool CheckEqual(char const* expected, char const* actual)
+namespace {
+
+void CheckStringsEqual(TestResults& results, char const* const expected, char const* const actual,
+                char const* const testName, char const* const filename, int const line)
 {
-    return (!std::strcmp(expected, actual));
+    if (std::strcmp(expected, actual))
+    {
+        UnitTest::MemoryOutStream stream;
+        UnitTest::BuildFailureString(stream, expected, actual);
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
 }
 
-bool CheckEqual(char* expected, char* actual)
-{
-    return (!std::strcmp(expected, actual));
 }
 
-bool CheckEqual(char* expected, char const* actual)
+
+void CheckEqual(TestResults& results, char const* const expected, char const* const actual,
+                char const* const testName, char const* const filename, int const line)
 {
-    return (!std::strcmp(expected, actual));
+    CheckStringsEqual(results, expected, actual, testName, filename, line);
 }
 
-bool CheckEqual(char const* expected, char* actual)
+void CheckEqual(TestResults& results, char* const expected, char* const actual,
+                char const* const testName, char const* const filename, int const line)
 {
-    return (!std::strcmp(expected, actual));
+    CheckStringsEqual(results, expected, actual, testName, filename, line);
+}
+
+void CheckEqual(TestResults& results, char* const expected, char const* const actual,
+                char const* const testName, char const* const filename, int const line)
+{
+    CheckStringsEqual(results, expected, actual, testName, filename, line);
+}
+
+void CheckEqual(TestResults& results, char const* const expected, char* const actual,
+                char const* const testName, char const* const filename, int const line)
+{
+    CheckStringsEqual(results, expected, actual, testName, filename, line);
 }
 
 

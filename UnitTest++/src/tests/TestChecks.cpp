@@ -73,7 +73,9 @@ TEST(CheckEqualsWithStringsFailsOnDifferentStrings)
 {
     char txt1[] = "Hello";
     char txt2[] = "Hallo";
-    CHECK (false == CheckEqual(txt1, txt2));
+    TestResults results;
+    CheckEqual(results, txt1, txt2, "", "", 0);
+    CHECK_EQUAL (1, results.GetFailureCount());
 }
 
 char txt1[] = "Hello"; // non-const on purpose so no folding of duplicate data
@@ -83,34 +85,44 @@ TEST(CheckEqualsWithStringsWorksOnContentsNonConstNonConst)
 {
     char const* const p1 = txt1;
     char const* const p2 = txt2;
-    CHECK (CheckEqual(p1, p2));
+    TestResults results;
+    CheckEqual(results, p1, p2, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckEqualsWithStringsWorksOnContentsConstConst)
 {
     char* const p1 = txt1;
     char* const p2 = txt2;
-    CHECK (CheckEqual(p1, p2));
+    TestResults results;
+    CheckEqual(results, p1, p2, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckEqualsWithStringsWorksOnContentsNonConstConst)
 {
     char* const p1 = txt1;
     char const* const p2 = txt2;
-    CHECK (CheckEqual(p1, p2));
+    TestResults results;
+    CheckEqual(results, p1, p2, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckEqualsWithStringsWorksOnContentsConstNonConst)
 {
     char const* const p1 = txt1;
     char* const p2 = txt2;
-    CHECK (CheckEqual(p1, p2));
+    TestResults results;
+    CheckEqual(results, p1, p2, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckEqualsWithStringsWorksOnContentsWithALiteral)
 {
     char const* const p1 = txt1;
-    CHECK (CheckEqual("Hello", p1));
+    TestResults results;
+    CheckEqual(results, "Hello", p1, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 }

@@ -2,7 +2,9 @@
 #define UNITTEST_CHECKS_H
 
 #include "Config.h"
-
+#include "TestResults.h"
+#include "MemoryOutStream.h"
+#include "BuildFailureString.h"
 
 namespace UnitTest {
 
@@ -27,14 +29,25 @@ bool CheckNull(Value const value)
 }
 
 template< typename Expected, typename Actual >
-bool CheckEqual(Expected const expected, Actual const actual)
+void CheckEqual(TestResults& results, Expected const expected, Actual const actual,
+                char const* const testName, char const* const filename, int const line)
 {
-    return (expected == actual);
+    if (!(expected == actual))
+    {
+        UnitTest::MemoryOutStream stream;
+        UnitTest::BuildFailureString(stream, expected, actual);
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
 }
-bool CheckEqual(char const* expected, char const* actual);
-bool CheckEqual(char* expected, char const* actual);
-bool CheckEqual(char const* expected, char* actual);
-bool CheckEqual(char* expected, char* actual);
+
+void CheckEqual(TestResults& results, char const* expected, char const* actual,
+                char const* testName, char const* filename, int line);
+void CheckEqual(TestResults& results, char* expected, char* actual,
+                char const* testName, char const* filename, int line);
+void CheckEqual(TestResults& results, char* expected, char const* actual,
+                char const* testName, char const* filename, int line);
+void CheckEqual(TestResults& results, char const* expected, char* actual,
+                char const* testName, char const* filename, int line);
 
 template< typename Expected, typename Actual >
 bool CheckArrayEqual(Expected const expected, Actual const actual, int const count)

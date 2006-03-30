@@ -146,6 +146,34 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "123"));
 }
 
+int g_sideEffect = 0;
+int FunctionWithSideEffects()
+{
+    ++g_sideEffect;
+    return 1;
+}
+
+TEST(CheckEqualDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        CHECK_EQUAL (1, FunctionWithSideEffects());
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+TEST(CheckEqualDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        CHECK_EQUAL (2, FunctionWithSideEffects());
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+
 TEST(CheckCloseSuceedsOnEqual)
 {
     bool failure = true;

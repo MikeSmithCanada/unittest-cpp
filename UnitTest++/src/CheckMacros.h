@@ -30,17 +30,12 @@
 
 #define CHECK_EQUAL(expected, actual) \
     try { \
-        if (!UnitTest::CheckEqual(expected, actual)) { \
-            UnitTest::MemoryOutStream stream_; \
-            UnitTest::BuildFailureString(stream_, expected, actual); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
-        } \
+        UnitTest::CheckEqual(testResults_, expected, actual, m_testName, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
                 "Unhandled exception in CHECK_EQUAL(" #expected ", " #actual ")"); \
     }
-
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \
