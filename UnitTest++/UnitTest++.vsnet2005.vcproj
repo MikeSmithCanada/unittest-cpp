@@ -165,10 +165,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\src\BuildFailureString.h"
-			>
-		</File>
-		<File
 			RelativePath=".\src\CheckMacros.h"
 			>
 		</File>
