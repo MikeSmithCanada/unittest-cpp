@@ -262,14 +262,13 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
 
 
 
-
 TEST(CheckArrayEqualSuceedsOnEqual)
 {
     bool failure = true;
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        const float data[4] = { 0, 1, 2, 3 };
+        const float data[] = { 0, 1, 2, 3 };
         CHECK_ARRAY_EQUAL (data, data, 3);
         failure = (testResults_.GetFailureCount() > 0);
     }
@@ -283,8 +282,8 @@ TEST(CheckArrayEqualFailsOnNotEqual)
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        const float data1[4] = { 0, 1, 2, 3 };
-        const float data2[4] = { 0, 1, 3, 3 };
+        const float data1[] = { 0, 1, 2, 3 };
+        const float data2[] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 3);
         failure = (testResults_.GetFailureCount() > 0);
     }
@@ -297,8 +296,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        const int data1[4] = { 0, 1, 2, 3 };
-        const int data2[4] = { 0, 1, 3, 3 };
+        const int data1[] = { 0, 1, 2, 3 };
+        const int data2[] = { 0, 1, 3, 3 };
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
@@ -321,9 +320,9 @@ TEST(CheckArrayEqualFailsOnException)
     {
         RecordingReporter reporter;
         UnitTest::TestResults testResults_(&reporter);
-        const float data[4] = { 0, 1, 2, 3 };
+        const float data[] = { 0, 1, 2, 3 };
         ThrowingObject obj;
-        CHECK_ARRAY_EQUAL (data, obj, 3);
+        CHECK_ARRAY_EQUAL (data, obj, 4);
         failure = (testResults_.GetFailureCount() > 0);
     }
 
@@ -335,14 +334,45 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        const float data[4] = { 0, 1, 2, 3 };
+        const float data[] = { 0, 1, 2, 3 };
         ThrowingObject obj;
-        CHECK_ARRAY_EQUAL (data, obj, 3);
+        CHECK_ARRAY_EQUAL (data, obj, 4);
     }
 
     CHECK (std::strstr(reporter.lastFailedMessage, "data"));
     CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
+
+
+float const* FunctionWithSideEffects2()
+{
+    ++g_sideEffect;
+    static float const data[] = {1,2,3,4};
+    return data;
+}
+
+TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
 
 
 TEST(CheckArrayCloseSuceedsOnEqual)

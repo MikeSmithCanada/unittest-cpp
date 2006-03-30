@@ -48,11 +48,7 @@
 
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
     try { \
-        if (!UnitTest::CheckArrayEqual(expected, actual, count)) { \
-            UnitTest::MemoryOutStream stream_; \
-            UnitTest::BuildFailureString(stream_, expected, actual, count); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
-        } \
+        UnitTest::CheckArrayEqual(testResults_, expected, actual, count, m_testName, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \

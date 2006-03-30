@@ -147,15 +147,19 @@ TEST(CheckCloseFailureIncludesTolerance)
 
 TEST(CheckArrayEqualTrue)
 {
+    UnitTest::TestResults results;
     int const array[3] = { 1, 2, 3 };
-    CHECK(CheckArrayEqual(array, array, 3));
+    CheckArrayEqual(results, array, array, 3, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckArrayEqualFalse)
 {
+    UnitTest::TestResults results;
     int const array1[3] = { 1, 2, 3 };
     int const array2[3] = { 1, 2, 2 };
-    CHECK(false == CheckArrayEqual(array1, array2, 3));
+    CheckArrayEqual(results, array1, array2, 3, "", "", 0);
+    CHECK_EQUAL (1, results.GetFailureCount());
 }
 
 TEST(CheckArrayCloseTrue)

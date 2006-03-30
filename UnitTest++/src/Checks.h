@@ -63,15 +63,25 @@ void CheckClose(TestResults& results, Expected const expected, Actual const actu
 
 
 template< typename Expected, typename Actual >
-bool CheckArrayEqual(Expected const expected, Actual const actual, int const count)
+void CheckArrayEqual(TestResults& results, Expected const expected, Actual const actual,
+                int const count, char const* const testName, char const* const filename, int const line)
 {
+    bool equal = true;
     for (int i = 0; i < count; ++i)
-    {
-        if (!(expected[i] == actual[i]))
-            return false;
-    }
+        equal &= (expected[i] == actual[i]);
 
-    return true;
+    if (!equal)
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected [ ";
+        for (int i = 0; i < count; ++i)
+            stream << expected[i] << " ";
+        stream << "] but was [ ";
+        for (int i = 0; i < count; ++i)
+            stream << actual[i] << " ";
+        stream << "]";
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
