@@ -6,7 +6,7 @@ SUBJECT=
 REPORT=/tmp/`basename $0`.report.$$
 LOCK=/tmp/`basename $0`.$PROJECTNAME.lock
 ERROR=/tmp/`basename $0`.$PROJECTNAME.error
-PATH=/bin:/sbin:/usr/bin:/usr/sbin:/Users/jt/local/bin
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:$HOME/local/bin
 
 exec > $REPORT 2>&1
 
