@@ -66,7 +66,7 @@ TEST(CheckEqualsWithStringsWorksOnContentsWithALiteral)
 TEST(CheckEqualFailureIncludesCheckExpectedAndActual)
 {
     RecordingReporter reporter;
-    UnitTest::TestResults results(&reporter);
+    TestResults results(&reporter);
     const int something = 2;
     CheckEqual (results, 1, something, "", "", 0);
 
@@ -125,7 +125,7 @@ TEST(CheckCloseWithNaNAgainstItselfFails)
 TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
 {
     RecordingReporter reporter;
-    UnitTest::TestResults results(&reporter);
+    TestResults results(&reporter);
     const float expected = 0.9f;
     const float actual = 1.1f;
     CheckClose (results, expected, actual, 0.01f, "", "", 0);
@@ -137,7 +137,7 @@ TEST(CheckCloseFailureIncludesCheckExpectedAndActual)
 TEST(CheckCloseFailureIncludesTolerance)
 {
     RecordingReporter reporter;
-    UnitTest::TestResults results(&reporter);
+    TestResults results(&reporter);
     CheckClose (results, 2, 3, 0.01f, "", "", 0);
 
     CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
@@ -147,7 +147,7 @@ TEST(CheckCloseFailureIncludesTolerance)
 
 TEST(CheckArrayEqualTrue)
 {
-    UnitTest::TestResults results;
+    TestResults results;
     int const array[3] = { 1, 2, 3 };
     CheckArrayEqual(results, array, array, 3, "", "", 0);
     CHECK_EQUAL (0, results.GetFailureCount());
@@ -155,7 +155,7 @@ TEST(CheckArrayEqualTrue)
 
 TEST(CheckArrayEqualFalse)
 {
-    UnitTest::TestResults results;
+    TestResults results;
     int const array1[3] = { 1, 2, 3 };
     int const array2[3] = { 1, 2, 2 };
     CheckArrayEqual(results, array1, array2, 3, "", "", 0);
@@ -164,16 +164,20 @@ TEST(CheckArrayEqualFalse)
 
 TEST(CheckArrayCloseTrue)
 {
+    TestResults results;
     float const array1[3] = { 1.0f, 1.5f, 2.0f };
     float const array2[3] = { 1.01f, 1.51f, 2.01f };
-    CHECK(CheckArrayClose(array1, array2, 3, 0.02f));
+    CheckArrayClose(results, array1, array2, 3, 0.02f, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
 }
 
 TEST(CheckArrayCloseFalse)
 {
+    TestResults results;
     float const array1[3] = { 1.0f, 1.5f, 2.0f };
     float const array2[3] = { 1.01f, 1.51f, 2.01f };
-    CHECK(false == CheckArrayClose(array1, array2, 3, 0.001f));
+    CheckArrayClose(results, array1, array2, 3, 0.001f, "", "", 0);
+    CHECK_EQUAL (1, results.GetFailureCount());
 }
 
 

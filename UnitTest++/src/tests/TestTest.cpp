@@ -53,7 +53,7 @@ TEST (ThrowingTestsAreReportedAsFailures)
             throw "Blah";
         }
     };
-
+ 
     TestResults results;
     CrashingTest().Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());

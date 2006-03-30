@@ -50,10 +50,16 @@ void CheckEqual(TestResults& results, char const* expected, char* actual,
                 char const* testName, char const* filename, int line);
 
 template< typename Expected, typename Actual, typename Tolerance >
+bool AreClose(Expected const expected, Actual const actual, Tolerance const tolerance)
+{
+    return (actual >= expected - tolerance) && (actual <= expected + tolerance);
+}
+                
+template< typename Expected, typename Actual, typename Tolerance >
 void CheckClose(TestResults& results, Expected const expected, Actual const actual, Tolerance const tolerance,
                 char const* const testName, char const* const filename, int const line)
 {
-    if (!((actual >= expected - tolerance) && (actual <= expected + tolerance)))
+    if (!AreClose(expected, actual, tolerance))
     { 
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " +/- " << tolerance << " but was " << actual;
@@ -91,15 +97,26 @@ bool CheckClose2(Expected const expected, Actual const actual, Tolerance const t
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool CheckArrayClose(Expected const expected, Actual const actual, int const count, Tolerance const tolerance)
+void CheckArrayClose(TestResults& results, Expected const expected, Actual const actual,
+                   int const count, Tolerance const tolerance, char const* const testName,
+                   char const* const filename, int const line)
 {
+    bool equal = true;
     for (int i = 0; i < count; ++i)
-    {
-        if (!CheckClose2(expected[i], actual[i], tolerance))
-            return false;
-    }
+        equal &= AreClose(expected[i], actual[i], tolerance);
 
-    return true;
+    if (!equal)
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected [ ";    
+        for (int i = 0; i < count; ++i)
+            stream << expected[i] << " ";
+        stream << "] +/- " << tolerance << " but was [ ";
+        for (int i = 0; i < count; ++i)
+            stream << actual[i] << " ";
+        stream << "]";
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
 }
 
 

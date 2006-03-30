@@ -57,11 +57,7 @@
 
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
     try { \
-        if (!UnitTest::CheckArrayClose(expected, actual, count, tolerance)) { \
-            UnitTest::MemoryOutStream stream_; \
-            UnitTest::BuildFailureString(stream_, expected, actual, count, tolerance); \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, stream_.GetText()); \
-        } \
+        UnitTest::CheckArrayClose(testResults_, expected, actual, count, tolerance, m_testName, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
@@ -71,10 +67,8 @@
 #define CHECK_THROW(expression, ExpectedExceptionType) \
     { \
         bool caught_ = false; \
-        \
         try { expression; } \
         catch (ExpectedExceptionType const&) { caught_ = true; } \
-        \
         if (!caught_) \
             testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
     }

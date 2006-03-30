@@ -462,4 +462,27 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
 
+TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[] = { 0, 1, 2, 3 };
+        CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+
 }
