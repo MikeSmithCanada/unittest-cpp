@@ -12,11 +12,13 @@ namespace UnitTest {
 #   pragma warning(push)
 #   pragma warning(disable:4800) // forcing value to bool true/false, performance warning
 #endif
+
 template< typename Value >
 bool Check(Value const value)
 {
     return value;
 }
+
 #ifdef UNITTEST_VISUALSTUDIO
 #   pragma warning(pop)
 #endif
@@ -26,6 +28,7 @@ bool CheckNull(Value const value)
 {
     return (value == (void*)(0));
 }
+
 
 template< typename Expected, typename Actual >
 void CheckEqual(TestResults& results, Expected const expected, Actual const actual,

@@ -305,6 +305,22 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
     CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
+TEST(CheckArrayEqualFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        const int data1[] = { 0, 1, 2, 3 };
+        const int data2[] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_EQUAL (data1, data2, 4);    line = __LINE__;
+    }
+
+    CHECK_EQUAL ("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL (line, reporter.lastFailedLine);
+}
+
 class ThrowingObject
 {
 public:
@@ -342,7 +358,6 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "data"));
     CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
-
 
 float const* FunctionWithSideEffects2()
 {
@@ -418,6 +433,21 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
     CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
+TEST(CheckArrayCloseFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        int const data1[4] = { 0, 1, 2, 3 };
+        int const data2[4] = { 0, 1, 3, 3 };
+        CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);     line = __LINE__;
+    }
+
+    CHECK_EQUAL ("CheckArrayCloseFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL (line, reporter.lastFailedLine);
+}
 
 TEST(CheckArrayCloseFailureIncludesTolerance)
 {
