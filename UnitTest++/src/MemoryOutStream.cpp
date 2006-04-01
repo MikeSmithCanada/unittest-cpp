@@ -46,4 +46,13 @@ MemoryOutStream& MemoryOutStream::operator << (float const f)
     return *this;
 }
 
+MemoryOutStream& MemoryOutStream::operator << (void* p)
+{
+    char txt[32];
+    std::sprintf(txt, "%p", p);
+    *this << txt;
+    return *this;
+}
+
+
 }

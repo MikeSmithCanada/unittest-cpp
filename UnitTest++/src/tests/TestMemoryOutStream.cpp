@@ -41,6 +41,15 @@ TEST (StreamingFloatWritesCorrectCharacters)
     CHECK (std::strstr(stream.GetText(), "3.1415"));
 }
 
+TEST (StreamingPointerWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    int* p = (int*)0x1234;
+    stream << p;
+    CHECK (std::strstr(stream.GetText(), "0x"));
+    CHECK (std::strstr(stream.GetText(), "1234"));
+}
+
 TEST (WritingStringLongerThanAvailableMemoryTruncatesString)
 {
     MemoryOutStream stream(8);

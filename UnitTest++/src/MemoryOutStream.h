@@ -15,6 +15,7 @@ public:
     MemoryOutStream& operator << (char const* txt);
     MemoryOutStream& operator << (int n);
     MemoryOutStream& operator << (float f);
+    MemoryOutStream& operator << (void* p);
 
 private:
     void operator= (MemoryOutStream const&);

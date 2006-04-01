@@ -24,7 +24,8 @@ Jim Tilander (jim.tilander@gmail.com)
 Release notes
 --------------
 
-Version 1.01 (2006-??-??)
+Version 1.1 (2006-??-??)
+- CHECK macros do not have side effects even if one of the parameters changes state
 - Added local and global time constraints
 - Removed dependencies on strstream
 - Added XProject build files
