@@ -13,24 +13,24 @@ TEST(ValidCheckSucceeds)
     CHECK(b);
 }
 
-TEST(ValidCheckEqualsSucceeds)
+TEST(CheckWorksWithPointers)
+{
+    void* p = (void *)0x100;
+    CHECK(p);
+    CHECK(p != 0);
+}
+
+TEST(ValidCheckEqualSucceeds)
 {
     int const x = 3;
     int const y = 3;
     CHECK_EQUAL(x, y);
 }
 
-TEST(CheckNullSucceeds)
+TEST(CheckEqualWorksWithPointers)
 {
-    void const* nullPtr = 0;
-    CHECK_NULL(nullPtr);
-}
-
-TEST(CheckNotNullsucceeds)
-{
-    int const i = 3;
-    int const* iPtr = &i;
-    CHECK_NOT_NULL(iPtr);
+    void* p = (void *)0;
+    CHECK_EQUAL ((void*)0, p);
 }
 
 TEST(ValidCheckCloseSucceeds)

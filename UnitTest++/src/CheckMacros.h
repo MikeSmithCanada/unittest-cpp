@@ -19,14 +19,6 @@
                 "Unhandled exception in CHECK(" #value ")"); \
     }
 
-#define CHECK_NULL(ptr) \
-    if (!UnitTest::CheckNull(ptr)) \
-        testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, #ptr " is not NULL.");
-
-#define CHECK_NOT_NULL(ptr) \
-    if (UnitTest::CheckNull(ptr)) \
-        testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, #ptr " is NULL.");
-
 #define CHECK_EQUAL(expected, actual) \
     try { \
         UnitTest::CheckEqual(testResults_, expected, actual, m_testName, __FILE__, __LINE__); \
