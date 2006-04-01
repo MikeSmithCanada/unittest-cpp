@@ -261,66 +261,6 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
 }
 
 
-
-TEST(CheckArrayEqualSuceedsOnEqual)
-{
-    bool failure = true;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults_(&reporter);
-        const float data[] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_EQUAL (data, data, 3);
-        failure = (testResults_.GetFailureCount() > 0);
-    }
-
-    CHECK (!failure);
-}
-
-TEST(CheckArrayEqualFailsOnNotEqual)
-{
-    bool failure = false;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults_(&reporter);
-        const float data1[] = { 0, 1, 2, 3 };
-        const float data2[] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 3);
-        failure = (testResults_.GetFailureCount() > 0);
-    }
-
-    CHECK (failure);
-}
-
-TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        const int data1[] = { 0, 1, 2, 3 };
-        const int data2[] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 4);
-    }
-
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
-}
-
-TEST(CheckArrayEqualFailureContainsCorrectInfo)
-{
-    int line = 0;
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        const int data1[] = { 0, 1, 2, 3 };
-        const int data2[] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data1, data2, 4);    line = __LINE__;
-    }
-
-    CHECK_EQUAL ("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
-}
-
 class ThrowingObject
 {
 public:
@@ -330,64 +270,12 @@ public:
     }
 };
 
-TEST(CheckArrayEqualFailsOnException)
-{
-    bool failure = false;
-    {
-        RecordingReporter reporter;
-        UnitTest::TestResults testResults_(&reporter);
-        const float data[] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
-        CHECK_ARRAY_EQUAL (data, obj, 4);
-        failure = (testResults_.GetFailureCount() > 0);
-    }
-
-    CHECK (failure);
-}
-
-TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
-{
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        const float data[] = { 0, 1, 2, 3 };
-        ThrowingObject obj;
-        CHECK_ARRAY_EQUAL (data, obj, 4);
-    }
-
-    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
-}
-
 float const* FunctionWithSideEffects2()
 {
     ++g_sideEffect;
     static float const data[] = {1,2,3,4};
     return data;
 }
-
-TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenPassing)
-{
-    g_sideEffect = 0;
-    {
-        UnitTest::TestResults testResults_;
-        const float data[] = { 0, 1, 2, 3 };
-        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
-    }
-    CHECK_EQUAL (1, g_sideEffect);
-}
-
-TEST(CheckArrayEqualDoesNotHaveSideEffectsWhenFailing)
-{
-    g_sideEffect = 0;
-    {
-        UnitTest::TestResults testResults_;
-        const float data[] = { 0, 1, 3, 3 };
-        CHECK_ARRAY_EQUAL (data, FunctionWithSideEffects2(), 4);
-    }
-    CHECK_EQUAL (1, g_sideEffect);
-}
-
 
 
 TEST(CheckArrayCloseSuceedsOnEqual)

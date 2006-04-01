@@ -2,7 +2,7 @@
 #include "../TestReporter.h"
 #include "../ReportAssert.h"
 #include "../Config.h"
-
+#include <vector>
 
 namespace {
 
@@ -39,18 +39,19 @@ TEST(ValidCheckCloseSucceeds)
     CHECK_CLOSE(2.001f, 2.0f, 0.01f);
 }
 
-TEST(ArrayEqualSucceeds)
-{
-    int const a1[] = {1,2,3};
-    int const a2[] = {1,2,3};
-    CHECK_ARRAY_EQUAL (a1, a2, 3);
-}
-
 TEST(ArrayCloseSucceeds)
 {
     float const a1[] = {1, 2, 3};
     float const a2[] = {1, 2.01f, 3};
     CHECK_ARRAY_CLOSE (a1, a2, 3, 0.1f);
+}
+
+TEST (CheckArrayCloseWorksWithVectors)
+{
+    std::vector<float> a(4);
+    for (int i=0; i < 4; ++i)
+        a[i] = i;
+    CHECK_ARRAY_CLOSE (a, a, a.size(), 0);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
@@ -133,6 +134,7 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtTheTime)
 {
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }
+
 
 }
 
