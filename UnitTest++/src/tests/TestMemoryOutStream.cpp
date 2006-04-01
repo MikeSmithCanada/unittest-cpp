@@ -49,25 +49,69 @@ TEST (StreamingPointerWritesCorrectCharacters)
     CHECK (std::strstr(stream.GetText(), "1234"));
 }
 
-TEST (WritingStringLongerThanAvailableMemoryTruncatesString)
+TEST (StreamingSizeTWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    size_t s = 53124;
+    stream << s;
+    CHECK_EQUAL ("53124", stream.GetText());
+}
+
+TEST (StreamInitialCapacityIsCorrect)
+{
+    MemoryOutStream stream(MemoryOutStream::GROW_CHUNK_SIZE);
+    CHECK_EQUAL ((int)MemoryOutStream::GROW_CHUNK_SIZE, stream.GetCapacity());
+}
+
+TEST (StreamInitialCapacityIsMultipleOfGrowChunkSize)
+{
+    MemoryOutStream stream(MemoryOutStream::GROW_CHUNK_SIZE + 1);
+    CHECK_EQUAL ((int)MemoryOutStream::GROW_CHUNK_SIZE * 2, stream.GetCapacity());
+}
+
+
+TEST (ExceedingCapacityGrowsBuffer)
+{
+    MemoryOutStream stream(MemoryOutStream::GROW_CHUNK_SIZE);
+    stream << "012345678901234567890123456789";
+    char const* const oldBuffer = stream.GetText();
+    stream << "0123456789";
+    CHECK (oldBuffer != stream.GetText());
+}
+
+TEST (ExceedingCapacityGrowsBufferByGrowChunk)
+{
+    MemoryOutStream stream(MemoryOutStream::GROW_CHUNK_SIZE);
+    stream << "0123456789012345678901234567890123456789";
+    CHECK_EQUAL (MemoryOutStream::GROW_CHUNK_SIZE * 2, stream.GetCapacity());
+}
+
+TEST (WritingStringLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
     stream << "0123456789ABCDEF";
-    CHECK_EQUAL ("0123456", stream.GetText());
+    CHECK_EQUAL ("0123456789ABCDEF", stream.GetText());
 }
 
-TEST (WritingIntLongerThanAvailableMemoryTruncatesString)
+TEST (WritingIntLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
     stream << "aaaa" << 123456;;
-    CHECK_EQUAL ("aaaa123", stream.GetText());
+    CHECK_EQUAL ("aaaa123456", stream.GetText());
 }
 
-TEST (WritingFloatLongerThanAvailableMemoryTruncatesString)
+TEST (WritingFloatLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
     stream << "aaaa" << 123456.0f;;
-    CHECK_EQUAL ("aaaa123", stream.GetText());
+    CHECK_EQUAL ("aaaa123456.000000", stream.GetText());
+}
+
+TEST (WritingSizeTLongerThanCapacityFitsInNewBuffer)
+{
+    MemoryOutStream stream(8);
+    stream << "aaaa" << size_t(32145);
+    CHECK_EQUAL ("aaaa32145", stream.GetText());
 }
 
 }

@@ -13,7 +13,7 @@ TEST (TimeConstraintSucceedsWithFastTest)
 {
     TestResults result;
     {
-        TimeConstraint t(100, result, "", 0, "");
+        TimeConstraint t(200, result, "", 0, "");
         TimeHelpers::SleepMs(5);
     }
     CHECK_EQUAL (0, result.GetFailureCount());
