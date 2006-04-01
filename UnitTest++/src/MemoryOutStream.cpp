@@ -42,8 +42,8 @@ char const* MemoryOutStream::GetText() const
 
 MemoryOutStream& MemoryOutStream::operator << (char const* txt)
 {
-    int const bytesLeft = m_capacity - std::strlen(m_buffer);
-    int const bytesRequired = std::strlen(txt) + 1;
+    int const bytesLeft = m_capacity - (int)std::strlen(m_buffer);
+    int const bytesRequired = (int)std::strlen(txt) + 1;
 
     if (bytesRequired > bytesLeft)
     {

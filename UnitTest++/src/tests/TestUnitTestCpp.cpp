@@ -50,8 +50,8 @@ TEST (CheckArrayCloseWorksWithVectors)
 {
     std::vector<float> a(4);
     for (int i=0; i < 4; ++i)
-        a[i] = i;
-    CHECK_ARRAY_CLOSE (a, a, a.size(), 0);
+        a[i] = (float)i;
+    CHECK_ARRAY_CLOSE (a, a, (int)a.size(), 0);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
