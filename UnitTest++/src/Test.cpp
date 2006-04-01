@@ -33,7 +33,7 @@ void Test::Run(TestResults& testResults) const
     try
     {
 #ifdef UNITTEST_POSIX
-        SignalTranslator sig;
+        UNITTEST_THROW_SIGNALS
 #endif
         RunImpl(testResults);
     }

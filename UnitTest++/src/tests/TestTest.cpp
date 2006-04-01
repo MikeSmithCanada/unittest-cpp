@@ -59,8 +59,6 @@ TEST (ThrowingTestsAreReportedAsFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#ifndef UNITTEST_POSIX
-
 TEST (CrashingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test
@@ -78,6 +76,5 @@ TEST (CrashingTestsAreReportedAsFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
-#endif
 
 }
