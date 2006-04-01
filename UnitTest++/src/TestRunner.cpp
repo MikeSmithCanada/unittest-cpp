@@ -5,7 +5,8 @@
 #include "TestReporter.h"
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
-#include <cstdio>
+#include "MemoryOutStream.h"
+
 
 namespace UnitTest {
 
@@ -29,11 +30,11 @@ int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestT
         int const testTimeInMs = testTimer.GetTimeInMs();
         if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs)
         {
-            char txt[256];
-            std::sprintf (txt, "Global time constraint failed. Expected under %i ms but took %i ms.",
-                            maxTestTimeInMs, testTimeInMs);
-            result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber, 
-                                 curTest->m_testName, txt);
+            MemoryOutStream stream;
+            stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<
+                      "ms but took " << testTimeInMs << "ms.";
+            result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber,
+                                 curTest->m_testName, stream.GetText());
         }
         result.OnTestFinish(curTest->m_testName, testTimeInMs/1000.0f);
 

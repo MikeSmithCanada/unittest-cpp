@@ -143,7 +143,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
     CHECK (std::strstr(test.m_filename, reporter.lastFailedFile));
     CHECK_EQUAL (test.m_lineNumber, reporter.lastFailedLine);
     CHECK (std::strstr(reporter.lastFailedMessage, "Global time constraint failed"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "3 ms"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "3ms"));
 }
 
 }

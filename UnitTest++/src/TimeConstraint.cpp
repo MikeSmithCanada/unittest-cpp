@@ -1,6 +1,6 @@
 #include "TimeConstraint.h"
 #include "TestResults.h"
-#include <cstdio>
+#include "MemoryOutStream.h"
 
 
 namespace UnitTest {
@@ -23,10 +23,10 @@ TimeConstraint::~TimeConstraint()
     int const totalTimeInMs = m_timer.GetTimeInMs();
     if (totalTimeInMs > m_maxMs)
     {
-        char txt[256];
-        std::sprintf (txt, "Time constraint failed. Expected to run test under %i ms but took %i ms.",
-            m_maxMs, totalTimeInMs);
-        m_result.OnTestFailure(m_filename, m_lineNumber, m_testName, txt);
+        MemoryOutStream stream;
+        stream << "Time constraint failed. Expected to run test under " << m_maxMs <<
+                  "ms but took " << totalTimeInMs << "ms.";
+        m_result.OnTestFailure(m_filename, m_lineNumber, m_testName, stream.GetText());
     }
 }
 

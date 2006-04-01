@@ -51,7 +51,7 @@ TEST (TimeConstraintFailureIncludesTimeoutInformation)
         TimeHelpers::SleepMs(20);
     }
     CHECK (std::strstr(reporter.lastFailedMessage, "ime constraint"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "under 10 ms"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "under 10ms"));
 }
 
 TEST (TimeConstraintMacroUsesCorrectInfo)

@@ -19,6 +19,7 @@ Rory Driscoll (rorydriscoll@gmail.com)
 Kim Gräsman (kim@mvps.org)
 Jonathan Jansson (lilliemarck@users.sourceforge.net)
 Jim Tilander (jim.tilander@gmail.com)
+Dirck Blaskey (listtarget2@danbala.com)
 
 
 Release notes
@@ -26,8 +27,10 @@ Release notes
 
 Version 1.1 (2006-??-??)
 - CHECK macros do not have side effects even if one of the parameters changes state
+- Removed CHECK_ARRAY_EQUAL (too similar to CHECK_ARRAY_CLOSE)
 - Added local and global time constraints
 - Removed dependencies on strstream
+- Improved Posix signal to exception translator
 - Added XProject build files
 - Failing tests are added to Visual Studio's error list
 - Fixed Visual Studio projects to work with spaces in directories

@@ -2,11 +2,11 @@
 #include "Test.h"
 #include "TestResults.h"
 #include "AssertException.h"
+#include "MemoryOutStream.h"
 #ifdef UNITTEST_POSIX
     #include "Posix/SignalTranslator.h"
 #endif
 
-#include <cstring>
 
 namespace UnitTest {
 
@@ -43,14 +43,13 @@ void Test::Run(TestResults& testResults) const
     }
     catch (std::exception const& e)
     {
-        char msg[512];
-        std::strcpy (msg, "Unhandled exception: ");
-        std::strcat (msg, e.what());
-        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, msg);
+        MemoryOutStream stream;
+        stream << "Unhandled exception: " << e.what();
+        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, stream.GetText());
     }
     catch (...)
     {
-        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, "Unhandled exception: crash!");
+        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, "Unhandled exception: Crash!");
     }
 }
 
