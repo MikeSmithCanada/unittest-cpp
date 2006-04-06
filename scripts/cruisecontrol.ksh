@@ -16,9 +16,11 @@ fi
 
 touch $LOCK
 
-cd `dirname $0`
+cd `dirname $0`/..
 
 svn update
+
+cd UnitTest++
 make clean all
 
 if [ $? != "0" ]; then
