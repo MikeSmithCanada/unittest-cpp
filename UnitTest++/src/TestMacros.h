@@ -18,7 +18,7 @@
     void Test##Name::RunImpl(UnitTest::TestResults& testResults_) const
 
 #define TEST(Name) TEST_EX(Name,UnitTest::Test::GetTestList())
-        
+
 
 #define TEST_FIXTURE_EX(Fixture, Name, List)                                         \
     struct Fixture##Name##Helper : public Fixture {                                  \

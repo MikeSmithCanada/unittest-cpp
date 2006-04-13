@@ -6,8 +6,8 @@ RM = rm
 
 .SUFFIXES: .o .cpp
 
-lib = TestUnit++.a
-test = TestTestUnit++
+lib = UnitTest++.a
+test = TestUnitTest++
 
 src = src/AssertException.cpp \
 	src/Test.cpp \

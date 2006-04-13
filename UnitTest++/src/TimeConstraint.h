@@ -27,8 +27,8 @@ private:
 };
 
 
-#define TIME_CONSTRAINT(ms) TimeConstraint t__(ms,testResults_,__FILE__,__LINE__,m_testName)
-
+#define UNITTEST_TIME_CONSTRAINT(ms) TimeConstraint t__(ms,testResults_,__FILE__,__LINE__,m_testName)
+#define UNITTEST_TIME_CONSTRAINT_EXEMPT() do { m_timeConstraintExempt = true; } while (0)
 
 }
 

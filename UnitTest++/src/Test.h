@@ -19,6 +19,7 @@ public:
     char const* const m_testName;
     char const* const m_filename;
     int const m_lineNumber;
+    mutable bool m_timeConstraintExempt;
 
     static TestList& GetTestList();
 

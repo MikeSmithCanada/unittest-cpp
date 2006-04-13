@@ -28,7 +28,7 @@ int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestT
         curTest->Run(result);
 
         int const testTimeInMs = testTimer.GetTimeInMs();
-        if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs)
+        if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs && !curTest->m_timeConstraintExempt)
         {
             MemoryOutStream stream;
             stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<

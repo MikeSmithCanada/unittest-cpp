@@ -60,7 +60,7 @@ TEST (TimeConstraintMacroUsesCorrectInfo)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        TIME_CONSTRAINT(10);                    testLine = __LINE__;
+        UNITTEST_TIME_CONSTRAINT(10);                    testLine = __LINE__;
         TimeHelpers::SleepMs(20);
     }
     CHECK_EQUAL (1, reporter.testFailedCount);

@@ -3,6 +3,7 @@
 #include "../ReportAssert.h"
 #include "../TestList.h"
 #include "../TimeHelpers.h"
+#include "../TimeConstraint.h"
 
 using namespace UnitTest;
 
@@ -144,6 +145,25 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
     CHECK_EQUAL (test.m_lineNumber, reporter.lastFailedLine);
     CHECK (std::strstr(reporter.lastFailedMessage, "Global time constraint failed"));
     CHECK (std::strstr(reporter.lastFailedMessage, "3ms"));
+}
+
+TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
+{
+    class SlowExemptedTest : public Test
+    {
+    public:
+        SlowExemptedTest() : Test("slowexempted", "", 0) {}
+        virtual void RunImpl(TestResults&) const
+        {
+            UNITTEST_TIME_CONSTRAINT_EXEMPT();
+            TimeHelpers::SleepMs(20);
+        }
+    };
+
+    SlowExemptedTest test;
+    list.Add(&test);
+    RunAllTests(reporter, list, 3);
+    CHECK_EQUAL (0, reporter.testFailedCount);
 }
 
 }

@@ -21,6 +21,7 @@ Test::Test(char const* testName, char const* filename, int const lineNumber)
     , m_testName(testName)
     , m_filename(filename)
     , m_lineNumber(lineNumber)
+    , m_timeConstraintExempt(false)
 {
 }
 
