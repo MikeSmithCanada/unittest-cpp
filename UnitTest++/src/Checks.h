@@ -8,22 +8,11 @@
 namespace UnitTest {
 
 
-#ifdef UNITTEST_VISUALSTUDIO
-#   pragma warning(push)
-#   pragma warning(disable:4800) // forcing value to bool true/false, performance warning
-#endif
-
-// This is a templated function just to be able to surround it with #pragmas to
-// shut up Visual Studio
 template< typename Value >
 bool Check(Value const value)
 {
-    return value;
+    return !!value; // doing double negative to avoid silly VS warnings
 }
-
-#ifdef UNITTEST_VISUALSTUDIO
-#   pragma warning(pop)
-#endif
 
 
 template< typename Expected, typename Actual >
