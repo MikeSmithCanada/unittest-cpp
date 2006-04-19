@@ -1,6 +1,6 @@
 UnitTest++ README
-Version: v1.0 RC1
-Last update: 2006-03-12
+Version: v1.1
+Last update: 2006-04-18
 
 
 UnitTest++ is free software. You may copy, distribute, and modify it under
@@ -25,7 +25,7 @@ Dan Lind (podcat@gmail.com)
 Release notes
 --------------
 
-Version 1.1 (2006-??-??)
+Version 1.1 (2006-04-18)
 - CHECK macros do not have side effects even if one of the parameters changes state
 - Removed CHECK_ARRAY_EQUAL (too similar to CHECK_ARRAY_CLOSE)
 - Added local and global time constraints
