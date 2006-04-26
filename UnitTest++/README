@@ -1,6 +1,6 @@
 UnitTest++ README
-Version: v1.1
-Last update: 2006-04-18
+Version: v1.2
+Last update: 2006-XX-XX
 
 
 UnitTest++ is free software. You may copy, distribute, and modify it under
@@ -24,6 +24,10 @@ Dan Lind (podcat@gmail.com)
 
 Release notes
 --------------
+
+Version 1.2 (2006-XX-XX)
+- Posix library name is libUnitTest++.a now
+- Floating point numbers are postfixed with f in the failure reports
 
 Version 1.1 (2006-04-18)
 - CHECK macros do not have side effects even if one of the parameters changes state

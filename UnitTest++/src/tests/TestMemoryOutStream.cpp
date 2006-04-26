@@ -38,7 +38,7 @@ TEST (StreamingFloatWritesCorrectCharacters)
 {
     MemoryOutStream stream;
     stream << 3.1415f;
-    CHECK (std::strstr(stream.GetText(), "3.1415"));
+    CHECK_EQUAL ("3.141500f", stream.GetText());
 }
 
 TEST (StreamingPointerWritesCorrectCharacters)
@@ -104,7 +104,7 @@ TEST (WritingFloatLongerThanCapacityFitsInNewBuffer)
 {
     MemoryOutStream stream(8);
     stream << "aaaa" << 123456.0f;;
-    CHECK_EQUAL ("aaaa123456.000000", stream.GetText());
+    CHECK_EQUAL ("aaaa123456.000000f", stream.GetText());
 }
 
 TEST (WritingSizeTLongerThanCapacityFitsInNewBuffer)

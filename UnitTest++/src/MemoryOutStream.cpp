@@ -63,7 +63,7 @@ MemoryOutStream& MemoryOutStream::operator << (int const n)
 
 MemoryOutStream& MemoryOutStream::operator << (float const f)
 {
-    FormatToStream(*this, "%f", f);
+    FormatToStream(*this, "%ff", f);
     return *this;    
 }
 
