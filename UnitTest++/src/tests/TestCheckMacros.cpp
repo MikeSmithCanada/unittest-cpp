@@ -1,4 +1,5 @@
 #include "../UnitTest++.h"
+#include "../UnitTest++.h"
 #include "RecordingReporter.h"
 
 
@@ -270,13 +271,6 @@ public:
     }
 };
 
-float const* FunctionWithSideEffects2()
-{
-    ++g_sideEffect;
-    static float const data[] = {1,2,3,4};
-    return data;
-}
-
 
 TEST(CheckArrayCloseSuceedsOnEqual)
 {
@@ -380,6 +374,14 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
     CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
 }
 
+
+float const* FunctionWithSideEffects2()
+{
+    ++g_sideEffect;
+    static float const data[] = {1,2,3,4};
+    return data;
+}
+
 TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenPassing)
 {
     g_sideEffect = 0;
@@ -402,5 +404,147 @@ TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
     CHECK_EQUAL (1, g_sideEffect);
 }
 
+class ThrowingObject2D
+{
+public:
+    float* operator[](int) const
+    {
+        throw "Test throw";
+    }
+};
+
+
+TEST(CheckArray2DCloseSuceedsOnEqual)
+{
+    bool failure = true;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(&reporter);
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        CHECK_ARRAY2D_CLOSE (data, data, 2, 2, 0.01f);
+        failure = (testResults_.GetFailureCount() > 0);
+    }
+
+    CHECK (!failure);
+}
+
+TEST(CheckArray2DCloseFailsOnNotEqual)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(&reporter);
+        int const data1[2][2] = { {0, 1}, {2, 3} };
+        int const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
+        failure = (testResults_.GetFailureCount() > 0);
+    }
+
+    CHECK (failure);
+}
+
+TEST(CheckArray2DCloseFailureIncludesCheckExpectedAndActual)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        int const data1[2][2] = { {0, 1}, {2, 3} };
+        int const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
+    }
+
+    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ [ 0 1 ] [ 2 3 ] ]"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "was [ [ 0 1 ] [ 3 3 ] ]"));
+}
+
+TEST(CheckArray2DCloseFailureContainsCorrectInfo)
+{
+    int line = 0;
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        int const data1[2][2] = { {0, 1}, {2, 3} };
+        int const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);     line = __LINE__;
+    }
+
+    CHECK_EQUAL ("CheckArray2DCloseFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL (line, reporter.lastFailedLine);
+}
+
+TEST(CheckArray2DCloseFailureIncludesTolerance)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        float const data1[2][2] = { {0, 1}, {2, 3} };
+        float const data2[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
+    }
+
+    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
+}
+
+TEST(CheckArray2DCloseFailsOnException)
+{
+    bool failure = false;
+    {
+        RecordingReporter reporter;
+        UnitTest::TestResults testResults_(&reporter);
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        ThrowingObject2D obj;
+        CHECK_ARRAY2D_CLOSE (data, obj, 2, 2, 0.01f);
+        failure = (testResults_.GetFailureCount() > 0);
+    }
+
+    CHECK (failure);
+}
+
+TEST(CheckArray2DCloseFailureOnExceptionIncludesCheckContents)
+{
+    RecordingReporter reporter;
+    {
+        UnitTest::TestResults testResults_(&reporter);
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        ThrowingObject2D obj;
+        CHECK_ARRAY2D_CLOSE (data, obj, 2, 2, 0.01f);
+    }
+
+    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
+    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
+}
+
+float const* const* FunctionWithSideEffects3()
+{
+    ++g_sideEffect;
+    static float const data1[] = {0,1};
+    static float const data2[] = {2,3};
+    static const float* const data[] = {data1, data2};
+    return data;
+}
+
+TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenPassing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[2][2] = { {0, 1}, {2, 3} };
+        CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
+
+TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
+{
+    g_sideEffect = 0;
+    {
+        UnitTest::TestResults testResults_;
+        const float data[2][2] = { {0, 1}, {3, 3} };
+        CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
+    }
+    CHECK_EQUAL (1, g_sideEffect);
+}
 
 }
+

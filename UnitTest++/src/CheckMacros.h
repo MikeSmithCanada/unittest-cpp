@@ -46,6 +46,17 @@
                 "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
     }
 
+#define CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance) \
+    try { \
+        UnitTest::CheckArray2DClose(testResults_, expected, actual, rows, columns, tolerance, m_testName, __FILE__, __LINE__); \
+    } \
+    catch (...) { \
+        testResults_.OnTestFailure(__FILE__, __LINE__, m_testName, \
+                "Unhandled exception in CHECK_ARRAY_CLOSE(" #expected ", " #actual ")"); \
+    }
+
+
+
 #define CHECK_THROW(expression, ExpectedExceptionType) \
     { \
         bool caught_ = false; \

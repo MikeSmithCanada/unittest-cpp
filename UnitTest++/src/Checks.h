@@ -84,13 +84,20 @@ bool CheckClose2(Expected const expected, Actual const actual, Tolerance const t
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArrayClose(TestResults& results, Expected const expected, Actual const actual,
-                   int const count, Tolerance const tolerance, char const* const testName,
-                   char const* const filename, int const line)
+bool ArrayAreClose(Expected const expected, Actual const actual, int const count, Tolerance const tolerance)
 {
     bool equal = true;
     for (int i = 0; i < count; ++i)
         equal &= AreClose(expected[i], actual[i], tolerance);
+    return equal;
+}
+
+template< typename Expected, typename Actual, typename Tolerance >
+void CheckArrayClose(TestResults& results, Expected const expected, Actual const actual,
+                   int const count, Tolerance const tolerance, char const* const testName,
+                   char const* const filename, int const line)
+{
+    bool equal = ArrayAreClose(expected, actual, count, tolerance);
 
     if (!equal)
     {
@@ -105,6 +112,40 @@ void CheckArrayClose(TestResults& results, Expected const expected, Actual const
         results.OnTestFailure(filename, line, testName, stream.GetText());
     }
 }
+
+template< typename Expected, typename Actual, typename Tolerance >
+void CheckArray2DClose(TestResults& results, Expected const expected, Actual const actual,
+                   int const rows, int const columns, Tolerance const tolerance, 
+                   char const* const testName, char const* const filename, int const line)
+{
+    bool equal = true;
+    for (int i = 0; i < rows; ++i)
+        equal &= ArrayAreClose(expected[i], actual[i], columns, tolerance);
+
+    if (!equal)
+    {
+        UnitTest::MemoryOutStream stream;
+        stream << "Expected [ ";    
+        for (int i = 0; i < rows; ++i)
+        {
+            stream << "[ ";
+            for (int j = 0; j < columns; ++j)
+                stream << expected[i][j] << " ";
+            stream << "] ";
+        }
+        stream << "] +/- " << tolerance << " but was [ ";
+        for (int i = 0; i < rows; ++i)
+        {
+            stream << "[ ";
+            for (int j = 0; j < columns; ++j)
+                stream << actual[i][j] << " ";
+            stream << "] ";
+        }
+        stream << "]";
+        results.OnTestFailure(filename, line, testName, stream.GetText());
+    }
+}
+
 
 
 }

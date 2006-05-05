@@ -20,12 +20,14 @@ Jonathan Jansson (lilliemarck@users.sourceforge.net)
 Dirck Blaskey (listtarget2@danbala.com)
 Rory Driscoll (rorydriscoll@gmail.com)
 Dan Lind (podcat@gmail.com)
+Anthony Moralez (anthony.moralez@gmail.com)
 
 
 Release notes
 --------------
 
 Version 1.2 (2006-XX-XX)
+- Added CHECK_ARRAY2D_CLOSE 
 - Posix library name is libUnitTest++.a now
 - Floating point numbers are postfixed with f in the failure reports
 

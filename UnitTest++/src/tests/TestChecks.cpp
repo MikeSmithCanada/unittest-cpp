@@ -180,6 +180,31 @@ TEST(CheckArrayCloseFalse)
     CHECK_EQUAL (1, results.GetFailureCount());
 }
 
+TEST(CheckArray2DCloseTrue)
+{
+    TestResults results;
+    float const array1[3][3] = { { 1.0f, 1.5f, 2.0f },
+                                 { 2.0f, 2.5f, 3.0f },
+                                 { 3.0f, 3.5f, 4.0f } };
+    float const array2[3][3] = { { 1.01f, 1.51f, 2.01f },
+                                 { 2.01f, 2.51f, 3.01f },
+                                 { 3.01f, 3.51f, 4.01f } };
+    CheckArray2DClose(results, array1, array2, 3, 3, 0.02f, "", "", 0);
+    CHECK_EQUAL (0, results.GetFailureCount());
+}
+
+TEST(CheckArray2DCloseFalse)
+{
+    TestResults results;
+    float const array1[3][3] = { { 1.0f, 1.5f, 2.0f },
+                                 { 2.0f, 2.5f, 3.0f },
+                                 { 3.0f, 3.5f, 4.0f } };
+    float const array2[3][3] = { { 1.01f, 1.51f, 2.01f },
+                                 { 2.01f, 2.51f, 3.01f },
+                                 { 3.01f, 3.51f, 4.01f } };
+    CheckArray2DClose(results, array1, array2, 3, 3, 0.001f, "", "", 0);
+    CHECK_EQUAL (1, results.GetFailureCount());
+}
 
 }
 
