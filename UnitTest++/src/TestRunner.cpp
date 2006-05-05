@@ -6,12 +6,13 @@
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
+#include <cstring>
 
 
 namespace UnitTest {
 
 
-int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestTimeInMs )
+int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteName, int const maxTestTimeInMs )
 {
     TestResults result(&reporter);
 
@@ -21,23 +22,26 @@ int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestT
     Test const* curTest = list.GetHead();
     while (curTest != 0)
     {
-        Timer testTimer;
-        testTimer.Start();
-        result.OnTestStart(curTest->m_testName);
-
-        curTest->Run(result);
-
-        int const testTimeInMs = testTimer.GetTimeInMs();
-        if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs && !curTest->m_timeConstraintExempt)
+        if (suiteName == 0 || !std::strcmp(curTest->m_suiteName, suiteName))
         {
-            MemoryOutStream stream;
-            stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<
-                      "ms but took " << testTimeInMs << "ms.";
-            result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber,
-                                 curTest->m_testName, stream.GetText());
+            Timer testTimer;
+            testTimer.Start();
+            result.OnTestStart(curTest->m_testName);
+    
+            curTest->Run(result);
+    
+            int const testTimeInMs = testTimer.GetTimeInMs();
+            if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs && !curTest->m_timeConstraintExempt)
+            {
+                MemoryOutStream stream;
+                stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<
+                        "ms but took " << testTimeInMs << "ms.";
+                result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber,
+                                    curTest->m_testName, stream.GetText());
+            }
+            result.OnTestFinish(curTest->m_testName, testTimeInMs/1000.0f);
         }
-        result.OnTestFinish(curTest->m_testName, testTimeInMs/1000.0f);
-
+        
         curTest = curTest->next;
     }
 
@@ -51,7 +55,7 @@ int RunAllTests(TestReporter& reporter, TestList const& list, int const maxTestT
 int RunAllTests()
 {
     TestReporterStdout reporter;
-    return RunAllTests(reporter, Test::GetTestList());
+    return RunAllTests(reporter, Test::GetTestList(), 0);
 }
 
 }

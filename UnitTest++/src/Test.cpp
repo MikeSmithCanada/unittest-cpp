@@ -10,15 +10,18 @@
 
 namespace UnitTest {
 
+
+
 TestList& Test::GetTestList()
 {
     static TestList s_list;
     return s_list;
 }
 
-Test::Test(char const* testName, char const* filename, int const lineNumber)
+Test::Test(char const* testName, char const* suiteName, char const* filename, int const lineNumber)
     : next(0)
     , m_testName(testName)
+    , m_suiteName(suiteName)
     , m_filename(filename)
     , m_lineNumber(lineNumber)
     , m_timeConstraintExempt(false)

@@ -11,12 +11,13 @@ class TestResults;
 class Test
 {
 public:
-    Test(char const* testName, char const* filename = "", int lineNumber = 0);
+    Test(char const* testName, char const* suiteName = "DefaultSuite", char const* filename = "", int lineNumber = 0);
     virtual ~Test();
     void Run(TestResults& testResults) const;
 
     Test* next;
     char const* const m_testName;
+    char const* const m_suiteName;
     char const* const m_filename;
     int const m_lineNumber;
     mutable bool m_timeConstraintExempt;

@@ -4,6 +4,9 @@
 #include "../Config.h"
 #include <vector>
 
+
+// These are sample tests that show the different features of the framework
+
 namespace {
 
 

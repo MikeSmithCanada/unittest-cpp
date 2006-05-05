@@ -43,7 +43,7 @@ TEST_FIXTURE(TestRunnerFixture, TestStartIsReportedCorrectly)
     MockTest test("goodtest", true, false);
     list.Add(&test);
 
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK_EQUAL(1, reporter.testRunCount);
     CHECK_EQUAL("goodtest", reporter.lastStartedTest);
 }
@@ -53,7 +53,7 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsReportedCorrectly)
     MockTest test("goodtest", true, false);
     list.Add(&test);
 
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK_EQUAL(1, reporter.testFinishedCount);
     CHECK_EQUAL("goodtest", reporter.lastFinishedTest);
 }
@@ -61,7 +61,7 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsReportedCorrectly)
 class SlowTest : public Test
 {
 public:
-    SlowTest() : Test("slow", "filename", 123) {}
+    SlowTest() : Test("slow", "somesuite", "filename", 123) {}
     virtual void RunImpl(TestResults&) const
     {
         TimeHelpers::SleepMs(20);
@@ -73,13 +73,13 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsCalledWithCorrectTime)
     SlowTest test;
     list.Add(&test);
 
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK (reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
 }
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
 {
-    CHECK_EQUAL(0, RunAllTests(reporter, list));
+    CHECK_EQUAL(0, RunAllTests(reporter, list, 0));
     CHECK_EQUAL(0, reporter.testRunCount);
     CHECK_EQUAL(0, reporter.testFailedCount);
 }
@@ -93,7 +93,7 @@ TEST_FIXTURE(TestRunnerFixture, CallsReportFailureOncePerFailingTest)
     MockTest test3("test", false, false);
     list.Add(&test3);
 
-    CHECK_EQUAL(2, RunAllTests(reporter, list));
+    CHECK_EQUAL(2, RunAllTests(reporter, list, 0));
     CHECK_EQUAL(2, reporter.testFailedCount);
 }
 
@@ -102,7 +102,7 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
     MockTest test("test", true, true);
     list.Add(&test);
 
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK_EQUAL(1, reporter.testFailedCount);
 }
 
@@ -114,7 +114,7 @@ TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
     list.Add(&test1);
     list.Add(&test2);
 
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK_EQUAL(2, reporter.summaryTestCount);
     CHECK_EQUAL(1, reporter.summaryFailureCount);
 }
@@ -123,7 +123,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestPassesForHighTimeThreshold)
 {
     SlowTest test;
     list.Add(&test);
-    RunAllTests(reporter, list);
+    RunAllTests(reporter, list, 0);
     CHECK_EQUAL (0, reporter.testFailedCount);
 }
 
@@ -131,7 +131,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestFailsForLowTimeThreshold)
 {
     SlowTest test;
     list.Add(&test);
-    RunAllTests(reporter, list, 3);
+    RunAllTests(reporter, list, 0, 3);
     CHECK_EQUAL (1, reporter.testFailedCount);
 }
 
@@ -139,7 +139,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
 {
     SlowTest test;
     list.Add(&test);
-    RunAllTests(reporter, list, 3);
+    RunAllTests(reporter, list, 0, 3);
     CHECK_EQUAL (test.m_testName, reporter.lastFailedTest);
     CHECK (std::strstr(test.m_filename, reporter.lastFailedFile));
     CHECK_EQUAL (test.m_lineNumber, reporter.lastFailedLine);
@@ -162,9 +162,41 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
 
     SlowExemptedTest test;
     list.Add(&test);
-    RunAllTests(reporter, list, 3);
+    RunAllTests(reporter, list, 0, 3);
     CHECK_EQUAL (0, reporter.testFailedCount);
 }
+
+struct TestSuiteFixture
+{
+    TestSuiteFixture()
+        : test1("TestInDefaultSuite")
+        , test2("TestInOtherSuite", "OtherSuite")
+        , test3("SecondTestInDefaultSuite")
+    {
+        list.Add(&test1);
+        list.Add(&test2);
+    }
+
+    Test test1;
+    Test test2;
+    Test test3;
+    RecordingReporter reporter;
+    TestList list;
+};
+
+TEST_FIXTURE(TestSuiteFixture, TestRunnerRunsAllSuitesIfNullSuiteIsPassed)
+{
+    RunAllTests(reporter, list, 0);
+    CHECK_EQUAL(2, reporter.summaryTestCount);
+}
+
+TEST_FIXTURE(TestSuiteFixture,TestRunnerRunsOnlySpecifiedSuite)
+{
+    RunAllTests(reporter, list, "OtherSuite");
+    CHECK_EQUAL(1, reporter.summaryTestCount);
+    CHECK_EQUAL("TestInOtherSuite", reporter.lastFinishedTest);
+}
+
 
 }
 
