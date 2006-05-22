@@ -1,24 +1,26 @@
 #include "TestReporterStdout.h"
 #include <cstdio>
 
+#include "TestDetails.h"
+
 namespace UnitTest {
 
-void TestReporterStdout::ReportFailure(char const* file, int const line, 
-                char const* testName, char const* failure)
+void TestReporterStdout::ReportFailure(TestDetails const& test, char const* file, int const line, 
+                                       char const* failure)
 {
 #ifdef __APPLE__
     char const* const errorFormat = "%s:%d: error: Failure in %s: %s\n";
 #else
     char const* const errorFormat = "%s(%d): error: Failure in %s: %s\n";
 #endif
-    std::printf(errorFormat, file, line, testName, failure);
+    std::printf(errorFormat, file, line, test.testName, failure);
 }
 
-void TestReporterStdout::ReportTestStart(char const*)
+void TestReporterStdout::ReportTestStart(TestDetails const& /*test*/)
 {
 }
 
-void TestReporterStdout::ReportTestFinish(char const*, float)
+void TestReporterStdout::ReportTestFinish(TestDetails const& /*test*/, float)
 {
 }
 

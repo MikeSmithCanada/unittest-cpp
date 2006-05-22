@@ -81,8 +81,8 @@ TEST_EX(MacroTestHelper1,DefaultSuite,macroTestList1)
 TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
 {
     CHECK(macroTestList1.GetHead() != NULL);
-    CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_testName);
-    CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_suiteName);
+    CHECK_EQUAL ("MacroTestHelper1", macroTestList1.GetHead()->m_details.testName);
+    CHECK_EQUAL ("DefaultSuite", macroTestList1.GetHead()->m_details.suiteName);
 }
 
 TestList macroTestList2;
@@ -94,11 +94,10 @@ TEST_FIXTURE_EX(DummyFixture,MacroTestHelper2,DefaultSuite,macroTestList2)
 TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
 {
     CHECK(macroTestList2.GetHead() != NULL);
-    CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_testName);
-    CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_suiteName);
+    CHECK_EQUAL ("MacroTestHelper2", macroTestList2.GetHead()->m_details.testName);
+    CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
 
 
 }
-
 

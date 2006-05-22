@@ -39,7 +39,7 @@ TEST(FailureReportsCorrectTestName)
         CHECK (false);
     }
 
-    CHECK_EQUAL (m_testName, reporter.lastFailedTest);
+    CHECK_EQUAL (m_details.testName, reporter.lastFailedTest);
 }
 
 TEST(CheckFailureIncludesCheckContents)
@@ -547,4 +547,3 @@ TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
 }
 
 }
-

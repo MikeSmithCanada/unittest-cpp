@@ -214,6 +214,14 @@
 			RelativePath=".\src\UnitTest++.h"
 			>
 		</File>
+		<File
+			RelativePath=".\src\TestDetails.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\TestDetails.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

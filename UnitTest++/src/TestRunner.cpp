@@ -22,11 +22,11 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
     Test const* curTest = list.GetHead();
     while (curTest != 0)
     {
-        if (suiteName == 0 || !std::strcmp(curTest->m_suiteName, suiteName))
+        if (suiteName == 0 || !std::strcmp(curTest->m_details.suiteName, suiteName))
         {
             Timer testTimer;
             testTimer.Start();
-            result.OnTestStart(curTest->m_testName);
+            result.OnTestStart(curTest->m_details);
     
             curTest->Run(result);
     
@@ -36,10 +36,9 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
                 MemoryOutStream stream;
                 stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<
                         "ms but took " << testTimeInMs << "ms.";
-                result.OnTestFailure(curTest->m_filename, curTest->m_lineNumber,
-                                    curTest->m_testName, stream.GetText());
+                result.OnTestFailure(curTest->m_details, stream.GetText());
             }
-            result.OnTestFinish(curTest->m_testName, testTimeInMs/1000.0f);
+            result.OnTestFinish(curTest->m_details, testTimeInMs/1000.0f);
         }
         
         curTest = curTest->next;

@@ -163,6 +163,10 @@
 			RelativePath=".\src\tests\TestUnitTestCpp.cpp"
 			>
 		</File>
+		<File
+			RelativePath=".\src\tests\TestStdStreamsSupport.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -8,13 +8,12 @@ namespace UnitTest {
 class TestReporterStdout : public TestReporter
 {
 private:
-    virtual void ReportTestStart(char const* testName);
-    virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure);
-    virtual void ReportTestFinish(char const* testName, float secondsElapsed);
+    virtual void ReportTestStart(TestDetails const& test);
+    virtual void ReportFailure(TestDetails const& test, char const* file, int line, char const* failure);
+    virtual void ReportTestFinish(TestDetails const& test, float secondsElapsed);
     virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed);
 };
 
 }
 
 #endif 
-

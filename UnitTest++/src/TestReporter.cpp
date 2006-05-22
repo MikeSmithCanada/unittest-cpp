@@ -8,4 +8,3 @@ TestReporter::~TestReporter()
 }
 
 }
-

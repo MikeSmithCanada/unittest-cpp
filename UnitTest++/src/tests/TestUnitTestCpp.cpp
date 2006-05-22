@@ -140,4 +140,3 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtTheTime)
 
 
 }
-

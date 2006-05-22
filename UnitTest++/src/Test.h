@@ -2,7 +2,7 @@
 #define UNITTEST_TEST_H
 
 #include "TestList.h"
-
+#include "TestDetails.h"
 
 namespace UnitTest {
 
@@ -15,11 +15,8 @@ public:
     virtual ~Test();
     void Run(TestResults& testResults) const;
 
+    TestDetails const m_details;
     Test* next;
-    char const* const m_testName;
-    char const* const m_suiteName;
-    char const* const m_filename;
-    int const m_lineNumber;
     mutable bool m_timeConstraintExempt;
 
     static TestList& GetTestList();
@@ -27,7 +24,6 @@ public:
 private:
     virtual void RunImpl(TestResults& testResults_) const;
 
-    // revoked
     Test(Test const&);
     Test& operator =(Test const&);
 };
@@ -36,4 +32,3 @@ private:
 }
 
 #endif
-

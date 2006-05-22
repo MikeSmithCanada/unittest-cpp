@@ -24,7 +24,7 @@ struct MockTest : public Test
         if (asserted)
             ReportAssert("desc", "file", 0);
         else if (!success)
-            testResults_.OnTestFailure("filename", 0, "", "message");
+            testResults_.OnTestFailure(m_details, "filename", 0, "message");
     }
 
     bool success;
@@ -140,9 +140,9 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
     SlowTest test;
     list.Add(&test);
     RunAllTests(reporter, list, 0, 3);
-    CHECK_EQUAL (test.m_testName, reporter.lastFailedTest);
-    CHECK (std::strstr(test.m_filename, reporter.lastFailedFile));
-    CHECK_EQUAL (test.m_lineNumber, reporter.lastFailedLine);
+    CHECK_EQUAL (test.m_details.testName, reporter.lastFailedTest);
+    CHECK (std::strstr(test.m_details.filename, reporter.lastFailedFile));
+    CHECK_EQUAL (test.m_details.lineNumber, reporter.lastFailedLine);
     CHECK (std::strstr(reporter.lastFailedMessage, "Global time constraint failed"));
     CHECK (std::strstr(reporter.lastFailedMessage, "3ms"));
 }
@@ -199,4 +199,3 @@ TEST_FIXTURE(TestSuiteFixture,TestRunnerRunsOnlySpecifiedSuite)
 
 
 }
-

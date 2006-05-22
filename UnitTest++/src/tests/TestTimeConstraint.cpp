@@ -13,7 +13,7 @@ TEST (TimeConstraintSucceedsWithFastTest)
 {
     TestResults result;
     {
-        TimeConstraint t(200, result, "", 0, "");
+        TimeConstraint t(200, result, "", 0, m_details);
         TimeHelpers::SleepMs(5);
     }
     CHECK_EQUAL (0, result.GetFailureCount());
@@ -22,8 +22,9 @@ TEST (TimeConstraintSucceedsWithFastTest)
 TEST (TimeConstraintFailsWithSlowTest)
 {
     TestResults result;
+    TestDetails details("testname", "suitename", "filename", 10);
     {
-        TimeConstraint t(10, result, "", 0, "");
+        TimeConstraint t(10, result, "", 0, details);
         TimeHelpers::SleepMs(20);
     }
     CHECK_EQUAL (1, result.GetFailureCount());
@@ -33,8 +34,9 @@ TEST (TimeConstraintFailureIncludesCorrectData)
 {
     RecordingReporter reporter;
     TestResults result(&reporter);
+    TestDetails details("testname", "suitename", "filename", 10);
     {
-        TimeConstraint t(10, result, "filename", 123, "testname");
+        TimeConstraint t(10, result, "filename", 123, details);
         TimeHelpers::SleepMs(20);
     }
     CHECK (std::strstr(reporter.lastFailedFile, "filename"));
@@ -46,8 +48,9 @@ TEST (TimeConstraintFailureIncludesTimeoutInformation)
 {
     RecordingReporter reporter;
     TestResults result(&reporter);
+    TestDetails details("testname", "suitename", "filename", 10);
     {
-        TimeConstraint t(10, result, "", 0, "");
+        TimeConstraint t(10, result, "", 0, details);
         TimeHelpers::SleepMs(20);
     }
     CHECK (std::strstr(reporter.lastFailedMessage, "ime constraint"));

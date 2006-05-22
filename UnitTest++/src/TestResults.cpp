@@ -1,6 +1,8 @@
 #include "TestResults.h"
 #include "TestReporter.h"
 
+#include "TestDetails.h"
+
 namespace UnitTest {
 
 TestResults::TestResults(TestReporter* testReporter)
@@ -10,27 +12,32 @@ TestResults::TestResults(TestReporter* testReporter)
 {
 }
 
-void TestResults::OnTestStart(char const* testName)
+void TestResults::OnTestStart(TestDetails const& test)
 {
     ++m_testCount;
     if (m_testReporter)
-        m_testReporter->ReportTestStart(testName);
+        m_testReporter->ReportTestStart(test);
 }
 
-void TestResults::OnTestFailure(char const* file, int const line, 
-        char const* testName, char const* failure)
+void TestResults::OnTestFailure(TestDetails const& test, char const* failure)
 {
     ++m_failureCount;
     if (m_testReporter)
-        m_testReporter->ReportFailure(file, line, testName, failure);
+        m_testReporter->ReportFailure(test, test.filename, test.lineNumber, failure);
 }
 
-void TestResults::OnTestFinish(char const* testName, float secondsElapsed)
+void TestResults::OnTestFailure(TestDetails const& test, char const* file, int line, char const* failure)
+{
+    ++m_failureCount;
+    if (m_testReporter)
+        m_testReporter->ReportFailure(test, file, line, failure);
+}
+
+void TestResults::OnTestFinish(TestDetails const& test, float secondsElapsed)
 {
     if (m_testReporter)
-        m_testReporter->ReportTestFinish(testName, secondsElapsed);
+        m_testReporter->ReportTestFinish(test, secondsElapsed);
 }
-
 
 int TestResults::GetTestCount() const
 {
@@ -44,4 +51,3 @@ int TestResults::GetFailureCount() const
 
 
 }
-

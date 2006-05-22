@@ -4,6 +4,7 @@
 #include "../TestReporter.h"
 #include <cstring>
 
+#include "../TestDetails.h"
 
 struct RecordingReporter : public UnitTest::TestReporter
 {
@@ -23,25 +24,25 @@ public:
     {
     }
 
-    virtual void ReportTestStart(char const* testName)
+    virtual void ReportTestStart(UnitTest::TestDetails const& test)
     {
         ++testRunCount;
-        std::strcpy(lastStartedTest, testName);
+        std::strcpy(lastStartedTest, test.testName);
     }
 
-    virtual void ReportFailure(char const* file, int line, char const* testName, char const* failure)
+    virtual void ReportFailure(UnitTest::TestDetails const& test, char const* file, int line, char const* failure)
     {
         ++testFailedCount;
         std::strcpy(lastFailedFile, file);
         lastFailedLine = line;
-        std::strcpy(lastFailedTest, testName);
+        std::strcpy(lastFailedTest, test.testName);
         std::strcpy(lastFailedMessage, failure);
     }
 
-    virtual void ReportTestFinish(char const* testName, float testDuration)
+    virtual void ReportTestFinish(UnitTest::TestDetails const& test, float testDuration)
     {
         ++testFinishedCount;
-        std::strcpy(lastFinishedTest, testName);
+        std::strcpy(lastFinishedTest, test.testName);
         lastFinishedTestTime = testDuration;
     }
 

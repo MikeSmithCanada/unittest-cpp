@@ -10,8 +10,6 @@
 
 namespace UnitTest {
 
-
-
 TestList& Test::GetTestList()
 {
     static TestList s_list;
@@ -19,11 +17,8 @@ TestList& Test::GetTestList()
 }
 
 Test::Test(char const* testName, char const* suiteName, char const* filename, int const lineNumber)
-    : next(0)
-    , m_testName(testName)
-    , m_suiteName(suiteName)
-    , m_filename(filename)
-    , m_lineNumber(lineNumber)
+    : m_details(testName, suiteName, filename, lineNumber)
+    , next(0)
     , m_timeConstraintExempt(false)
 {
 }
@@ -43,17 +38,17 @@ void Test::Run(TestResults& testResults) const
     }
     catch (AssertException const& e)
     {
-        testResults.OnTestFailure(e.Filename(), e.LineNumber(), m_testName, e.what());
+        testResults.OnTestFailure(m_details, e.Filename(), e.LineNumber(), e.what());
     }
     catch (std::exception const& e)
     {
         MemoryOutStream stream;
         stream << "Unhandled exception: " << e.what();
-        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, stream.GetText());
+        testResults.OnTestFailure(m_details, stream.GetText());
     }
     catch (...)
     {
-        testResults.OnTestFailure(m_filename, m_lineNumber, m_testName, "Unhandled exception: Crash!");
+        testResults.OnTestFailure(m_details, "Unhandled exception: Crash!");
     }
 }
 

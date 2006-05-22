@@ -31,12 +31,15 @@ TEST(StartsWithNoTestsFailing)
 TEST(RecordsNumberOfFailures)
 {
     TestResults results;
-    results.OnTestFailure("nothing", 0, "", "expected failure");
-    results.OnTestFailure("nothing", 0, "", "expected failure");
+    TestDetails details("test", "suite", "file", 1);
+
+    // Test both overloads
+    results.OnTestFailure("", "nothing", 0, "expected failure");
+    results.OnTestFailure(details, "expected failure");
     CHECK_EQUAL(2, results.GetFailureCount());
 }
 
-TEST(NotifiesRecorderOfTestStartWithCorrectInfo)
+TEST(NotifiesReporterOfTestStartWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
@@ -45,11 +48,11 @@ TEST(NotifiesRecorderOfTestStartWithCorrectInfo)
     CHECK_EQUAL ("mytest", reporter.lastStartedTest);
 }
 
-TEST(NotifiesRecorderOfTestFailureWithCorrectInfo)
+TEST(NotifiesReporterOfTestFailureWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    results.OnTestFailure("filename", 123, "testname", "failurestring");
+    results.OnTestFailure("testname", "filename", 123, "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
     CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (123, reporter.lastFailedLine);
@@ -57,7 +60,21 @@ TEST(NotifiesRecorderOfTestFailureWithCorrectInfo)
     CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
 }
 
-TEST(NotifiesRecorderOfTestEnd)
+TEST(NotifiesReporterOfTestFailureWithCorrectInfoForDetailsOverload)
+{
+    RecordingReporter reporter;
+    TestResults results(&reporter);
+    TestDetails details("testname", "suitename", "filename", 123);
+
+    results.OnTestFailure(details, "failurestring");
+    CHECK_EQUAL (1, reporter.testFailedCount);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
+    CHECK_EQUAL (123, reporter.lastFailedLine);
+    CHECK_EQUAL ("testname", reporter.lastFailedTest);
+    CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
+}
+
+TEST(NotifiesReporterOfTestEnd)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);

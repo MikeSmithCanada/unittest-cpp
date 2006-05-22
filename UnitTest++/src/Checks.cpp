@@ -6,13 +6,14 @@ namespace UnitTest {
 namespace {
 
 void CheckStringsEqual(TestResults& results, char const* const expected, char const* const actual,
-                char const* const testName, char const* const filename, int const line)
+                TestDetails const& test, char const* const filename, int const line)
 {
     if (std::strcmp(expected, actual))
     {
         UnitTest::MemoryOutStream stream;
         stream << "Expected " << expected << " but was " << actual;
-        results.OnTestFailure(filename, line, testName, stream.GetText());
+
+        results.OnTestFailure(test, filename, line, stream.GetText());
     }
 }
 
@@ -20,27 +21,27 @@ void CheckStringsEqual(TestResults& results, char const* const expected, char co
 
 
 void CheckEqual(TestResults& results, char const* const expected, char const* const actual,
-                char const* const testName, char const* const filename, int const line)
+                TestDetails const& test, char const* const filename, int const line)
 {
-    CheckStringsEqual(results, expected, actual, testName, filename, line);
+    CheckStringsEqual(results, expected, actual, test, filename, line);
 }
 
 void CheckEqual(TestResults& results, char* const expected, char* const actual,
-                char const* const testName, char const* const filename, int const line)
+                TestDetails const& test, char const* const filename, int const line)
 {
-    CheckStringsEqual(results, expected, actual, testName, filename, line);
+    CheckStringsEqual(results, expected, actual, test, filename, line);
 }
 
 void CheckEqual(TestResults& results, char* const expected, char const* const actual,
-                char const* const testName, char const* const filename, int const line)
+                TestDetails const& test, char const* const filename, int const line)
 {
-    CheckStringsEqual(results, expected, actual, testName, filename, line);
+    CheckStringsEqual(results, expected, actual, test, filename, line);
 }
 
 void CheckEqual(TestResults& results, char const* const expected, char* const actual,
-                char const* const testName, char const* const filename, int const line)
+                TestDetails const& test, char const* const filename, int const line)
 {
-    CheckStringsEqual(results, expected, actual, testName, filename, line);
+    CheckStringsEqual(results, expected, actual, test, filename, line);
 }
 
 

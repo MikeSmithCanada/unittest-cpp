@@ -23,9 +23,9 @@
 
 #define TEST_FIXTURE_EX(Fixture, Name, Suite, List)                                         \
     struct Fixture##Suite##Name##Helper : public Fixture {                                  \
-        Fixture##Suite##Name##Helper(char const* testName) : m_testName(testName) {}        \
+        Fixture##Suite##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {}    \
         void RunTest(UnitTest::TestResults& testResults_);                           \
-        char const* const m_testName;                                                \
+        UnitTest::TestDetails const& m_details;                                      \
     private:                                                                         \
         Fixture##Suite##Name##Helper(Fixture##Suite##Name##Helper const&);                         \
         Fixture##Suite##Name##Helper& operator =(Fixture##Suite##Name##Helper const&);             \
@@ -40,11 +40,11 @@
     UnitTest::ListAdder adder##Fixture##Suite##Name (List, &test##Fixture##Suite##Name##Instance); \
     void Test##Fixture##Suite##Name::RunImpl(UnitTest::TestResults& testResults_) const {   \
         try {                                                                        \
-            Fixture##Suite##Name##Helper mt(m_testName);                                    \
+            Fixture##Suite##Name##Helper mt(m_details);                              \
             mt.RunTest(testResults_);                                                \
         }                                                                            \
         catch (...) {                                                                \
-            testResults_.OnTestFailure(__FILE__, __LINE__, m_testName,               \
+            testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
                     "Unhandled exception in fixture " #Fixture);                     \
         }                                                                            \
     }                                                                                \
@@ -54,4 +54,3 @@
 #define TEST_FIXTURE_SUITE(Fixture,Name,Suite) TEST_FIXTURE_EX(Fixture, Name, Suite, UnitTest::Test::GetTestList())
 
 #endif
-

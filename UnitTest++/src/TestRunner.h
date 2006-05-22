@@ -15,4 +15,3 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
 
 
 #endif
-
