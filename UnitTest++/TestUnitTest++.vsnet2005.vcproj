@@ -225,9 +225,6 @@
 		<File
 			RelativePath=".\src\tests\TestUnitTestCpp.cpp"
 			>
-		<File
-			RelativePath=".\src\tests\TestStdStreamsSupport.cpp"
-			>			
 		</File>
 	</Files>
 	<Globals>
