@@ -11,6 +11,10 @@ public:
 	int GetTimeInMs() const;    
 
 private:
+    __int64 GetTime() const;
+
+    void* m_threadId;
+    unsigned long m_processAffinityMask;
 	__int64 m_startTime;
 	__int64 m_frequency;
 };

@@ -1,38 +1,41 @@
 #include "TimeHelpers.h"
-
 #include <windows.h>
-#include <cassert>
 
 namespace UnitTest {
 
 Timer::Timer()
+    : m_startTime(0)
 {
-	BOOL const success = ::QueryPerformanceFrequency(reinterpret_cast< LARGE_INTEGER* >(&m_frequency));
-	assert(success);
-	(void) success;
+    m_threadId = ::GetCurrentThread();
+    DWORD systemMask;
+    ::GetProcessAffinityMask(GetCurrentProcess(), &m_processAffinityMask, &systemMask);
+    
+    ::SetThreadAffinityMask(m_threadId, 1);
+	::QueryPerformanceFrequency(reinterpret_cast< LARGE_INTEGER* >(&m_frequency));
+    ::SetThreadAffinityMask(m_threadId, m_processAffinityMask);
 }
 
 void Timer::Start()
 {
-	BOOL const success = ::QueryPerformanceCounter(reinterpret_cast< LARGE_INTEGER* >(&m_startTime));
-	assert(success);
-	(void) success;
+    m_startTime = GetTime();
 }
 
 int Timer::GetTimeInMs() const
 {
-	LARGE_INTEGER curTime;
-	BOOL const success = ::QueryPerformanceCounter(&curTime);
-	assert(success);
-	(void) success;
-
-	LARGE_INTEGER elapsedTime;
-	elapsedTime.QuadPart = curTime.QuadPart - m_startTime;
-
-	double const seconds = double(elapsedTime.QuadPart) / double(m_frequency);
-
+    __int64 const elapsedTime = GetTime() - m_startTime;
+	double const seconds = double(elapsedTime) / double(m_frequency);
 	return int(seconds * 1000.0f);
 }
+
+__int64 Timer::GetTime() const
+{
+    LARGE_INTEGER curTime;
+    ::SetThreadAffinityMask(m_threadId, 1);
+	::QueryPerformanceCounter(&curTime);
+    ::SetThreadAffinityMask(m_threadId, m_processAffinityMask);
+    return curTime.QuadPart;
+}
+
 
 
 void TimeHelpers::SleepMs(int const ms)
