@@ -7,6 +7,13 @@ using namespace UnitTest;
 namespace {
 
 
+TEST(CheckEqualWithUnsignedLong)
+{
+    TestResults results;
+    unsigned long something = 2;
+    CHECK_EQUAL( something, something );
+}
+
 TEST(CheckEqualsWithStringsFailsOnDifferentStrings)
 {
     char txt1[] = "Hello";

@@ -61,6 +61,18 @@ MemoryOutStream& MemoryOutStream::operator << (int const n)
     return *this;
 }
 
+MemoryOutStream& MemoryOutStream::operator << (long const n)
+{
+    FormatToStream(*this, "%li", n);
+    return *this;
+}
+
+MemoryOutStream& MemoryOutStream::operator << (unsigned long const n)
+{
+    FormatToStream(*this, "%lu", n);
+    return *this;
+}
+
 MemoryOutStream& MemoryOutStream::operator << (float const f)
 {
     FormatToStream(*this, "%ff", f);

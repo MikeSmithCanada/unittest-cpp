@@ -8,16 +8,18 @@ namespace UnitTest {
 class MemoryOutStream
 {
 public:
-    MemoryOutStream(int const size = 256);
+    explicit MemoryOutStream(int const size = 256);
     ~MemoryOutStream();
     
     char const* GetText() const;
 
     MemoryOutStream& operator << (char const* txt);
-    MemoryOutStream& operator << (int const n);
+    MemoryOutStream& operator << (int n);
+    MemoryOutStream& operator << (long n);
+    MemoryOutStream& operator << (unsigned long n);
     MemoryOutStream& operator << (float const f);
     MemoryOutStream& operator << (void const* p);
-    MemoryOutStream& operator << (size_t const s);
+    MemoryOutStream& operator << (size_t s);
 
     enum { GROW_CHUNK_SIZE = 32 };
     int GetCapacity() const;

@@ -30,7 +30,28 @@ TEST (StreamingMultipleTimesConcatenatesResult)
 TEST (StreamingIntWritesCorrectCharacters)
 {
     MemoryOutStream stream;
-    stream << 123;
+    stream << (int)123;
+    CHECK_EQUAL ("123", stream.GetText());
+}
+
+TEST (StreamingUnsignedIntWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned int)123;
+    CHECK_EQUAL ("123", stream.GetText());
+}
+
+TEST (StreamingLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (long)(-123);
+    CHECK_EQUAL ("-123", stream.GetText());
+}
+
+TEST (StreamingUnsignedLongWritesCorrectCharacters)
+{
+    MemoryOutStream stream;
+    stream << (unsigned long)123;
     CHECK_EQUAL ("123", stream.GetText());
 }
 
