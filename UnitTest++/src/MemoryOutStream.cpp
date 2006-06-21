@@ -85,12 +85,11 @@ MemoryOutStream& MemoryOutStream::operator << (void const* p)
     return *this;    
 }
 
-MemoryOutStream& MemoryOutStream::operator << (size_t const s)
+MemoryOutStream& MemoryOutStream::operator << (unsigned int const s)
 {
     FormatToStream(*this, "%u", s);
     return *this;    
 }
-
 
 int MemoryOutStream::GetCapacity() const
 {

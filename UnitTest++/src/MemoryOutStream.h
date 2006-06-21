@@ -19,7 +19,7 @@ public:
     MemoryOutStream& operator << (unsigned long n);
     MemoryOutStream& operator << (float const f);
     MemoryOutStream& operator << (void const* p);
-    MemoryOutStream& operator << (size_t s);
+    MemoryOutStream& operator << (unsigned int s);
 
     enum { GROW_CHUNK_SIZE = 32 };
     int GetCapacity() const;
