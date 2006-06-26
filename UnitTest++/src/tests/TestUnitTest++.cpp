@@ -42,6 +42,11 @@ TEST(ValidCheckCloseSucceeds)
     CHECK_CLOSE(2.001f, 2.0f, 0.01f);
 }
 
+TEST(CheckCloseWithDoublesSucceeds)
+{
+	CHECK_CLOSE(0.5, 0.5, 0.0001);
+}
+
 TEST(ArrayCloseSucceeds)
 {
     float const a1[] = {1, 2, 3};

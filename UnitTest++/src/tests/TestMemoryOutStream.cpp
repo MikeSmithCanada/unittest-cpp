@@ -62,6 +62,13 @@ TEST (StreamingFloatWritesCorrectCharacters)
     CHECK_EQUAL ("3.141500f", stream.GetText());
 }
 
+TEST (StreamingDoubleWritesCorrectCharacters)
+{
+	MemoryOutStream stream;
+	stream << 3.1415;
+	CHECK_EQUAL("3.141500", stream.GetText());
+}
+
 TEST (StreamingPointerWritesCorrectCharacters)
 {
     MemoryOutStream stream;

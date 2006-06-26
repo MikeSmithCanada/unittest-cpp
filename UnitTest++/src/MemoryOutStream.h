@@ -17,7 +17,8 @@ public:
     MemoryOutStream& operator << (int n);
     MemoryOutStream& operator << (long n);
     MemoryOutStream& operator << (unsigned long n);
-    MemoryOutStream& operator << (float const f);
+    MemoryOutStream& operator << (float f);
+	MemoryOutStream& operator << (double d);
     MemoryOutStream& operator << (void const* p);
     MemoryOutStream& operator << (unsigned int s);
 

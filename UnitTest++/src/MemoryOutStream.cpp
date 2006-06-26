@@ -91,6 +91,12 @@ MemoryOutStream& MemoryOutStream::operator << (unsigned int const s)
     return *this;    
 }
 
+MemoryOutStream& MemoryOutStream::operator <<(double const d)
+{
+	FormatToStream(*this, "%f", d);
+	return *this;
+}
+
 int MemoryOutStream::GetCapacity() const
 {
     return m_capacity;
