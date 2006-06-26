@@ -133,7 +133,7 @@ TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
     CHECK(SimpleFixture::instanceCount > 0);
 }
 
-TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtTheTime)
+TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtATime)
 {
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }

@@ -73,7 +73,7 @@ TEST (StreamingPointerWritesCorrectCharacters)
 TEST (StreamingSizeTWritesCorrectCharacters)
 {
     MemoryOutStream stream;
-    size_t s = 53124;
+    size_t const s = 53124;
     stream << s;
     CHECK_EQUAL ("53124", stream.GetText());
 }

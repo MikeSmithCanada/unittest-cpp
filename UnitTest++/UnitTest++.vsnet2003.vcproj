@@ -95,132 +95,118 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Win32"
-			>
+			Name="Win32">
 			<File
-				RelativePath=".\src\Win32\TimeHelpers.cpp"
-				>
+				RelativePath=".\src\Win32\TimeHelpers.cpp">
 			</File>
 			<File
-				RelativePath=".\src\Win32\TimeHelpers.h"
-				>
+				RelativePath=".\src\Win32\TimeHelpers.h">
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\src\AssertException.cpp"
-			>
+			RelativePath=".\src\AssertException.cpp">
 		</File>
 		<File
-			RelativePath=".\src\AssertException.h"
-			>
+			RelativePath=".\src\AssertException.h">
 		</File>
 		<File
-			RelativePath=".\src\CheckMacros.h"
-			>
+			RelativePath=".\src\CheckMacros.h">
 		</File>
 		<File
-			RelativePath=".\src\Checks.cpp"
-			>
+			RelativePath=".\src\Checks.cpp">
 		</File>
 		<File
-			RelativePath=".\src\Checks.h"
-			>
+			RelativePath=".\src\Checks.h">
 		</File>
 		<File
-			RelativePath=".\src\Config.h"
-			>
+			RelativePath=".\src\Config.h">
 		</File>
 		<File
-			RelativePath=".\src\MemoryOutStream.cpp"
-			>
+			RelativePath=".\src\DeferredTestReporter.cpp">
 		</File>
 		<File
-			RelativePath=".\src\MemoryOutStream.h"
-			>
+			RelativePath=".\src\DeferredTestReporter.h">
 		</File>
 		<File
-			RelativePath=".\src\ReportAssert.cpp"
-			>
+			RelativePath=".\src\DeferredTestResult.cpp">
 		</File>
 		<File
-			RelativePath=".\src\ReportAssert.h"
-			>
+			RelativePath=".\src\DeferredTestResult.h">
 		</File>
 		<File
-			RelativePath=".\src\Test.cpp"
-			>
+			RelativePath=".\src\MemoryOutStream.cpp">
 		</File>
 		<File
-			RelativePath=".\src\Test.h"
-			>
+			RelativePath=".\src\MemoryOutStream.h">
 		</File>
 		<File
-			RelativePath=".\src\TestList.cpp"
-			>
+			RelativePath=".\src\ReportAssert.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestList.h"
-			>
+			RelativePath=".\src\ReportAssert.h">
 		</File>
 		<File
-			RelativePath=".\src\TestMacros.h"
-			>
+			RelativePath=".\src\Test.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestReporter.cpp"
-			>
+			RelativePath=".\src\Test.h">
 		</File>
 		<File
-			RelativePath=".\src\TestReporter.h"
-			>
+			RelativePath=".\src\TestDetails.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestReporterStdout.cpp"
-			>
+			RelativePath=".\src\TestDetails.h">
 		</File>
 		<File
-			RelativePath=".\src\TestReporterStdout.h"
-			>
+			RelativePath=".\src\TestList.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestResults.cpp"
-			>
+			RelativePath=".\src\TestList.h">
 		</File>
 		<File
-			RelativePath=".\src\TestResults.h"
-			>
+			RelativePath=".\src\TestMacros.h">
 		</File>
 		<File
-			RelativePath=".\src\TestRunner.cpp"
-			>
+			RelativePath=".\src\TestReporter.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestRunner.h"
-			>
+			RelativePath=".\src\TestReporter.h">
 		</File>
 		<File
-			RelativePath=".\src\TimeConstraint.cpp"
-			>
+			RelativePath=".\src\TestReporterStdout.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TimeConstraint.h"
-			>
+			RelativePath=".\src\TestReporterStdout.h">
 		</File>
 		<File
-			RelativePath=".\src\TimeHelpers.h"
-			>
+			RelativePath=".\src\TestResults.cpp">
 		</File>
 		<File
-			RelativePath=".\src\UnitTest++.h"
-			>
+			RelativePath=".\src\TestResults.h">
 		</File>
 		<File
-			RelativePath=".\src\TestDetails.h"
-			>
+			RelativePath=".\src\TestRunner.cpp">
 		</File>
 		<File
-			RelativePath=".\src\TestDetails.cpp"
-			>
+			RelativePath=".\src\TestRunner.h">
+		</File>
+		<File
+			RelativePath=".\src\TimeConstraint.cpp">
+		</File>
+		<File
+			RelativePath=".\src\TimeConstraint.h">
+		</File>
+		<File
+			RelativePath=".\src\TimeHelpers.h">
+		</File>
+		<File
+			RelativePath=".\src\UnitTest++.h">
+		</File>
+		<File
+			RelativePath=".\src\XmlTestReporter.cpp">
+		</File>
+		<File
+			RelativePath=".\src\XmlTestReporter.h">
 		</File>
 	</Files>
 	<Globals>

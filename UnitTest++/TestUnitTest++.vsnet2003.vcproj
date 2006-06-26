@@ -112,56 +112,49 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\src\tests\Main.cpp"
-			>
+			RelativePath=".\src\tests\Main.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\RecordingReporter.h"
-			>
+			RelativePath=".\src\tests\RecordingReporter.h">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestAssertHandler.cpp"
-			>
+			RelativePath=".\src\tests\TestAssertHandler.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestCheckMacros.cpp"
-			>
+			RelativePath=".\src\tests\TestCheckMacros.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestChecks.cpp"
-			>
+			RelativePath=".\src\tests\TestChecks.cpp">
+		</File>
+        <File
+            RelativePath=".\src\tests\TestDeferredTestReporter.cpp">
+        </File>
+		<File
+			RelativePath=".\src\tests\TestMemoryOutStream.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestMemoryOutStream.cpp"
-			>
+			RelativePath=".\src\tests\TestTest.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTest.cpp"
-			>
+			RelativePath=".\src\tests\TestTestList.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTestList.cpp"
-			>
+			RelativePath=".\src\tests\TestTestMacros.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTestMacros.cpp"
-			>
+			RelativePath=".\src\tests\TestTestResults.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTestResults.cpp"
-			>
+			RelativePath=".\src\tests\TestTestRunner.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTestRunner.cpp"
-			>
+			RelativePath=".\src\tests\TestTimeConstraint.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestTimeConstraint.cpp"
-			>
+			RelativePath=".\src\tests\TestUnitTestCpp.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestUnitTestCpp.cpp"
-			>
+			RelativePath=".\src\tests\TestXmlReporter.cpp">
 		</File>
 	</Files>
 	<Globals>

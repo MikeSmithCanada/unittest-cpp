@@ -195,6 +195,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\tests\TestDeferredTestReporter.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\tests\TestMemoryOutStream.cpp"
 			>
 		</File>
@@ -224,6 +228,10 @@
 		</File>
 		<File
 			RelativePath=".\src\tests\TestUnitTestCpp.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\src\tests\TestXmlReporter.cpp"
 			>
 		</File>
 	</Files>

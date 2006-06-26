@@ -30,10 +30,13 @@ void CheckEqual(TestResults& results, Expected const expected, Actual const actu
 
 void CheckEqual(TestResults& results, char const* expected, char const* actual,
                 TestDetails const& test, char const* filename, int line);
+
 void CheckEqual(TestResults& results, char* expected, char* actual,
                 TestDetails const& test, char const* filename, int line);
+
 void CheckEqual(TestResults& results, char* expected, char const* actual,
                 TestDetails const& test, char const* filename, int line);
+
 void CheckEqual(TestResults& results, char const* expected, char* actual,
                 TestDetails const& test, char const* filename, int line);
 
