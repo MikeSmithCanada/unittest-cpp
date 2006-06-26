@@ -213,4 +213,9 @@ TEST(CheckArray2DCloseFalse)
     CHECK_EQUAL (1, results.GetFailureCount());
 }
 
+TEST(CheckCloseWithDoublesSucceeds)
+{
+	CHECK_CLOSE(0.5, 0.5, 0.0001);
+}
+
 }
