@@ -151,7 +151,7 @@
 			RelativePath=".\src\tests\TestTimeConstraint.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestUnitTestCpp.cpp">
+			RelativePath=".\src\tests\TestUnitTest++.cpp">
 		</File>
 		<File
 			RelativePath=".\src\tests\TestXmlReporter.cpp">
