@@ -10,7 +10,7 @@ using namespace UnitTest;
 namespace {
 
 TestList list1;
-TEST_EX(DummyTest, DefaultSuite, list1)
+TEST_EX(DummyTest, list1)
 {
     (void)testResults_;
 }
@@ -32,7 +32,7 @@ struct ThrowingThingie
 };
 
 TestList list2;
-TEST_FIXTURE_EX(ThrowingThingie,DummyTestName,DefaultSuite,list2)
+TEST_FIXTURE_EX(ThrowingThingie,DummyTestName,list2)
 {
     (void)testResults_;
 }
@@ -54,26 +54,38 @@ struct DummyFixture
 };
 
 // We're really testing the macros so we just want them to compile and link
-TEST_SUITE(SimilarlyNamedTestsInDifferentSuitesWork,TestSuite1)
+SUITE(TestSuite1)
 {
-    (void)testResults_;
-}
-TEST_SUITE(SimilarlyNamedTestsInDifferentSuitesWork,TestSuite2)
-{
-    (void)testResults_;
+
+	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
+	{
+		(void)testResults_;
+	}
+
+	TEST_FIXTURE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork)
+	{
+	    (void)testResults_;
+	}
+
 }
 
-TEST_FIXTURE_SUITE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork,TestSuite1)
+SUITE(TestSuite2)
 {
-    (void)testResults_;
-}
-TEST_FIXTURE_SUITE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork,TestSuite2)
-{
-    (void)testResults_;
+
+	TEST(SimilarlyNamedTestsInDifferentSuitesWork)
+	{
+	    (void)testResults_;
+	}
+
+	TEST_FIXTURE(DummyFixture,SimilarlyNamedFixtureTestsInDifferentSuitesWork)
+	{
+	    (void)testResults_;
+	}
+
 }
 
 TestList macroTestList1;
-TEST_EX(MacroTestHelper1,DefaultSuite,macroTestList1)
+TEST_EX(MacroTestHelper1,macroTestList1)
 {
     (void)testResults_;
 }
@@ -86,7 +98,7 @@ TEST(TestAddedWithTEST_EXMacroGetsDefaultSuite)
 }
 
 TestList macroTestList2;
-TEST_FIXTURE_EX(DummyFixture,MacroTestHelper2,DefaultSuite,macroTestList2)
+TEST_FIXTURE_EX(DummyFixture,MacroTestHelper2,macroTestList2)
 {
     (void)testResults_;
 }
@@ -98,6 +110,16 @@ TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
     CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
 
+}
 
+// We're really testing if it's possible to use the same suite in two files
+// to compile and link successfuly (TestTestSuite.cpp has suite with the same name)
+// Note: we are outside of the anonymous namespace
+SUITE(SameTestSuite)
+{
+	TEST(DummyTest1)
+	{
+	    (void)testResults_;
+	}
 }
 

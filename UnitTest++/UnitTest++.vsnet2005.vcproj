@@ -273,6 +273,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\TestSuite.h"
+			>
+		</File>
+		<File
 			RelativePath=".\src\TimeConstraint.cpp"
 			>
 		</File>

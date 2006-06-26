@@ -191,6 +191,9 @@
 			RelativePath=".\src\TestRunner.h">
 		</File>
 		<File
+			RelativePath=".\src\TestSuite.h">
+		</File>
+		<File
 			RelativePath=".\src\TimeConstraint.cpp">
 		</File>
 		<File

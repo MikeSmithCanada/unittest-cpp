@@ -6,41 +6,49 @@
     #error UnitTest++ redefines TEST
 #endif
 
-#define TEST_EX(Name, Suite, List)                                                 \
-    class Test##Suite##Name : public UnitTest::Test                               \
+#define SUITE(Name)															\
+	namespace Name {														\
+		namespace UnitTestSuite {											\
+			inline char const * GetSuiteName () {							\
+				return #Name ;												\
+			}																\
+		}																	\
+	}																		\
+	namespace Name
+
+#define TEST_EX(Name, List)                                                \
+    class Test##Name : public UnitTest::Test                               \
     {                                                                      \
     public:                                                                \
-        Test##Suite##Name() : Test(#Name, #Suite, __FILE__, __LINE__) {}                  \
+		Test##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {}                  \
     private:                                                               \
         virtual void RunImpl(UnitTest::TestResults& testResults_) const;   \
-    } test##Suite##Name##Instance;                                                \
-    UnitTest::ListAdder adder##Suite##Name (List, &test##Suite##Name##Instance);         \
-    void Test##Suite##Name::RunImpl(UnitTest::TestResults& testResults_) const
+    } test##Name##Instance;                                                \
+    UnitTest::ListAdder adder##Name (List, &test##Name##Instance);         \
+    void Test##Name::RunImpl(UnitTest::TestResults& testResults_) const
 
-#define TEST(Name) TEST_EX(Name, DefaultSuite, UnitTest::Test::GetTestList())
-#define TEST_SUITE(Name, Suite) TEST_EX(Name, Suite, UnitTest::Test::GetTestList())
+#define TEST(Name) TEST_EX(Name, UnitTest::Test::GetTestList())
 
-
-#define TEST_FIXTURE_EX(Fixture, Name, Suite, List)                                         \
-    struct Fixture##Suite##Name##Helper : public Fixture {                                  \
-        Fixture##Suite##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {}    \
+#define TEST_FIXTURE_EX(Fixture, Name, List)                                         \
+    struct Fixture##Name##Helper : public Fixture {                                  \
+        Fixture##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {}    \
         void RunTest(UnitTest::TestResults& testResults_);                           \
         UnitTest::TestDetails const& m_details;                                      \
     private:                                                                         \
-        Fixture##Suite##Name##Helper(Fixture##Suite##Name##Helper const&);                         \
-        Fixture##Suite##Name##Helper& operator =(Fixture##Suite##Name##Helper const&);             \
+        Fixture##Name##Helper(Fixture##Name##Helper const&);                         \
+        Fixture##Name##Helper& operator =(Fixture##Name##Helper const&);             \
     };                                                                               \
-    class Test##Fixture##Suite##Name : public UnitTest::Test                                \
+    class Test##Fixture##Name : public UnitTest::Test                                \
     {                                                                                \
     public:                                                                          \
-        Test##Fixture##Suite##Name() : Test(#Name, #Suite, __FILE__, __LINE__) {}                   \
+	Test##Fixture##Name() : Test(#Name, UnitTestSuite::GetSuiteName(), __FILE__, __LINE__) {} \
     private:                                                                         \
         virtual void RunImpl(UnitTest::TestResults& testResults_) const;             \
-    } test##Fixture##Suite##Name##Instance;                                                 \
-    UnitTest::ListAdder adder##Fixture##Suite##Name (List, &test##Fixture##Suite##Name##Instance); \
-    void Test##Fixture##Suite##Name::RunImpl(UnitTest::TestResults& testResults_) const {   \
+    } test##Fixture##Name##Instance;                                                 \
+    UnitTest::ListAdder adder##Fixture##Name (List, &test##Fixture##Name##Instance); \
+    void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const {   \
         try {                                                                        \
-            Fixture##Suite##Name##Helper mt(m_details);                              \
+            Fixture##Name##Helper mt(m_details);                              \
             mt.RunTest(testResults_);                                                \
         }                                                                            \
         catch (...) {                                                                \
@@ -48,9 +56,8 @@
                     "Unhandled exception in fixture " #Fixture);                     \
         }                                                                            \
     }                                                                                \
-    void Fixture##Suite##Name##Helper::RunTest(UnitTest::TestResults& testResults_)
+    void Fixture##Name##Helper::RunTest(UnitTest::TestResults& testResults_)
 
-#define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, DefaultSuite, UnitTest::Test::GetTestList())
-#define TEST_FIXTURE_SUITE(Fixture,Name,Suite) TEST_FIXTURE_EX(Fixture, Name, Suite, UnitTest::Test::GetTestList())
+#define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList())
 
 #endif

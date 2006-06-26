@@ -2,6 +2,7 @@
 #define UNITTESTCPP_H
 
 #include "Test.h"
+#include "TestSuite.h"
 #include "TestResults.h"
 #include "TestMacros.h"
 #include "CheckMacros.h"
