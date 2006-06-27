@@ -30,9 +30,9 @@ private:
 
 
 #define UNITTEST_THROW_SIGNALS \
-    SignalTranslator sig; \
-    if (sigsetjmp( *SignalTranslator::s_jumpTarget, 1 ) != 0) \
-        throw ("Unhandled system exception");
+	SignalTranslator sig; \
+    if (__extension__ sigsetjmp( *SignalTranslator::s_jumpTarget, 1 ) != 0) \
+        throw ("Unhandled system exception"); 
 
 }
 

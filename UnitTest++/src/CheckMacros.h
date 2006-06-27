@@ -37,6 +37,15 @@
                 "Unhandled exception in CHECK_CLOSE(" #expected ", " #actual ")"); \
     }
 
+#define CHECK_ARRAY_EQUAL(expected, actual, count) \
+    try { \
+        UnitTest::CheckArrayEqual(testResults_, expected, actual, count, m_details.testName, __FILE__, __LINE__); \
+    } \
+    catch (...) { \
+        testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
+                "Unhandled exception in CHECK_ARRAY_EQUAL(" #expected ", " #actual ")"); \
+    }
+
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
     try { \
         UnitTest::CheckArrayClose(testResults_, expected, actual, count, tolerance, m_details.testName, __FILE__, __LINE__); \
