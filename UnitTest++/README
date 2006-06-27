@@ -8,7 +8,7 @@ the terms of the License contained in the file COPYING distributed
 with this package. This license is the same as the MIT/X Consortium
 license.
 
-See src/tests/TestUnitTestCpp.cpp for sample usage.
+See src/tests/TestUnitTest++.cpp for usage.
 
 Authors:
 Noel Llopis (llopis@convexhull.com) 
