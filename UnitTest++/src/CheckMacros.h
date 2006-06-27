@@ -21,7 +21,7 @@
 
 #define CHECK_EQUAL(expected, actual) \
     try { \
-        UnitTest::CheckEqual(testResults_, expected, actual, m_details.testName, __FILE__, __LINE__); \
+        UnitTest::CheckEqual(testResults_, expected, actual, m_details, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
@@ -30,7 +30,7 @@
 
 #define CHECK_CLOSE(expected, actual, tolerance) \
     try { \
-        UnitTest::CheckClose(testResults_, expected, actual, tolerance, m_details.testName, __FILE__, __LINE__); \
+        UnitTest::CheckClose(testResults_, expected, actual, tolerance, m_details, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
@@ -39,7 +39,7 @@
 
 #define CHECK_ARRAY_EQUAL(expected, actual, count) \
     try { \
-        UnitTest::CheckArrayEqual(testResults_, expected, actual, count, m_details.testName, __FILE__, __LINE__); \
+        UnitTest::CheckArrayEqual(testResults_, expected, actual, count, m_details, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
@@ -48,7 +48,7 @@
 
 #define CHECK_ARRAY_CLOSE(expected, actual, count, tolerance) \
     try { \
-        UnitTest::CheckArrayClose(testResults_, expected, actual, count, tolerance, m_details.testName, __FILE__, __LINE__); \
+        UnitTest::CheckArrayClose(testResults_, expected, actual, count, tolerance, m_details, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \
@@ -57,7 +57,7 @@
 
 #define CHECK_ARRAY2D_CLOSE(expected, actual, rows, columns, tolerance) \
     try { \
-        UnitTest::CheckArray2DClose(testResults_, expected, actual, rows, columns, tolerance, m_details.testName, __FILE__, __LINE__); \
+        UnitTest::CheckArray2DClose(testResults_, expected, actual, rows, columns, tolerance, m_details, __FILE__, __LINE__); \
     } \
     catch (...) { \
         testResults_.OnTestFailure(m_details, __FILE__, __LINE__, \

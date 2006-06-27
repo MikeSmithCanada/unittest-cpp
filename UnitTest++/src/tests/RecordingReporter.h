@@ -22,11 +22,20 @@ public:
         , summaryFailureCount(0)
         , summarySecondsElapsed(0)
     {
+        lastStartedSuite[0] = '\0';
+        lastStartedTest[0] = '\0';
+        lastFailedFile[0] = '\0';
+        lastFailedSuite[0] = '\0';
+        lastFailedTest[0] = '\0';
+        lastFailedMessage[0] = '\0';
+        lastFinishedSuite[0] = '\0';
+        lastFinishedTest[0] = '\0';
     }
 
     virtual void ReportTestStart(UnitTest::TestDetails const& test)
     {
         ++testRunCount;
+        std::strcpy(lastStartedSuite, test.suiteName);
         std::strcpy(lastStartedTest, test.testName);
     }
 
@@ -35,6 +44,7 @@ public:
         ++testFailedCount;
         std::strcpy(lastFailedFile, file);
         lastFailedLine = line;
+        std::strcpy(lastFailedSuite, test.suiteName);
         std::strcpy(lastFailedTest, test.testName);
         std::strcpy(lastFailedMessage, failure);
     }
@@ -42,6 +52,7 @@ public:
     virtual void ReportTestFinish(UnitTest::TestDetails const& test, float testDuration)
     {
         ++testFinishedCount;
+        std::strcpy(lastFinishedSuite, test.suiteName);
         std::strcpy(lastFinishedTest, test.testName);
         lastFinishedTestTime = testDuration;
     }
@@ -54,15 +65,18 @@ public:
     }
 
     int testRunCount;
+    char lastStartedSuite[kMaxStringLength];
     char lastStartedTest[kMaxStringLength];
 
     int testFailedCount;
     char lastFailedFile[kMaxStringLength];
     int lastFailedLine;
+    char lastFailedSuite[kMaxStringLength];
     char lastFailedTest[kMaxStringLength];
     char lastFailedMessage[kMaxStringLength];
 
     int testFinishedCount;
+    char lastFinishedSuite[kMaxStringLength];
     char lastFinishedTest[kMaxStringLength];
     float lastFinishedTestTime;
 

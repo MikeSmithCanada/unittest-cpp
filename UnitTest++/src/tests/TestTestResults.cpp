@@ -16,9 +16,13 @@ TEST(StartsWithNoTestsRun)
 TEST(RecordsNumbersOfTests)
 {
     TestResults results;
-    results.OnTestStart("testname1");
-    results.OnTestStart("testname2");
-    results.OnTestStart("testname3");
+	TestDetails details1("testname1");
+	TestDetails details2("testname2");
+	TestDetails details3("testname3");
+
+    results.OnTestStart(details1);
+    results.OnTestStart(details2);
+    results.OnTestStart(details3);
     CHECK_EQUAL(3, results.GetTestCount());
 }
 
@@ -34,7 +38,7 @@ TEST(RecordsNumberOfFailures)
     TestDetails details("test", "suite", "file", 1);
 
     // Test both overloads
-    results.OnTestFailure("", "nothing", 0, "expected failure");
+    results.OnTestFailure(details, "nothing", 0, "expected failure");
     results.OnTestFailure(details, "expected failure");
     CHECK_EQUAL(2, results.GetFailureCount());
 }
@@ -43,34 +47,42 @@ TEST(NotifiesReporterOfTestStartWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    results.OnTestStart("mytest");
+    TestDetails details("testname", "suitename", "filename", 123);
+    results.OnTestStart(details);
     CHECK_EQUAL (1, reporter.testRunCount);
-    CHECK_EQUAL ("mytest", reporter.lastStartedTest);
+    CHECK_EQUAL ("suitename", reporter.lastStartedSuite);
+    CHECK_EQUAL ("testname", reporter.lastStartedTest);
 }
 
 TEST(NotifiesReporterOfTestFailureWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    results.OnTestFailure("testname", "filename", 123, "failurestring");
+    TestDetails details("testname", "suitename", "filename", 123);
+    
+    results.OnTestFailure(details, "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
     CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (123, reporter.lastFailedLine);
+    CHECK_EQUAL ("suitename", reporter.lastFailedSuite);
     CHECK_EQUAL ("testname", reporter.lastFailedTest);
     CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
 }
 
-TEST(NotifiesReporterOfTestFailureWithCorrectInfoForDetailsOverload)
+TEST(NotifiesReporterOfCheckFailureWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
     TestDetails details("testname", "suitename", "filename", 123);
 
-    results.OnTestFailure(details, "failurestring");
+    // The file/line parameters should take precedence over the test details
+    results.OnTestFailure(details, "checkfilename", 321, "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (123, reporter.lastFailedLine);
+    CHECK_EQUAL ("checkfilename", reporter.lastFailedFile);
+    CHECK_EQUAL (321, reporter.lastFailedLine);
+
     CHECK_EQUAL ("testname", reporter.lastFailedTest);
+    CHECK_EQUAL ("suitename", reporter.lastFailedSuite);
     CHECK_EQUAL ("failurestring", reporter.lastFailedMessage);
 }
 
@@ -78,9 +90,12 @@ TEST(NotifiesReporterOfTestEnd)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    results.OnTestFinish("mytest", 0.1234f);
+    TestDetails details("testname", "suitename", "filename", 123);
+
+    results.OnTestFinish(details, 0.1234f);
     CHECK_EQUAL (1, reporter.testFinishedCount);
-    CHECK_EQUAL ("mytest", reporter.lastFinishedTest);
+    CHECK_EQUAL ("testname", reporter.lastFinishedTest);
+    CHECK_EQUAL ("suitename", reporter.lastFinishedSuite);
     CHECK_CLOSE (0.1234f, reporter.lastFinishedTestTime, 0.0001f);
 }
 
