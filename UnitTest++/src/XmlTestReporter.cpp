@@ -12,8 +12,7 @@ namespace {
 
 void ReplaceChar(string& str, char const c, string const& replacement)
 {
-	size_t const pos = str.find(c);
-	if (pos != string::npos)
+	for (size_t pos = str.find(c); pos != string::npos; pos = str.find(c, pos + 1))
 		str.replace(pos, 1, replacement);
 }
 

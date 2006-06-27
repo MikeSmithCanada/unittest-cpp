@@ -27,6 +27,27 @@ struct XmlTestReporterFixture
 	XmlTestReporter reporter;
 };
 
+TEST_FIXTURE(XmlTestReporterFixture, MultipleCharactersAreEscaped)
+{
+	TestDetails const details("TestName", "suite", "file", 123);
+
+	reporter.ReportTestStart(details);
+	reporter.ReportFailure(details, "filename.h", 4321, "\"\"\'\'&&<<>>");
+	reporter.ReportTestFinish(details, 0.1f);
+	reporter.ReportSummary(1, 1, 0.1f);
+
+	char const* expected =
+		"<?xml version=\"1.0\"?>"
+		"<unittest-results tests=\"1\" failures=\"1\" time=\"0.1\">"
+		"<test suite=\"suite\" name=\"TestName\" time=\"0.1\">"
+		"<failure message=\"filename.h(4321) : "
+		"&quot;&quot;&apos;&apos;&amp;&amp;&lt;&lt;&gt;&gt;\"/>"
+		"</test>"
+		"</unittest-results>";
+
+	CHECK_EQUAL(expected, output.str());
+}
+
 TEST_FIXTURE(XmlTestReporterFixture, OutputIsCachedUntilReportSummaryIsCalled)
 {
     TestDetails const details("test", "suite", "file", 123);
