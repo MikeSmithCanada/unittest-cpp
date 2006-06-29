@@ -157,7 +157,7 @@
 			RelativePath=".\src\tests\TestUnitTest++.cpp">
 		</File>
 		<File
-			RelativePath=".\src\tests\TestXmlReporter.cpp">
+			RelativePath=".\src\tests\TestXmlTestReporter.cpp">
 		</File>
 	</Files>
 	<Globals>
