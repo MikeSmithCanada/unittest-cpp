@@ -28,10 +28,12 @@ SignalTranslator::SignalTranslator ()
     sigaction( SIGFPE , &action, &m_old_SIGFPE_action  );
     sigaction( SIGTRAP, &action, &m_old_SIGTRAP_action );
     sigaction( SIGBUS , &action, &m_old_SIGBUS_action  );
+    sigaction( SIGILL , &action, &m_old_SIGBUS_action  );
 }
 
 SignalTranslator::~SignalTranslator()
 {
+    sigaction( SIGILL , &m_old_SIGBUS_action , 0 );
     sigaction( SIGBUS , &m_old_SIGBUS_action , 0 );
     sigaction( SIGTRAP, &m_old_SIGTRAP_action, 0 );
     sigaction( SIGFPE , &m_old_SIGFPE_action , 0 );
