@@ -16,7 +16,7 @@ Charles Nicholson (cn@cnicholson.net)
 
 Contributors:
 Jim Tilander (jim.tilander@gmail.com)
-Kim Gräsman (kim@mvps.org)
+Kim Grï¿½man (kim@mvps.org)
 Jonathan Jansson (lilliemarck@users.sourceforge.net)
 Dirck Blaskey (listtarget2@danbala.com)
 Rory Driscoll (rorydriscoll@gmail.com)
@@ -30,6 +30,11 @@ Release notes
 --------------
 
 Version 1.2 (2006-XX-XX)
+- Standard streams used for printing objects under check. This should allow the
+  use of standard class types such as std::string or other custom classes with
+  stream operators to ostream.
+- Standard streams can be optionally compiled off by defining UNITTEST_USE_CUSTOM_STREAMS
+  in Config.h
 - Added named test suites
 - Added CHECK_ARRAY2D_CLOSE 
 - Posix library name is libUnitTest++.a now

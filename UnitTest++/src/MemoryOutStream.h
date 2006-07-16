@@ -3,66 +3,64 @@
 
 #include "Config.h"
 
-#ifdef UNITTEST_USE_CUSTOM_STREAMS
+#ifndef UNITTEST_USE_CUSTOM_STREAMS
 
-	#include <cstddef>
+#include <sstream>
 
-	namespace UnitTest {
+namespace UnitTest
+{
 
-	class MemoryOutStream
-	{
-	public:
-		explicit MemoryOutStream(int const size = 256);
-		~MemoryOutStream();
-	    
-		char const* GetText() const;
+class MemoryOutStream : public std::ostringstream
+{
+public:
+    MemoryOutStream() {}
+    char const* GetText() const;
 
-		MemoryOutStream& operator << (char const* txt);
-		MemoryOutStream& operator << (int n);
-		MemoryOutStream& operator << (long n);
-		MemoryOutStream& operator << (unsigned long n);
-		MemoryOutStream& operator << (float f);
-		MemoryOutStream& operator << (double d);
-		MemoryOutStream& operator << (void const* p);
-		MemoryOutStream& operator << (unsigned int s);
+private:
+    MemoryOutStream(MemoryOutStream const&);
+    void operator =(MemoryOutStream const&);
 
-		enum { GROW_CHUNK_SIZE = 32 };
-		int GetCapacity() const;
-	    
-	private:
-		void operator= (MemoryOutStream const&);
-		void GrowBuffer(int capacity);
-	    
-		int m_capacity;
-		char* m_buffer;
-	};
-	}
+    mutable std::string m_text;
+};
+
+}
 
 #else
 
-	#include <sstream>
+#include <cstddef>
 
-	namespace UnitTest {
+namespace UnitTest
+{
 
-	class MemoryOutStream : public std::ostringstream
-	{
-	public:
-		MemoryOutStream() {}
+class MemoryOutStream
+{
+public:
+    explicit MemoryOutStream(int const size = 256);
+    ~MemoryOutStream();
 
-		char const* GetText() const 
-		{ 
-			m_text = this->str();
-			return m_text.c_str();
-		}
+    char const* GetText() const;
 
-	private:
-		MemoryOutStream(MemoryOutStream const&);
-		void operator =(MemoryOutStream const&);
+    MemoryOutStream& operator << (char const* txt);
+    MemoryOutStream& operator << (int n);
+    MemoryOutStream& operator << (long n);
+    MemoryOutStream& operator << (unsigned long n);
+    MemoryOutStream& operator << (float f);
+    MemoryOutStream& operator << (double d);
+    MemoryOutStream& operator << (void const* p);
+    MemoryOutStream& operator << (unsigned int s);
 
-		mutable std::string m_text;
-	};
+    enum { GROW_CHUNK_SIZE = 32 };
+    int GetCapacity() const;
 
-	}
+private:
+    void operator= (MemoryOutStream const&);
+    void GrowBuffer(int capacity);
+
+    int m_capacity;
+    char* m_buffer;
+};
+
+}
 
 #endif
 
