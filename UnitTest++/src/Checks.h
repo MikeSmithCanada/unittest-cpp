@@ -115,7 +115,7 @@ void CheckArrayClose(TestResults& results, Expected const expected, Actual const
         for (int i = 0; i < count; ++i)
             stream << actual[i] << " ";
         stream << "]";
-        
+
         results.OnTestFailure(details, filename, line, stream.GetText());
     }
 }

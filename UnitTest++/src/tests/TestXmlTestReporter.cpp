@@ -9,12 +9,16 @@ using std::ostringstream;
 namespace
 {
 
+#ifdef UNITTEST_USE_CUSTOM_STREAMS
+
 // Overload to let MemoryOutStream accept std::string
 MemoryOutStream& operator<<(MemoryOutStream& s, const std::string& value)
 {
     s << value.c_str();
     return s;
 }
+
+#endif
 
 struct XmlTestReporterFixture
 {

@@ -1,4 +1,5 @@
 #include "../UnitTest++.h"
+
 #include "../MemoryOutStream.h"
 #include <cstring>
 
@@ -59,14 +60,14 @@ TEST (StreamingFloatWritesCorrectCharacters)
 {
     MemoryOutStream stream;
     stream << 3.1415f;
-    CHECK_EQUAL ("3.141500f", stream.GetText());
+	CHECK (std::strstr(stream.GetText(), "3.1415"));
 }
 
 TEST (StreamingDoubleWritesCorrectCharacters)
 {
 	MemoryOutStream stream;
 	stream << 3.1415;
-	CHECK_EQUAL("3.141500", stream.GetText());
+	CHECK (std::strstr(stream.GetText(), "3.1415"));
 }
 
 TEST (StreamingPointerWritesCorrectCharacters)
@@ -84,6 +85,8 @@ TEST (StreamingSizeTWritesCorrectCharacters)
     stream << s;
     CHECK_EQUAL ("53124", stream.GetText());
 }
+
+#ifdef UNITTEST_USE_CUSTOM_STREAMS
 
 TEST (StreamInitialCapacityIsCorrect)
 {
@@ -141,5 +144,7 @@ TEST (WritingSizeTLongerThanCapacityFitsInNewBuffer)
     stream << "aaaa" << size_t(32145);
     CHECK_EQUAL ("aaaa32145", stream.GetText());
 }
+
+#endif
 
 }

@@ -1,4 +1,7 @@
 #include "MemoryOutStream.h"
+
+#ifdef UNITTEST_USE_CUSTOM_STREAMS
+
 #include <cstring>
 #include <cstdio>
 
@@ -119,3 +122,5 @@ void MemoryOutStream::GrowBuffer(int const desiredCapacity)
 }
 
 }
+
+#endif
