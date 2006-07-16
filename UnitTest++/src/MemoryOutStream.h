@@ -47,6 +47,8 @@
 	class MemoryOutStream : public std::ostringstream
 	{
 	public:
+		MemoryOutStream() {}
+
 		char const* GetText() const 
 		{ 
 			m_text = this->str();
@@ -54,6 +56,9 @@
 		}
 
 	private:
+		MemoryOutStream(MemoryOutStream const&);
+		void operator =(MemoryOutStream const&);
+
 		mutable std::string m_text;
 	};
 
