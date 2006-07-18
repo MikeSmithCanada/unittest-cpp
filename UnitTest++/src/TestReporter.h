@@ -1,7 +1,6 @@
 #ifndef UNITTEST_TESTREPORTER_H
 #define UNITTEST_TESTREPORTER_H
 
-
 namespace UnitTest {
 
 class TestDetails;

@@ -27,7 +27,7 @@ private:
 };
 
 
-#define UNITTEST_TIME_CONSTRAINT(ms) TimeConstraint t__(ms, testResults_, __FILE__,__LINE__, m_details)
+#define UNITTEST_TIME_CONSTRAINT(ms) TimeConstraint const timeConstraint_##__FILE__##__LINE__##(ms, testResults_, __FILE__,__LINE__, m_details)
 #define UNITTEST_TIME_CONSTRAINT_EXEMPT() m_timeConstraintExempt = true
 
 }

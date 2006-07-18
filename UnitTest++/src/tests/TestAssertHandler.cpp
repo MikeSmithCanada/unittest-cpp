@@ -6,7 +6,7 @@ using namespace UnitTest;
 
 namespace {
 
-TEST (ReportAssertThrowsAssertException)
+TEST(ReportAssertThrowsAssertException)
 {
     bool caught = false;
 
@@ -22,7 +22,7 @@ TEST (ReportAssertThrowsAssertException)
     CHECK (true == caught);
 }
 
-TEST (ReportAssertSetsCorrectInfoInException)
+TEST(ReportAssertSetsCorrectInfoInException)
 {
     const int lineNumber = 12345;
     const char* description = "description";

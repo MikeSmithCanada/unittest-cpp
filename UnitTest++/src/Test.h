@@ -1,12 +1,12 @@
 #ifndef UNITTEST_TEST_H
 #define UNITTEST_TEST_H
 
-#include "TestList.h"
 #include "TestDetails.h"
 
 namespace UnitTest {
 
 class TestResults;
+class TestList;
 
 class Test
 {

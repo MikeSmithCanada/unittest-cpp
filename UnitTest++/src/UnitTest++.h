@@ -3,6 +3,7 @@
 
 #include "Config.h"
 #include "Test.h"
+#include "TestList.h"
 #include "TestSuite.h"
 #include "TestResults.h"
 #include "TestMacros.h"

@@ -1,12 +1,13 @@
 #include "Config.h"
 #include "Test.h"
+#include "TestList.h"
 #include "TestResults.h"
 #include "AssertException.h"
 #include "MemoryOutStream.h"
+
 #ifdef UNITTEST_POSIX
     #include "Posix/SignalTranslator.h"
 #endif
-
 
 namespace UnitTest {
 

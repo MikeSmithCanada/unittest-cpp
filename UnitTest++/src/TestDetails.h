@@ -6,7 +6,7 @@ namespace UnitTest {
 class TestDetails
 {
 public:
-    explicit TestDetails(char const* testName, char const* suiteName = "DefaultSuite", 
+    TestDetails(char const* testName, char const* suiteName = "DefaultSuite", 
         char const* filename = "", int lineNumber = 0);
 
     char const* const suiteName;

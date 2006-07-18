@@ -1,14 +1,11 @@
 #include "../UnitTest++.h"
-#include "../TestReporter.h"
 #include "../ReportAssert.h"
-#include "../Config.h"
-#include <vector>
 
+#include <vector>
 
 // These are sample tests that show the different features of the framework
 
 namespace {
-
 
 TEST(ValidCheckSucceeds)
 {
@@ -51,9 +48,10 @@ TEST(ArrayCloseSucceeds)
 
 TEST (CheckArrayCloseWorksWithVectors)
 {
-    std::vector<float> a(4);
-    for (int i=0; i < 4; ++i)
+    std::vector< float > a(4);
+    for (int i = 0; i < 4; ++i)
         a[i] = (float)i;
+
     CHECK_ARRAY_CLOSE (a, a, (int)a.size(), 0);
 }
 
@@ -67,7 +65,6 @@ TEST(CheckAssertSucceeds)
 {
     CHECK_ASSERT(UnitTest::ReportAssert("desc", "file", 0));
 }
-
 
 TEST(CheckThrowMacroFailsOnMissingException)
 {
@@ -87,7 +84,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
 
     UnitTest::TestResults results;
 
-    NoThrowTest test;
+    NoThrowTest const test;
     test.Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
@@ -106,7 +103,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
 
     UnitTest::TestResults results;
 
-    WrongThrowTest test;
+    WrongThrowTest const test;
     test.Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }

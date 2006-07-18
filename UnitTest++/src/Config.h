@@ -21,7 +21,6 @@
 
 // by default, MemoryOutStream is implemented in terms of std::ostringstream.
 // uncomment this line to use the custom MemoryOutStream (no deps on std::ostringstream).
-
 //#define UNITTEST_USE_CUSTOM_STREAMS
 
 #endif

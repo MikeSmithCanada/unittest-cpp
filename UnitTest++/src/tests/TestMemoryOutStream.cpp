@@ -9,7 +9,7 @@ namespace {
 
 TEST (DefaultIsEmptyString)
 {
-    MemoryOutStream stream;
+    MemoryOutStream const stream;
     CHECK (stream.GetText() != 0);
     CHECK_EQUAL ("", stream.GetText());
 }
