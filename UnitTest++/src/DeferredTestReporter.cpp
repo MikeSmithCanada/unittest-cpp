@@ -8,12 +8,12 @@ void DeferredTestReporter::ReportTestStart(TestDetails const& details)
     m_results.push_back(DeferredTestResult(details.suiteName, details.testName));
 }
 
-void DeferredTestReporter::ReportFailure(TestDetails const&, char const* file, int const line, char const* failure)
+void DeferredTestReporter::ReportFailure(TestDetails const& details, char const* failure)
 {
     DeferredTestResult& r = m_results.back();
     r.failed = true;
-    r.failureLine = line;
-    r.failureFile = file;
+    r.failureLine = details.lineNumber;
+    r.failureFile = details.filename;
     r.failureMessage = failure;
 }
 

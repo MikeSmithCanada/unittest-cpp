@@ -1,5 +1,4 @@
 #include "../UnitTest++.h"
-#include "../UnitTest++.h"
 #include "RecordingReporter.h"
 
 
@@ -128,13 +127,13 @@ TEST(CheckEqualFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("testName", "suiteName", "", -1);
+        UnitTest::TestDetails const m_details("testName", "suiteName", "filename", -1);
         CHECK_EQUAL (1, 123);    line = __LINE__;
     }
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -144,13 +143,13 @@ TEST(CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("testName", "suiteName", "", -1);
+        UnitTest::TestDetails const m_details("testName", "suiteName", "filename", -1);
         CHECK_EQUAL (ThrowingFunction(), 123);    line = __LINE__;
     }
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -239,13 +238,13 @@ TEST(CheckCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("test", "suite", "", -1);
+        UnitTest::TestDetails m_details("test", "suite", "filename", -1);
         CHECK_CLOSE (1.0f, 1.1f, 0.01f);    line = __LINE__;
     }
 
     CHECK_EQUAL("test", reporter.lastFailedTest);
     CHECK_EQUAL("suite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -255,13 +254,13 @@ TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("closeTest", "closeSuite", "", -1);
+        UnitTest::TestDetails m_details("closeTest", "closeSuite", "filename", -1);
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);    line = __LINE__;
     }
 
     CHECK_EQUAL("closeTest", reporter.lastFailedTest);
     CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -357,7 +356,7 @@ TEST(CheckArrayCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("arrayCloseTest", "arrayCloseSuite", "", -1);
+        UnitTest::TestDetails m_details("arrayCloseTest", "arrayCloseSuite", "filename", -1);
         int const data1[4] = { 0, 1, 2, 3 };
         int const data2[4] = { 0, 1, 3, 3 };
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);     line = __LINE__;
@@ -365,7 +364,7 @@ TEST(CheckArrayCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -375,14 +374,14 @@ TEST(CheckArrayCloseFailureBecauseOfExceptionContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("arrayCloseTest", "arrayCloseSuite", "", -1);
+        UnitTest::TestDetails m_details("arrayCloseTest", "arrayCloseSuite", "filename", -1);
         int const data[4] = { 0, 1, 2, 3 };
         CHECK_ARRAY_CLOSE (data, ThrowingObject(), 4, 0.01f);     line = __LINE__;
     }
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -606,7 +605,7 @@ TEST(CheckArray2DCloseFailureContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("array2DCloseTest", "array2DCloseSuite", "", -1);
+        UnitTest::TestDetails m_details("array2DCloseTest", "array2DCloseSuite", "filename", -1);
         int const data1[2][2] = { {0, 1}, {2, 3} };
         int const data2[2][2] = { {0, 1}, {3, 3} };
         CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);     line = __LINE__;
@@ -614,7 +613,7 @@ TEST(CheckArray2DCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 
@@ -624,14 +623,14 @@ TEST(CheckArray2DCloseFailureBecauseOfExceptionContainsCorrectDetails)
     RecordingReporter reporter;
     {
         UnitTest::TestResults testResults_(&reporter);
-        UnitTest::TestDetails m_details("array2DCloseTest", "array2DCloseSuite", "", -1);
+        UnitTest::TestDetails m_details("array2DCloseTest", "array2DCloseSuite", "filename", -1);
         const float data[2][2] = { {0, 1}, {2, 3} };
         CHECK_ARRAY2D_CLOSE (data, ThrowingObject2D(), 2, 2, 0.01f);   line = __LINE__;
     }
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL ("filename", reporter.lastFailedFile);
     CHECK_EQUAL (line, reporter.lastFailedLine);
 }
 

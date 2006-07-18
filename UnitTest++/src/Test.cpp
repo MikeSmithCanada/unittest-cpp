@@ -39,7 +39,7 @@ void Test::Run(TestResults& testResults) const
     }
     catch (AssertException const& e)
     {
-        testResults.OnTestFailure(m_details, e.Filename(), e.LineNumber(), e.what());
+        testResults.OnTestFailure( TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what());
     }
     catch (std::exception const& e)
     {

@@ -12,7 +12,6 @@ public:
     explicit TestResults(TestReporter* reporter = 0);
 
     void OnTestStart(TestDetails const& test);
-    void OnTestFailure(TestDetails const& test, char const* file, int line, char const* failure);
     void OnTestFailure(TestDetails const& test, char const* failure);
     void OnTestFinish(TestDetails const& test, float secondsElapsed);
 
@@ -24,7 +23,6 @@ private:
     int m_testCount;
     int m_failureCount;
 
-    // revoked
     TestResults(TestResults const&);
     TestResults& operator =(TestResults const&);
 };

@@ -39,11 +39,11 @@ public:
         std::strcpy(lastStartedTest, test.testName);
     }
 
-    virtual void ReportFailure(UnitTest::TestDetails const& test, char const* file, int line, char const* failure)
+    virtual void ReportFailure(UnitTest::TestDetails const& test, char const* failure)
     {
         ++testFailedCount;
-        std::strcpy(lastFailedFile, file);
-        lastFailedLine = line;
+        std::strcpy(lastFailedFile, test.filename);
+        lastFailedLine = test.lineNumber;
         std::strcpy(lastFailedSuite, test.suiteName);
         std::strcpy(lastFailedTest, test.testName);
         std::strcpy(lastFailedMessage, failure);

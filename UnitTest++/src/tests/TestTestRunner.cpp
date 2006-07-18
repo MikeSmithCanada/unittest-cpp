@@ -24,7 +24,7 @@ struct MockTest : public Test
         if (asserted)
             ReportAssert("desc", "file", 0);
         else if (!success)
-            testResults_.OnTestFailure(m_details, "filename", 0, "message");
+            testResults_.OnTestFailure(m_details, "message");
     }
 
     bool success;

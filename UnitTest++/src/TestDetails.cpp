@@ -10,4 +10,13 @@ TestDetails::TestDetails(char const* testName_, char const* suiteName_, char con
 {
 }
 
+TestDetails::TestDetails(const TestDetails& details, int lineNumber_)
+    : suiteName(details.suiteName)
+    , testName(details.testName)
+    , filename(details.filename)
+    , lineNumber(lineNumber_)
+{
+}
+
+
 }

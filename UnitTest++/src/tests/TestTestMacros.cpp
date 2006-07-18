@@ -42,7 +42,7 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
     RecordingReporter reporter;
     TestResults result(&reporter);
     list2.GetHead()->Run(result);
-    
+
     CHECK (strstr(reporter.lastFailedMessage, "xception"));
     CHECK (strstr(reporter.lastFailedMessage, "fixture"));
     CHECK (strstr(reporter.lastFailedMessage, "ThrowingThingie"));
