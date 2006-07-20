@@ -12,23 +12,28 @@ namespace
 
 struct MockTest : public Test
 {
-    MockTest(char const* testName, bool const success_, bool const assert_)
+    MockTest(char const* testName, bool const success_, bool const assert_, int const count_ = 1)
         : Test(testName)
         , success(success_)
         , asserted(assert_)
+        , count(count_)
     {
     }
 
     virtual void RunImpl(TestResults& testResults_) const
     {
-        if (asserted)
-            ReportAssert("desc", "file", 0);
-        else if (!success)
-            testResults_.OnTestFailure(m_details, "message");
+        for (int i=0; i < count; ++i)
+        {
+            if (asserted)
+                ReportAssert("desc", "file", 0);
+            else if (!success)
+                testResults_.OnTestFailure(m_details, "message");
+        }
     }
 
-    bool success;
-    bool asserted;
+    bool const success;
+    bool const asserted;
+    int const count;
 };
 
 
@@ -107,16 +112,43 @@ TEST_FIXTURE(TestRunnerFixture, TestsThatAssertAreReportedAsFailing)
 }
 
 
-TEST_FIXTURE(TestRunnerFixture, FinishedTestsReportDone)
+TEST_FIXTURE(TestRunnerFixture, ReporterNotifiedOfTestCount)
 {
     MockTest test1("test", true, false);
-    MockTest test2("test", false, false);
+    MockTest test2("test", true, false);
+    MockTest test3("test", true, false);
     list.Add(&test1);
     list.Add(&test2);
+    list.Add(&test3);
 
     RunAllTests(reporter, list, 0);
-    CHECK_EQUAL(2, reporter.summaryTestCount);
-    CHECK_EQUAL(1, reporter.summaryFailureCount);
+    CHECK_EQUAL(3, reporter.summaryTotalTestCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, ReporterNotifiedOfFailedTests)
+{
+    MockTest test1("test", false, false, 2);
+    MockTest test2("test", true, false);
+    MockTest test3("test", false, false, 3);
+    list.Add(&test1);
+    list.Add(&test2);
+    list.Add(&test3);
+
+    RunAllTests(reporter, list, 0);
+    CHECK_EQUAL(2, reporter.summaryFailedTestCount);
+}
+
+TEST_FIXTURE(TestRunnerFixture, ReporterNotifiedOfFailures)
+{
+    MockTest test1("test", false, false, 2);
+    MockTest test2("test", true, false);
+    MockTest test3("test", false, false, 3);
+    list.Add(&test1);
+    list.Add(&test2);
+    list.Add(&test3);
+
+    RunAllTests(reporter, list, 0);
+    CHECK_EQUAL(5, reporter.summaryFailureCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, SlowTestPassesForHighTimeThreshold)
@@ -187,13 +219,13 @@ struct TestSuiteFixture
 TEST_FIXTURE(TestSuiteFixture, TestRunnerRunsAllSuitesIfNullSuiteIsPassed)
 {
     RunAllTests(reporter, list, 0);
-    CHECK_EQUAL(2, reporter.summaryTestCount);
+    CHECK_EQUAL(2, reporter.summaryTotalTestCount);
 }
 
 TEST_FIXTURE(TestSuiteFixture,TestRunnerRunsOnlySpecifiedSuite)
 {
     RunAllTests(reporter, list, "OtherSuite");
-    CHECK_EQUAL(1, reporter.summaryTestCount);
+    CHECK_EQUAL(1, reporter.summaryTotalTestCount);
     CHECK_EQUAL("TestInOtherSuite", reporter.lastFinishedTest);
 }
 

@@ -16,8 +16,6 @@ public:
     virtual void ReportFailure(TestDetails const& details, char const* failure);
     virtual void ReportTestFinish(TestDetails const& details, float secondsElapsed);
 
-    virtual void ReportSummary(int totalTestCount, int failureCount, float secondsElapsed) = 0;
-
     typedef std::vector< DeferredTestResult > DeferredTestResultList;
     DeferredTestResultList& GetResults();
 

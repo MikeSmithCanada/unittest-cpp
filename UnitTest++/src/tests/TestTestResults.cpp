@@ -6,6 +6,8 @@ using namespace UnitTest;
 
 namespace {
 
+TestDetails const details("testname", "suitename", "filename", 123);
+
 
 TEST(StartsWithNoTestsRun)
 {
@@ -16,9 +18,9 @@ TEST(StartsWithNoTestsRun)
 TEST(RecordsNumbersOfTests)
 {
     TestResults results;
-    results.OnTestStart(TestDetails("", "", "", 0));
-    results.OnTestStart(TestDetails("", "", "", 0));
-    results.OnTestStart(TestDetails("", "", "", 0));
+    results.OnTestStart(details);
+    results.OnTestStart(details);
+    results.OnTestStart(details);
     CHECK_EQUAL(3, results.GetTotalTestCount());
 }
 
@@ -31,14 +33,13 @@ TEST(StartsWithNoTestsFailing)
 TEST(RecordsNumberOfFailures)
 {
     TestResults results;
-    results.OnTestFailure(TestDetails("", "", "", 0), "");
-    results.OnTestFailure(TestDetails("", "", "", 0), "");
+    results.OnTestFailure(details, "");
+    results.OnTestFailure(details, "");
     CHECK_EQUAL(2, results.GetFailureCount());
 }
 
 TEST(RecordsNumberOfFailedTests)
 {
-    const TestDetails details("", "", "", 0);
     TestResults results;
 
     results.OnTestStart(details);
@@ -58,7 +59,6 @@ TEST(NotifiesReporterOfTestStartWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    TestDetails const details("testname", "suitename", "filename", 123);
     results.OnTestStart(details);
 
     CHECK_EQUAL (1, reporter.testRunCount);
@@ -70,7 +70,6 @@ TEST(NotifiesReporterOfTestFailureWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    TestDetails const details("testname", "suitename", "filename", 123);
 
     results.OnTestFailure(details, "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
@@ -85,7 +84,6 @@ TEST(NotifiesReporterOfCheckFailureWithCorrectInfo)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    TestDetails const details("testname", "suitename", "filename", 123);
 
     results.OnTestFailure(details, "failurestring");
     CHECK_EQUAL (1, reporter.testFailedCount);
@@ -101,7 +99,6 @@ TEST(NotifiesReporterOfTestEnd)
 {
     RecordingReporter reporter;
     TestResults results(&reporter);
-    TestDetails const details("testname", "suitename", "filename", 123);
 
     results.OnTestFinish(details, 0.1234f);
     CHECK_EQUAL (1, reporter.testFinishedCount);

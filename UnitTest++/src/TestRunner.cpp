@@ -45,7 +45,7 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
     }
 
     float const secondsElapsed = overallTimer.GetTimeInMs() / 1000.0f;
-    reporter.ReportSummary(result.GetTotalTestCount(), result.GetFailureCount(), secondsElapsed);
+    reporter.ReportSummary(result.GetTotalTestCount(), result.GetFailedTestCount(), result.GetFailureCount(), secondsElapsed);
 
     return result.GetFailureCount();
 }

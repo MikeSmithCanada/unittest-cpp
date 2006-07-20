@@ -45,11 +45,12 @@ XmlTestReporter::XmlTestReporter(ostream& ostream)
 {
 }
 
-void XmlTestReporter::ReportSummary(int const totalTestCount, int const failureCount, float const secondsElapsed)
+void XmlTestReporter::ReportSummary(int const totalTestCount, int const failedTestCount,
+                                    int const failureCount, float const secondsElapsed)
 {
     AddXmlElement(m_ostream, NULL);
 
-    BeginResults(m_ostream, totalTestCount, failureCount, secondsElapsed);
+    BeginResults(m_ostream, totalTestCount, failedTestCount, failureCount, secondsElapsed);
 
     DeferredTestResultList const& results = GetResults();
     for (DeferredTestResultList::const_iterator i = results.begin(); i != results.end(); ++i)
@@ -75,10 +76,12 @@ void XmlTestReporter::AddXmlElement(ostream& os, char const* encoding)
     os << "?>";
 }
 
-void XmlTestReporter::BeginResults(std::ostream& os, int const testCount, int const failureCount, float const secondsElapsed)
+void XmlTestReporter::BeginResults(std::ostream& os, int const totalTestCount, int const failedTestCount, 
+                                   int const failureCount, float const secondsElapsed)
 {
    os << "<unittest-results"
-       << " tests=\"" << testCount << "\"" 
+       << " tests=\"" << totalTestCount << "\"" 
+       << " failedtests=\"" << failedTestCount << "\"" 
        << " failures=\"" << failureCount << "\"" 
        << " time=\"" << secondsElapsed << "\""
        << ">";

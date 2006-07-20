@@ -23,10 +23,11 @@ void TestReporterStdout::ReportTestFinish(TestDetails const& /*test*/, float)
 {
 }
 
-void TestReporterStdout::ReportSummary(int const totalTestCount, int const failureCount, float secondsElapsed)
+void TestReporterStdout::ReportSummary(int const totalTestCount, int const failedTestCount,
+                                       int const failureCount, float secondsElapsed)
 {
     if (failureCount > 0)
-        std::printf("FAILURE: %d out of %d tests failed.\n", failureCount, totalTestCount);
+        std::printf("FAILURE: %d out of %d tests failed (%d failures).\n", failedTestCount, totalTestCount, failureCount);
     else
         std::printf("Success: %d tests passed.\n", totalTestCount);
     std::printf("Test time: %.2f seconds.\n", secondsElapsed);

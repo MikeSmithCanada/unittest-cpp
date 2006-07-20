@@ -8,7 +8,7 @@ namespace UnitTest
 
 struct MockDeferredTestReporter : public DeferredTestReporter
 {
-    virtual void ReportSummary(int, int, float) 
+    virtual void ReportSummary(int, int, int, float) 
     {
     }
 };

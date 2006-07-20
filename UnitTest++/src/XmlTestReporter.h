@@ -13,14 +13,14 @@ class XmlTestReporter : public DeferredTestReporter
 public:
     XmlTestReporter(std::ostream& ostream);
 
-    virtual void ReportSummary(int totalTestCount, int failureCount, float secondsElapsed);
+    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
 
 private:
     XmlTestReporter(XmlTestReporter const&);
     XmlTestReporter& operator=(XmlTestReporter const&);
 
     void AddXmlElement(std::ostream& os, char const* encoding);
-    void BeginResults(std::ostream& os, int const testCount, int const failureCount, float const secondsElapsed);
+    void BeginResults(std::ostream& os, int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed);
     void EndResults(std::ostream& os);
     void BeginTest(std::ostream& os, DeferredTestResult const& result);
     void AddFailure(std::ostream& os, DeferredTestResult const& result);

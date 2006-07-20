@@ -18,7 +18,8 @@ public:
         , lastFailedLine(0)
         , testFinishedCount(0)
         , lastFinishedTestTime(0)
-        , summaryTestCount(0)
+        , summaryTotalTestCount(0)
+        , summaryFailedTestCount(0)
         , summaryFailureCount(0)
         , summarySecondsElapsed(0)
     {
@@ -57,9 +58,10 @@ public:
         lastFinishedTestTime = testDuration;
     }
 
-    virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed) 
+    virtual void ReportSummary(int totalTestCount, int failedTestCount, int failureCount, float secondsElapsed) 
     {
-        summaryTestCount = testCount;
+        summaryTotalTestCount = totalTestCount;
+        summaryFailedTestCount = failedTestCount;
         summaryFailureCount = failureCount;
         summarySecondsElapsed = secondsElapsed;
     }
@@ -80,7 +82,8 @@ public:
     char lastFinishedTest[kMaxStringLength];
     float lastFinishedTestTime;
 
-    int summaryTestCount;
+    int summaryTotalTestCount;
+    int summaryFailedTestCount;
     int summaryFailureCount;
     float summarySecondsElapsed;
 };
