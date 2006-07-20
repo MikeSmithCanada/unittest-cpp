@@ -11,7 +11,7 @@ private:
     virtual void ReportTestStart(TestDetails const& test);
     virtual void ReportFailure(TestDetails const& test, char const* failure);
     virtual void ReportTestFinish(TestDetails const& test, float secondsElapsed);
-    virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed);
+    virtual void ReportSummary(int totalTestCount, int failureCount, float secondsElapsed);
 };
 
 }

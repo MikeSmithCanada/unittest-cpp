@@ -12,8 +12,8 @@ namespace {
 
 void ReplaceChar(string& str, char const c, string const& replacement)
 {
-	for (size_t pos = str.find(c); pos != string::npos; pos = str.find(c, pos + 1))
-		str.replace(pos, 1, replacement);
+    for (size_t pos = str.find(c); pos != string::npos; pos = str.find(c, pos + 1))
+        str.replace(pos, 1, replacement);
 }
 
 string XmlEscape(char const* value)
@@ -45,21 +45,21 @@ XmlTestReporter::XmlTestReporter(ostream& ostream)
 {
 }
 
-void XmlTestReporter::ReportSummary(int const testCount, int const failureCount, float const secondsElapsed)
+void XmlTestReporter::ReportSummary(int const totalTestCount, int const failureCount, float const secondsElapsed)
 {
     AddXmlElement(m_ostream, NULL);
 
-    BeginResults(m_ostream, testCount, failureCount, secondsElapsed);
+    BeginResults(m_ostream, totalTestCount, failureCount, secondsElapsed);
 
     DeferredTestResultList const& results = GetResults();
     for (DeferredTestResultList::const_iterator i = results.begin(); i != results.end(); ++i)
     {
         BeginTest(m_ostream, *i);
 
-		if (i->failed)
+        if (i->failed)
             AddFailure(m_ostream, *i);
 
-		EndTest(m_ostream, *i);
+        EndTest(m_ostream, *i);
     }
 
     EndResults(m_ostream);

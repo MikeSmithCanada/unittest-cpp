@@ -16,10 +16,10 @@ public:
     virtual void ReportFailure(TestDetails const& details, char const* failure);
     virtual void ReportTestFinish(TestDetails const& details, float secondsElapsed);
 
-    virtual void ReportSummary(int testCount, int failureCount, float secondsElapsed) = 0;
+    virtual void ReportSummary(int totalTestCount, int failureCount, float secondsElapsed) = 0;
 
-	typedef std::vector< DeferredTestResult > DeferredTestResultList;
-	DeferredTestResultList& GetResults();
+    typedef std::vector< DeferredTestResult > DeferredTestResultList;
+    DeferredTestResultList& GetResults();
 
 private:
     DeferredTestResultList m_results;
@@ -27,4 +27,4 @@ private:
 
 }
 
-#endif //UNITTEST_DEFERREDTESTREPORTER_H
+#endif
