@@ -135,5 +135,4 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtATime)
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }
 
-
 }

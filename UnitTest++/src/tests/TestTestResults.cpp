@@ -10,7 +10,7 @@ namespace {
 TEST(StartsWithNoTestsRun)
 {
     TestResults results;
-    CHECK_EQUAL (0, results.GetTestCount());
+    CHECK_EQUAL (0, results.GetTotalTestCount());
 }
 
 TEST(RecordsNumbersOfTests)
@@ -19,7 +19,7 @@ TEST(RecordsNumbersOfTests)
     results.OnTestStart(TestDetails("", "", "", 0));
     results.OnTestStart(TestDetails("", "", "", 0));
     results.OnTestStart(TestDetails("", "", "", 0));
-    CHECK_EQUAL(3, results.GetTestCount());
+    CHECK_EQUAL(3, results.GetTotalTestCount());
 }
 
 TEST(StartsWithNoTestsFailing)
@@ -31,9 +31,27 @@ TEST(StartsWithNoTestsFailing)
 TEST(RecordsNumberOfFailures)
 {
     TestResults results;
-    results.OnTestFailure(TestDetails("", "", "", 0), "expected failure");
-    results.OnTestFailure(TestDetails("", "", "", 0), "expected failure");
+    results.OnTestFailure(TestDetails("", "", "", 0), "");
+    results.OnTestFailure(TestDetails("", "", "", 0), "");
     CHECK_EQUAL(2, results.GetFailureCount());
+}
+
+TEST(RecordsNumberOfFailedTests)
+{
+    const TestDetails details("", "", "", 0);
+    TestResults results;
+
+    results.OnTestStart(details);
+    results.OnTestFailure(details, "");
+    results.OnTestFinish(details, 0);
+
+    results.OnTestStart(details);
+    results.OnTestFailure(details, "");
+    results.OnTestFailure(details, "");
+    results.OnTestFailure(details, "");
+    results.OnTestFinish(details, 0);
+
+    CHECK_EQUAL (2, results.GetFailedTestCount());
 }
 
 TEST(NotifiesReporterOfTestStartWithCorrectInfo)

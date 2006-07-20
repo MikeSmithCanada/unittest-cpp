@@ -27,9 +27,9 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
             Timer testTimer;
             testTimer.Start();
             result.OnTestStart(curTest->m_details);
-    
+
             curTest->Run(result);
-    
+
             int const testTimeInMs = testTimer.GetTimeInMs();
             if (maxTestTimeInMs > 0 && testTimeInMs > maxTestTimeInMs && !curTest->m_timeConstraintExempt)
             {
@@ -40,12 +40,12 @@ int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteN
             }
             result.OnTestFinish(curTest->m_details, testTimeInMs/1000.0f);
         }
-        
+
         curTest = curTest->next;
     }
 
     float const secondsElapsed = overallTimer.GetTimeInMs() / 1000.0f;
-    reporter.ReportSummary(result.GetTestCount(), result.GetFailureCount(), secondsElapsed);
+    reporter.ReportSummary(result.GetTotalTestCount(), result.GetFailureCount(), secondsElapsed);
 
     return result.GetFailureCount();
 }

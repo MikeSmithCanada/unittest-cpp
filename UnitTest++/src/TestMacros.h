@@ -9,7 +9,7 @@
 #define SUITE(Name)                                                         \
     namespace Name {                                                        \
         namespace UnitTestSuite {                                           \
-            inline char const * GetSuiteName () {                           \
+            inline char const* GetSuiteName () {                            \
                 return #Name ;                                              \
             }                                                               \
         }                                                                   \
