@@ -38,7 +38,7 @@ void CheckEqual(TestResults& results, char const* expected, char* actual, TestDe
 template< typename Expected, typename Actual, typename Tolerance >
 bool AreClose(Expected const expected, Actual const actual, Tolerance const tolerance)
 {
-    return (actual >= expected - tolerance) && (actual <= expected + tolerance);
+    return (actual >= (expected - tolerance)) && (actual <= (expected + tolerance));
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
@@ -76,12 +76,6 @@ void CheckArrayEqual(TestResults& results, Expected const expected, Actual const
 
         results.OnTestFailure(details, stream.GetText());
     }
-}
-
-template< typename Expected, typename Actual, typename Tolerance >
-bool CheckClose2(Expected const expected, Actual const actual, Tolerance const tolerance)
-{
-    return ((actual >= expected - tolerance) && (actual <= expected + tolerance));
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
