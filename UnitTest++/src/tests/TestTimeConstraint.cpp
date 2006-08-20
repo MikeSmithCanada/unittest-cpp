@@ -1,5 +1,4 @@
 #include "../UnitTest++.h"
-#include "../TimeConstraint.h"
 #include "../TestResults.h"
 #include "../TimeHelpers.h"
 #include "RecordingReporter.h"
@@ -53,21 +52,6 @@ TEST (TimeConstraintFailureIncludesTimeoutInformation)
     }
     CHECK (std::strstr(reporter.lastFailedMessage, "ime constraint"));
     CHECK (std::strstr(reporter.lastFailedMessage, "under 10ms"));
-}
-
-TEST (TimeConstraintMacroUsesCorrectInfo)
-{
-    int testLine = 0;
-    RecordingReporter reporter;
-    {
-        UnitTest::TestResults testResults_(&reporter);
-        UNITTEST_TIME_CONSTRAINT(10);                    testLine = __LINE__;
-        TimeHelpers::SleepMs(20);
-    }
-    CHECK_EQUAL (1, reporter.testFailedCount);
-    CHECK (std::strstr(reporter.lastFailedFile, __FILE__));
-    CHECK_EQUAL (testLine, reporter.lastFailedLine);
-    CHECK (std::strstr(reporter.lastFailedTest, "TimeConstraintMacroUsesCorrectInfo"));
 }
 
 }

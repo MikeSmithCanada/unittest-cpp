@@ -9,5 +9,6 @@
 #include "TestMacros.h"
 #include "CheckMacros.h"
 #include "TestRunner.h"
+#include "TimeConstraint.h"
 
 #endif

@@ -23,8 +23,9 @@ private:
     Timer m_timer;
 };
 
+#define UNITTEST_TIME_CONSTRAINT(ms) UnitTest::TimeConstraint \
+	timeConstraint_##__LINE__##(ms, testResults_, UnitTest::TestDetails(m_details, __LINE__))
 
-#define UNITTEST_TIME_CONSTRAINT(ms) TimeConstraint t__(ms, testResults_, UnitTest::TestDetails(m_details, __LINE__))
 #define UNITTEST_TIME_CONSTRAINT_EXEMPT() m_timeConstraintExempt = true
 
 }

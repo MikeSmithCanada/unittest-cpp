@@ -40,7 +40,8 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestTimeConstraint.cpp \
 	src/tests/TestMemoryOutStream.cpp \
 	src/tests/TestDeferredTestReporter.cpp \
-	src/tests/TestXmlTestReporter.cpp
+	src/tests/TestXmlTestReporter.cpp \
+	src/tests/TestTimeConstraint.cpp
 
 objects = $(patsubst %.cpp, %.o, $(src))
 test_objects = $(patsubst %.cpp, %.o, $(test_src))

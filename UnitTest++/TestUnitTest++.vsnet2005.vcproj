@@ -231,6 +231,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\src\tests\TestTimeConstraintMacro.cpp"
+			>
+		</File>
+		<File
 			RelativePath=".\src\tests\TestUnitTest++.cpp"
 			>
 		</File>
