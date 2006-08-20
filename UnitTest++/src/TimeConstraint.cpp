@@ -6,9 +6,9 @@ namespace UnitTest {
 
 
 TimeConstraint::TimeConstraint(int ms, TestResults& result, TestDetails const& details)
-    : m_result (result)
-    , m_maxMs (ms)
-    , m_details (details)
+    : m_result(result)
+	, m_details(details)
+    , m_maxMs(ms)
 {
     m_timer.Start();
 }

@@ -8,27 +8,27 @@ using namespace UnitTest;
 namespace
 {
 
-TEST (TimeConstraintSucceedsWithFastTest)
+TEST(TimeConstraintSucceedsWithFastTest)
 {
     TestResults result;
     {
         TimeConstraint t(200, result, TestDetails("", "", "", 0));
         TimeHelpers::SleepMs(5);
     }
-    CHECK_EQUAL (0, result.GetFailureCount());
+    CHECK_EQUAL(0, result.GetFailureCount());
 }
 
-TEST (TimeConstraintFailsWithSlowTest)
+TEST(TimeConstraintFailsWithSlowTest)
 {
     TestResults result;
     {
         TimeConstraint t(10, result, TestDetails("", "", "", 0));
         TimeHelpers::SleepMs(20);
     }
-    CHECK_EQUAL (1, result.GetFailureCount());
+    CHECK_EQUAL(1, result.GetFailureCount());
 }
 
-TEST (TimeConstraintFailureIncludesCorrectData)
+TEST(TimeConstraintFailureIncludesCorrectData)
 {
     RecordingReporter reporter;
     TestResults result(&reporter);
@@ -37,12 +37,12 @@ TEST (TimeConstraintFailureIncludesCorrectData)
         TimeConstraint t(10, result, details);
         TimeHelpers::SleepMs(20);
     }
-    CHECK (std::strstr(reporter.lastFailedFile, "filename"));
-    CHECK_EQUAL (10, reporter.lastFailedLine);
-    CHECK (std::strstr(reporter.lastFailedTest, "testname"));
+    CHECK(std::strstr(reporter.lastFailedFile, "filename"));
+    CHECK_EQUAL(10, reporter.lastFailedLine);
+    CHECK(std::strstr(reporter.lastFailedTest, "testname"));
 }
 
-TEST (TimeConstraintFailureIncludesTimeoutInformation)
+TEST(TimeConstraintFailureIncludesTimeoutInformation)
 {
     RecordingReporter reporter;
     TestResults result(&reporter);
@@ -50,8 +50,8 @@ TEST (TimeConstraintFailureIncludesTimeoutInformation)
         TimeConstraint t(10, result, TestDetails("", "", "", 0));
         TimeHelpers::SleepMs(20);
     }
-    CHECK (std::strstr(reporter.lastFailedMessage, "ime constraint"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "under 10ms"));
+    CHECK(std::strstr(reporter.lastFailedMessage, "ime constraint"));
+    CHECK(std::strstr(reporter.lastFailedMessage, "under 10ms"));
 }
 
 }

@@ -15,18 +15,19 @@ public:
     ~TimeConstraint();
 
 private:
-    void operator=(const TimeConstraint&); 
+    void operator=(TimeConstraint const&); 
+	TimeConstraint(TimeConstraint const&);
 
+	Timer m_timer;
     TestResults& m_result;
-    int const m_maxMs;
     TestDetails const& m_details;
-    Timer m_timer;
+	int const m_maxMs;
 };
 
-#define UNITTEST_TIME_CONSTRAINT(ms) UnitTest::TimeConstraint \
-	timeConstraint_##__LINE__##(ms, testResults_, UnitTest::TestDetails(m_details, __LINE__))
+#define UNITTEST_TIME_CONSTRAINT(ms) \
+	UnitTest::TimeConstraint unitTest__timeConstraint__(ms, testResults_, UnitTest::TestDetails(m_details, __LINE__))
 
-#define UNITTEST_TIME_CONSTRAINT_EXEMPT() m_timeConstraintExempt = true
+#define UNITTEST_TIME_CONSTRAINT_EXEMPT() do { m_timeConstraintExempt = true; } while (0)
 
 }
 
