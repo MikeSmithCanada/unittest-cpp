@@ -4,14 +4,11 @@
 // Standard defines documented here: http://predef.sourceforge.net
 
 #if defined _MSC_VER
-    #define UNITTEST_VISUALSTUDIO
-
     #pragma warning(disable:4127) // conditional expression is constant
 
     #ifndef _DEBUG
         #pragma warning(disable:4702)  // bogus unreachable code in release mode
     #endif
-
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
