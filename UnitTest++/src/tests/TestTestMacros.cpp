@@ -110,6 +110,52 @@ TEST(TestAddedWithTEST_FIXTURE_EXMacroGetsDefaultSuite)
     CHECK_EQUAL ("DefaultSuite", macroTestList2.GetHead()->m_details.suiteName);
 }
 
+struct FixtureCtorThrows
+{
+	FixtureCtorThrows()	{ throw "exception"; }
+};
+
+TestList throwingFixtureTestList1;
+TEST_FIXTURE_EX(FixtureCtorThrows, FixtureCtorThrowsTestName, throwingFixtureTestList1)
+{
+	(void)testResults_;
+}
+
+TEST(FixturesWithThrowingCtorsAreFailures)
+{
+	CHECK(throwingFixtureTestList1.GetHead() != NULL);
+	RecordingReporter reporter;
+	TestResults result(&reporter);
+	throwingFixtureTestList1.GetHead()->Run(result);
+
+	int const failureCount = result.GetFailedTestCount();
+	CHECK_EQUAL(1, failureCount);
+	CHECK(strstr(reporter.lastFailedMessage, "while constructing fixture"));
+}
+
+struct FixtureDtorThrows
+{
+	~FixtureDtorThrows() { throw "exception"; }
+};
+
+TestList throwingFixtureTestList2;
+TEST_FIXTURE_EX(FixtureDtorThrows, FixtureDtorThrowsTestName, throwingFixtureTestList2)
+{
+	(void)testResults_;
+}
+
+TEST(FixturesWithThrowingDtorsAreFailures)
+{
+	CHECK(throwingFixtureTestList2.GetHead() != NULL);
+	RecordingReporter reporter;
+	TestResults result(&reporter);
+	throwingFixtureTestList2.GetHead()->Run(result);
+
+	int const failureCount = result.GetFailedTestCount();
+	CHECK_EQUAL(1, failureCount);
+	CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
+}
+
 }
 
 // We're really testing if it's possible to use the same suite in two files

@@ -5,10 +5,8 @@
 
 #if defined _MSC_VER
     #pragma warning(disable:4127) // conditional expression is constant
-
-    #ifndef _DEBUG
-        #pragma warning(disable:4702)  // bogus unreachable code in release mode
-    #endif
+	#pragma warning(disable:4702) // unreachable code
+	#pragma warning(disable:4722) // destructor never returns, potential memory leak
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
