@@ -1,6 +1,6 @@
 UnitTest++ README
 Version: v1.2
-Last update: 2006-XX-XX
+Last update: 2006-10-29
 
 
 UnitTest++ is free software. You may copy, distribute, and modify it under
@@ -16,7 +16,7 @@ Charles Nicholson (cn@cnicholson.net)
 
 Contributors:
 Jim Tilander (jim.tilander@gmail.com)
-Kim Gr�man (kim@mvps.org)
+Kim Grasman (kim@mvps.org)
 Jonathan Jansson (lilliemarck@users.sourceforge.net)
 Dirck Blaskey (listtarget2@danbala.com)
 Rory Driscoll (rorydriscoll@gmail.com)
@@ -29,7 +29,9 @@ Jeff Dixon <bodisafa@helixe.com>
 Release notes
 --------------
 
-Version 1.2 (2006-XX-XX)
+Version 1.2 (2006-10-29)
+- First pass at documentation.
+- More detailed error crash catching in fixtures.
 - Standard streams used for printing objects under check. This should allow the
   use of standard class types such as std::string or other custom classes with
   stream operators to ostream.
