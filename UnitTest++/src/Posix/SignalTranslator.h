@@ -1,10 +1,8 @@
 #ifndef UNITTEST_SIGNALTRANSLATOR_H
 #define UNITTEST_SIGNALTRANSLATOR_H
 
-
 #include <setjmp.h>
 #include <signal.h>
-
 
 namespace UnitTest {
 
@@ -28,13 +26,17 @@ private:
     struct sigaction m_old_SIGALRM_action;
 };
 
+#ifdef SOLARIS
+    #define UNITTEST_EXTENSION
+#else
+    #define UNITTEST_EXTENSION __extension__
+#endif
 
 #define UNITTEST_THROW_SIGNALS \
 	SignalTranslator sig; \
-    if (__extension__ sigsetjmp( *SignalTranslator::s_jumpTarget, 1 ) != 0) \
+    if (UNITTEST_EXTENSION sigsetjmp(*SignalTranslator::s_jumpTarget, 1) != 0) \
         throw ("Unhandled system exception"); 
 
 }
 
 #endif
-
