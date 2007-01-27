@@ -7,7 +7,7 @@ Timer::Timer()
     : m_startTime(0)
 {
     m_threadId = ::GetCurrentThread();
-    DWORD systemMask;
+    DWORD_PTR systemMask;
     ::GetProcessAffinityMask(GetCurrentProcess(), &m_processAffinityMask, &systemMask);
     
     ::SetThreadAffinityMask(m_threadId, 1);
