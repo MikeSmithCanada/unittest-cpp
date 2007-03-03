@@ -16,7 +16,7 @@ void ReplaceChar(string& str, char const c, string const& replacement)
         str.replace(pos, 1, replacement);
 }
 
-string XmlEscape(char const* value)
+string XmlEscape(string const& value)
 {
     string escaped = value;
 

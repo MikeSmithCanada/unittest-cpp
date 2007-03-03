@@ -71,4 +71,20 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetails)
     CHECK_EQUAL(failure, result.failureMessage);
 }
 
+TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailureMessage)
+{
+    reporter.ReportTestStart(details);
+
+    char failureMessage[128];
+    char const* goodStr = "Real failure message";
+    char const* badStr = "Bogus failure message";
+    
+    std::strcpy(failureMessage, goodStr);
+    reporter.ReportFailure(details, failureMessage);
+    std::strcpy(failureMessage, badStr);
+
+    DeferredTestResult const& result = reporter.GetResults().at(0);
+    CHECK_EQUAL(goodStr, result.failureMessage);
+}
+
 }

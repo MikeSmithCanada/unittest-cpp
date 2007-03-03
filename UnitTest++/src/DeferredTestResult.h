@@ -1,6 +1,8 @@
 #ifndef UNITTEST_DEFERREDTESTRESULT_H
 #define UNITTEST_DEFERREDTESTRESULT_H
 
+#include <string>
+
 namespace UnitTest
 {
 
@@ -9,10 +11,10 @@ struct DeferredTestResult
 	DeferredTestResult();
     DeferredTestResult(char const* suite, char const* test);
 
-    char const* suiteName;
-    char const* testName;
-    char const* failureFile;
-    char const* failureMessage;
+    std::string suiteName;
+    std::string testName;
+    std::string failureFile;
+    std::string failureMessage;
     int failureLine;
     float timeElapsed;
 	bool failed;
