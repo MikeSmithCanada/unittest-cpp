@@ -67,8 +67,21 @@ TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetails)
     DeferredTestResult const& result = reporter.GetResults().at(0);
     CHECK(result.failed == true);
     CHECK_EQUAL(fileName.c_str(), result.failureFile);
-    CHECK_EQUAL(lineNumber, result.failureLine);
-    CHECK_EQUAL(failure, result.failureMessage);
+}
+
+TEST_FIXTURE(DeferredTestReporterFixture, ReportFailureSavesFailureDetailsForMultipleFailures)
+{
+    char const* failure1 = "failure 1";
+    char const* failure2 = "failure 2";
+
+    reporter.ReportTestStart(details);
+    reporter.ReportFailure(details, failure1);
+    reporter.ReportFailure(details, failure2);
+
+    DeferredTestResult const& result = reporter.GetResults().at(0);
+    CHECK_EQUAL(2u, result.failures.size());
+    CHECK_EQUAL(failure1, result.failures[0].second);
+    CHECK_EQUAL(failure2, result.failures[1].second);
 }
 
 TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailureMessage)
@@ -84,7 +97,8 @@ TEST_FIXTURE(DeferredTestReporterFixture, DeferredTestReporterTakesCopyOfFailure
     std::strcpy(failureMessage, badStr);
 
     DeferredTestResult const& result = reporter.GetResults().at(0);
-    CHECK_EQUAL(goodStr, result.failureMessage);
+    DeferredTestResult::Failure const& failure = result.failures.at(0);
+    CHECK_EQUAL(goodStr, failure.second);
 }
 
 }

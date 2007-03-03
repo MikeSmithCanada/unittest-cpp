@@ -112,12 +112,15 @@ void XmlTestReporter::AddFailure(std::ostream& os, DeferredTestResult const& res
 {
     os << ">"; // close <test> element
 
-    string const escapedMessage = XmlEscape(result.failureMessage);
-    string const message = BuildFailureMessage(result.failureFile, result.failureLine, escapedMessage);
+    for (DeferredTestResult::FailureVec::const_iterator it = result.failures.begin(); 
+         it != result.failures.end(); 
+         ++it)
+    {
+        string const escapedMessage = XmlEscape(it->second);
+        string const message = BuildFailureMessage(result.failureFile, it->first, escapedMessage);
 
-    os << "<failure"
-        << " message=\"" << message << "\""
-        << "/>";
+        os << "<failure" << " message=\"" << message << "\"" << "/>";
+    }
 }
 
 }

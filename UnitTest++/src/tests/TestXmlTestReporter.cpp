@@ -156,4 +156,28 @@ TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
     CHECK_EQUAL(expected, output.str());
 }
 
+TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
+{
+    TestDetails const failedDetails1("FailedTest", "suite", "fail.h", 1);
+    TestDetails const failedDetails2("FailedTest", "suite", "fail.h", 31);
+
+    reporter.ReportTestStart(failedDetails1);
+    reporter.ReportFailure(failedDetails1, "expected 1 but was 2");
+    reporter.ReportFailure(failedDetails2, "expected one but was two");
+    reporter.ReportTestFinish(failedDetails1, 0.1f);
+
+    reporter.ReportSummary(1, 1, 2, 1.1f);
+
+    char const* expected =
+        "<?xml version=\"1.0\"?>"
+        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"2\" time=\"1.1\">"
+        "<test suite=\"suite\" name=\"FailedTest\" time=\"0.1\">"
+        "<failure message=\"fail.h(1) : expected 1 but was 2\"/>"
+        "<failure message=\"fail.h(31) : expected one but was two\"/>"
+        "</test>"
+        "</unittest-results>";
+
+    CHECK_EQUAL(expected, output.str());
+}
+
 }

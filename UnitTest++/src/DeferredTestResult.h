@@ -2,6 +2,7 @@
 #define UNITTEST_DEFERREDTESTRESULT_H
 
 #include <string>
+#include <vector>
 
 namespace UnitTest
 {
@@ -14,8 +15,11 @@ struct DeferredTestResult
     std::string suiteName;
     std::string testName;
     std::string failureFile;
-    std::string failureMessage;
-    int failureLine;
+    
+    typedef std::pair< int, std::string > Failure;
+    typedef std::vector< Failure > FailureVec;
+    FailureVec failures;
+    
     float timeElapsed;
 	bool failed;
 };
