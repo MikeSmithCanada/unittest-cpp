@@ -91,6 +91,7 @@
         bool caught_ = false; \
         try { expression; } \
         catch (ExpectedExceptionType const&) { caught_ = true; } \
+        catch (...) {} \
         if (!caught_) \
             testResults_.OnTestFailure(UnitTest::TestDetails(m_details, __LINE__), "Expected exception: \"" #ExpectedExceptionType "\" not thrown"); \
     } while(0)
