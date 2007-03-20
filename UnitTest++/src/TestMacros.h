@@ -1,6 +1,14 @@
 #ifndef UNITTEST_TESTMACROS_H
 #define UNITTEST_TESTMACROS_H
 
+#include "Config.h"
+
+#ifndef UNITTEST_POSIX
+	#define UNITTEST_THROW_SIGNALS
+#else
+	#include "Posix/SignalTranslator.h"
+#endif
+
 #ifdef TEST
     #error UnitTest++ redefines TEST
 #endif
@@ -60,7 +68,16 @@
 		try {																		 \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			fixtureHelper.RunTest(testResults_);									 \
+			try {																	 \
+				UNITTEST_THROW_SIGNALS;												 \
+				fixtureHelper.RunTest(testResults_);								 \
+			} catch (UnitTest::AssertException const& e) {							 \
+				testResults_.OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
+			} catch (std::exception const& e) {										 \
+				UnitTest::MemoryOutStream stream;									 \
+				stream << "Unhandled exception: " << e.what();						 \
+				testResults_.OnTestFailure(m_details, stream.GetText());			 \
+			} catch (...) {	testResults_.OnTestFailure(m_details, "Unhandled exception: Crash!"); } \
 		}																			 \
 		catch (...) {																 \
 			if (ctorOk)																 \

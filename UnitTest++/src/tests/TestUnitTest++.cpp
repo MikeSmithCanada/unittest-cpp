@@ -52,7 +52,7 @@ TEST (CheckArrayCloseWorksWithVectors)
     for (int i = 0; i < 4; ++i)
         a[i] = (float)i;
 
-    CHECK_ARRAY_CLOSE (a, a, (int)a.size(), 0);
+    CHECK_ARRAY_CLOSE (a, a, (int)a.size(), 0.0001f);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)
@@ -107,7 +107,6 @@ TEST(CheckThrowMacroFailsOnWrongException)
     test.Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
-
 
 struct SimpleFixture
 {
