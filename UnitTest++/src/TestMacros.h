@@ -56,26 +56,24 @@
 																					 \
     void Test##Fixture##Name::RunImpl(UnitTest::TestResults& testResults_) const	 \
 	{																				 \
-		char* fixtureMem = new char[sizeof(Fixture##Name##Helper)];					 \
-		Fixture##Name##Helper* fixtureHelper;										 \
+		bool ctorOk = false;														 \
 		try {																		 \
-			fixtureHelper = new(fixtureMem) Fixture##Name##Helper(m_details);		 \
+			Fixture##Name##Helper fixtureHelper(m_details);							 \
+			ctorOk = true;															 \
+			fixtureHelper.RunTest(testResults_);									 \
 		}																			 \
 		catch (...) {																 \
-			testResults_.OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),   \
-				"Unhandled exception while constructing fixture " #Fixture);         \
-			delete[] fixtureMem;													 \
-			return;																	 \
+			if (ctorOk)																 \
+			{																		 \
+	            testResults_.OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),	 \
+					"Unhandled exception while destroying fixture " #Fixture);		 \
+			}																		 \
+			else																	 \
+			{																		 \
+				testResults_.OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),   \
+					"Unhandled exception while constructing fixture " #Fixture);         \
+			}																		 \
 		}																			 \
-        fixtureHelper->RunTest(testResults_);										 \
-		try {																		 \
-			fixtureHelper->~Fixture##Name##Helper();								 \
-		}																			 \
-		catch (...) {                                                                \
-            testResults_.OnTestFailure(UnitTest::TestDetails(m_details, __LINE__),	 \
-                    "Unhandled exception while destroying fixture " #Fixture);		 \
-        }                                                                            \
-		delete[] fixtureMem;														 \
     }                                                                                \
     void Fixture##Name##Helper::RunTest(UnitTest::TestResults& testResults_)
 
