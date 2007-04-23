@@ -59,6 +59,8 @@ TEST (ThrowingTestsAreReportedAsFailures)
     CHECK_EQUAL(1, results.GetFailureCount());
 }
 
+
+#ifndef UNITTEST_MINGW
 TEST (CrashingTestsAreReportedAsFailures)
 {
     class CrashingTest : public Test
@@ -75,7 +77,7 @@ TEST (CrashingTestsAreReportedAsFailures)
     CrashingTest().Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
-
+#endif
 
 TEST (TestWithUnspecifiedSuiteGetsDefaultSuite)
 {
