@@ -16,7 +16,7 @@ bool Check(Value const value)
 
 
 template< typename Expected, typename Actual >
-void CheckEqual(TestResults& results, Expected const expected, Actual const actual, TestDetails const& details)
+void CheckEqual(TestResults& results, Expected const& expected, Actual const& actual, TestDetails const& details)
 {
     if (!(expected == actual))
     {
@@ -36,13 +36,13 @@ void CheckEqual(TestResults& results, char* expected, char const* actual, TestDe
 void CheckEqual(TestResults& results, char const* expected, char* actual, TestDetails const& details);
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool AreClose(Expected const expected, Actual const actual, Tolerance const tolerance)
+bool AreClose(Expected const& expected, Actual const& actual, Tolerance const& tolerance)
 {
     return (actual >= (expected - tolerance)) && (actual <= (expected + tolerance));
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckClose(TestResults& results, Expected const expected, Actual const actual, Tolerance const tolerance,
+void CheckClose(TestResults& results, Expected const& expected, Actual const& actual, Tolerance const& tolerance,
                 TestDetails const& details)
 {
     if (!AreClose(expected, actual, tolerance))
@@ -56,7 +56,7 @@ void CheckClose(TestResults& results, Expected const expected, Actual const actu
 
 
 template< typename Expected, typename Actual >
-void CheckArrayEqual(TestResults& results, Expected const expected, Actual const actual,
+void CheckArrayEqual(TestResults& results, Expected const& expected, Actual const& actual,
                 int const count, TestDetails const& details)
 {
     bool equal = true;
@@ -79,7 +79,7 @@ void CheckArrayEqual(TestResults& results, Expected const expected, Actual const
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-bool ArrayAreClose(Expected const expected, Actual const actual, int const count, Tolerance const tolerance)
+bool ArrayAreClose(Expected const& expected, Actual const& actual, int const count, Tolerance const& tolerance)
 {
     bool equal = true;
     for (int i = 0; i < count; ++i)
@@ -88,8 +88,8 @@ bool ArrayAreClose(Expected const expected, Actual const actual, int const count
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArrayClose(TestResults& results, Expected const expected, Actual const actual,
-                   int const count, Tolerance const tolerance, TestDetails const& details)
+void CheckArrayClose(TestResults& results, Expected const& expected, Actual const& actual,
+                   int const count, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = ArrayAreClose(expected, actual, count, tolerance);
 
@@ -109,8 +109,8 @@ void CheckArrayClose(TestResults& results, Expected const expected, Actual const
 }
 
 template< typename Expected, typename Actual, typename Tolerance >
-void CheckArray2DClose(TestResults& results, Expected const expected, Actual const actual,
-                   int const rows, int const columns, Tolerance const tolerance, TestDetails const& details)
+void CheckArray2DClose(TestResults& results, Expected const& expected, Actual const& actual,
+                   int const rows, int const columns, Tolerance const& tolerance, TestDetails const& details)
 {
     bool equal = true;
     for (int i = 0; i < rows; ++i)
