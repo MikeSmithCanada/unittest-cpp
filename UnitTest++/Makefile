@@ -1,5 +1,6 @@
-CC = g++
-CCFLAGS = -g -ansi -Wall -W -ansi # -pedantic
+CXX = g++
+CXXFLAGS ?= -g -ansi -Wall -W -ansi # -pedantic
+LDFLAGS ?= 
 SED = sed
 MV = mv
 RM = rm
@@ -54,7 +55,7 @@ dependencies = $(subst .o,.d,$(objects))
 test_dependencies = $(subst .o,.d,$(test_objects))
 
 define make-depend
-  $(CC) $(CCFLAGS) -M $1 | \
+  $(CXX) $(CXXFLAGS) -M $1 | \
   $(SED) -e 's,\($(notdir $2)\) *:,$(dir $2)\1: ,' > $3.tmp
   $(SED) -e 's/#.*//' \
       -e 's/^[^:]*: *//' \
@@ -74,7 +75,7 @@ $(lib): $(objects)
     
 $(test): $(lib) $(test_objects)
 	@echo Linking $(test)...
-	@$(CC) -o $(test) $(test_objects) $(lib)
+	@$(CXX) $(LDFLAGS) -o $(test) $(test_objects) $(lib)
 	@echo Running unit tests...
 	@./$(test)
 
@@ -84,7 +85,7 @@ clean:
 %.o : %.cpp
 	@echo $<
 	@$(call make-depend,$<,$@,$(subst .o,.d,$@))
-	@$(CC) $(CCFLAGS) -c $< -o $(patsubst %.cpp, %.o, $<)
+	@$(CXX) $(CXXFLAGS) -c $< -o $(patsubst %.cpp, %.o, $<)
 
 
 ifneq "$(MAKECMDGOALS)" "clean"
