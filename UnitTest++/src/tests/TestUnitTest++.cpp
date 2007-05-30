@@ -84,7 +84,7 @@ TEST(CheckThrowMacroFailsOnMissingException)
 
     UnitTest::TestResults results;
 
-    NoThrowTest const test;
+    NoThrowTest test;
     test.Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }
@@ -103,7 +103,7 @@ TEST(CheckThrowMacroFailsOnWrongException)
 
     UnitTest::TestResults results;
 
-    WrongThrowTest const test;
+    WrongThrowTest test;
     test.Run(results);
     CHECK_EQUAL(1, results.GetFailureCount());
 }

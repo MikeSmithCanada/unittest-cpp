@@ -2,6 +2,7 @@
 #define UNITTEST_TESTMACROS_H
 
 #include "Config.h"
+#include "ExecuteTest.h"
 
 #ifndef UNITTEST_POSIX
 	#define UNITTEST_THROW_SIGNALS
@@ -68,16 +69,7 @@
 		try {																		 \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			try {																	 \
-				UNITTEST_THROW_SIGNALS;												 \
-				fixtureHelper.RunTest(testResults_);								 \
-			} catch (UnitTest::AssertException const& e) {							 \
-				testResults_.OnTestFailure(UnitTest::TestDetails(m_details.testName, m_details.suiteName, e.Filename(), e.LineNumber()), e.what()); \
-			} catch (std::exception const& e) {										 \
-				UnitTest::MemoryOutStream stream;									 \
-				stream << "Unhandled exception: " << e.what();						 \
-				testResults_.OnTestFailure(m_details, stream.GetText());			 \
-			} catch (...) {	testResults_.OnTestFailure(m_details, "Unhandled exception: Crash!"); } \
+			ExecuteTest(fixtureHelper, &Fixture##Name##Helper::RunTest, testResults_, m_details); \
 		}																			 \
 		catch (...) {																 \
 			if (ctorOk)																 \

@@ -134,6 +134,9 @@
 			RelativePath=".\src\DeferredTestResult.h">
 		</File>
 		<File
+			RelativePath=".\src\ExecuteTest.h">
+		</File>
+		<File
 			RelativePath=".\src\MemoryOutStream.cpp">
 		</File>
 		<File
