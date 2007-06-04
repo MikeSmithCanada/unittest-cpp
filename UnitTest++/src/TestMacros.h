@@ -46,7 +46,7 @@
 	{																				 \
 	public:																			 \
         Fixture##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {} \
-        void RunTest(UnitTest::TestResults& testResults_);                           \
+        void RunImpl(UnitTest::TestResults& testResults_);                           \
         UnitTest::TestDetails const& m_details;                                      \
     private:                                                                         \
         Fixture##Name##Helper(Fixture##Name##Helper const&);                         \
@@ -69,7 +69,7 @@
 		try {																		 \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			ExecuteTest(fixtureHelper, &Fixture##Name##Helper::RunTest, testResults_, m_details); \
+			ExecuteTest(fixtureHelper, testResults_, m_details); \
 		}																			 \
 		catch (...) {																 \
 			if (ctorOk)																 \
@@ -84,7 +84,7 @@
 			}																		 \
 		}																			 \
     }                                                                                \
-    void Fixture##Name##Helper::RunTest(UnitTest::TestResults& testResults_)
+    void Fixture##Name##Helper::RunImpl(UnitTest::TestResults& testResults_)
 
 #define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList())
 

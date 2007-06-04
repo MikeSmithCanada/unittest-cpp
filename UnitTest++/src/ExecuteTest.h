@@ -12,14 +12,14 @@
 namespace UnitTest {
 
 template< typename T >
-void ExecuteTest(T& testObject, void (T::*testFunc)(TestResults&), TestResults& testResults, TestDetails const& details)
+void ExecuteTest(T& testObject, TestResults& testResults, TestDetails const& details)
 {
 	try
 	{
 #ifdef UNITTEST_POSIX
 		UNITTEST_THROW_SIGNALS
 #endif
-		(testObject.*testFunc)(testResults);
+		testObject.RunImpl(testResults);
 	}
 	catch (AssertException const& e)
 	{

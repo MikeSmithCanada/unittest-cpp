@@ -21,10 +21,10 @@ public:
 
     static TestList& GetTestList();
 
-private:
-    virtual void RunImpl(TestResults& testResults_);
+    virtual void RunImpl(TestResults& testResults_) const;
 
-    Test(Test const&);
+private:
+	Test(Test const&);
     Test& operator =(Test const&);
 };
 

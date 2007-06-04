@@ -31,10 +31,10 @@ Test::~Test()
 
 void Test::Run(TestResults& testResults)
 {
-	ExecuteTest(*this, &Test::RunImpl, testResults, m_details);
+	ExecuteTest(*this, testResults, m_details);
 }
 
-void Test::RunImpl(TestResults&)
+void Test::RunImpl(TestResults&) const
 {
 }
 
