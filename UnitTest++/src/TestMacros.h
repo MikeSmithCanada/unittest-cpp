@@ -88,4 +88,25 @@
 
 #define TEST_FIXTURE(Fixture,Name) TEST_FIXTURE_EX(Fixture, Name, UnitTest::Test::GetTestList())
 
+#define TEST_UTILITY(Name, ArgList)						\
+	class TestUtility##Name								\
+	{													\
+	public:												\
+		TestUtility##Name(UnitTest::TestResults& testResults, const UnitTest::TestDetails &details) \
+			: testResults_(testResults), m_details(details)	\
+		{												\
+		}												\
+														\
+		void Name##ArgList;								\
+		UnitTest::TestResults& testResults_;			\
+		const UnitTest::TestDetails &m_details;			\
+	private:											\
+		void operator =(const TestUtility##Name&);		\
+	};													\
+														\
+	void TestUtility##Name::Name##ArgList
+
+#define TEST_UTILITY_FUNC(Name) TestUtility##Name(testResults_, m_details).Name
+
+
 #endif

@@ -134,4 +134,14 @@ TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtATime)
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
 }
 
+TEST_UTILITY(UtilityTest, (int x))
+{
+	CHECK(x > 0);
+}
+
+TEST(CanCallUtilityTests)
+{
+	TEST_UTILITY_FUNC(UtilityTest)(3);
+}
+
 }
