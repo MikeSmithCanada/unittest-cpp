@@ -97,14 +97,14 @@
 		{												\
 		}												\
 														\
-		void Name##ArgList;								\
+		void Name ArgList;								\
 		UnitTest::TestResults& testResults_;			\
 		const UnitTest::TestDetails &m_details;			\
 	private:											\
 		void operator =(const TestUtility##Name&);		\
 	};													\
 														\
-	void TestUtility##Name::Name##ArgList
+	void TestUtility##Name::Name ArgList
 
 #define TEST_UTILITY_FUNC(Name) TestUtility##Name(testResults_, m_details).Name
 
