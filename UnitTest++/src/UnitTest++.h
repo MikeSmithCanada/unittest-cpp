@@ -7,7 +7,6 @@
 #include "TestSuite.h"
 #include "TestResults.h"
 
-#include <new>
 #include "TestMacros.h"
 
 #include "CheckMacros.h"

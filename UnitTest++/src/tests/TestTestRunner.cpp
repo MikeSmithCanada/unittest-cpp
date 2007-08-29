@@ -229,5 +229,65 @@ TEST_FIXTURE(TestSuiteFixture,TestRunnerRunsOnlySpecifiedSuite)
     CHECK_EQUAL("TestInOtherSuite", reporter.lastFinishedTest);
 }
 
+struct RunTestIfNameIs
+{
+	RunTestIfNameIs(char const* name_)
+	: name(name_)
+	{		
+	}
+	
+	bool operator()(const Test* const test) const
+	{
+		return (0 == std::strcmp(test->m_details.testName, name));
+	}
+	
+	char const* name;
+};
+
+TEST(TestMockPredicateBehavesCorrectly)
+{
+	RunTestIfNameIs predicate("pass");
+	
+	Test pass("pass");
+	Test fail("fail");
+	
+	CHECK(predicate(&pass));
+	CHECK(!predicate(&fail));	
+}
+
+TEST_FIXTURE(TestRunnerFixture, TestRunnerRunsTestsThatPassPredicate)
+{
+    Test should_run("goodtest");
+    list.Add(&should_run);
+
+    Test should_not_run("badtest");
+	 list.Add(&should_not_run);
+	 
+    RunAllTestsIf(reporter, list, 0, RunTestIfNameIs("goodtest"));
+    CHECK_EQUAL(1, reporter.testRunCount);
+    CHECK_EQUAL("goodtest", reporter.lastStartedTest);
+}
+
+TEST_FIXTURE(TestRunnerFixture, TestRunnerOnlyRunsTestsInSpecifiedSuiteAndThatPassPredicate)
+{
+    // Pass suite and predicate, will run
+    Test test1("goodtest","suite");
+    // Pass predicate only, won't run
+    Test test2("goodtest");
+    // Pass suite only, won't run
+    Test test3("badtest","suite");
+    // Pass neither suite nor predicate, won't run
+    Test test4("badtest");
+    
+    list.Add(&test1);
+    list.Add(&test2);
+    list.Add(&test3);
+    list.Add(&test4);   
+    
+    RunAllTestsIf(reporter, list, "suite", RunTestIfNameIs("goodtest"));
+    CHECK_EQUAL(1, reporter.testRunCount);
+    CHECK_EQUAL("goodtest", reporter.lastStartedTest); 
+    CHECK_EQUAL("suite", reporter.lastStartedSuite);    
+}
 
 }
