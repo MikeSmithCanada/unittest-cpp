@@ -45,7 +45,7 @@
     class Fixture##Name##Helper : public Fixture									 \
 	{																				 \
 	public:																			 \
-        Fixture##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {} \
+        explicit Fixture##Name##Helper(UnitTest::TestDetails const& details) : m_details(details) {} \
         void RunImpl(UnitTest::TestResults& testResults_);                           \
         UnitTest::TestDetails const& m_details;                                      \
     private:                                                                         \
