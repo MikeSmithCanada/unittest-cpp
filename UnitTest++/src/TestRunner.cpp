@@ -28,7 +28,7 @@ int RunAllTests(TestReporter& reporter)
 	return RunAllTests(reporter, Test::GetTestList(), 0);
 }
 
-int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteName, int const maxTestTimeInMs )
+int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteName, int maxTestTimeInMs)
 {
     return RunAllTestsIf(reporter, list, suiteName, True(), maxTestTimeInMs);
 }

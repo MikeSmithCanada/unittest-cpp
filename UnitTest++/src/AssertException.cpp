@@ -3,7 +3,7 @@
 
 namespace UnitTest {
 
-AssertException::AssertException(char const* description, char const* filename, int const lineNumber)
+AssertException::AssertException(char const* description, char const* filename, int lineNumber)
     : m_lineNumber(lineNumber)
 {
     std::strcpy(m_description, description);
