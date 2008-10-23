@@ -27,8 +27,8 @@ public:
 	~TestRunner();
 
 	template <class Predicate>
-	int RunAllTestsIf(TestList const& list, char const* suiteName, 
-					  const Predicate& predicate, int maxTestTimeInMs) const
+	int RunTestsIf(TestList const& list, char const* suiteName, 
+				   const Predicate& predicate, int maxTestTimeInMs) const
 	{
 	    Test* curTest = list.GetHead();
 
@@ -43,7 +43,6 @@ public:
 	    return Finish();
 	}	
 
-	
 private:
 	TestReporter* m_reporter;
 	TestResults* m_result;

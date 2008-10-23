@@ -14,7 +14,7 @@ int RunAllTests()
 {
 	TestReporterStdout reporter;
 	TestRunner runner(reporter);
-	return runner.RunAllTestsIf(Test::GetTestList(), NULL, True(), 0);
+	return runner.RunTestsIf(Test::GetTestList(), NULL, True(), 0);
 }
 
 
@@ -40,7 +40,7 @@ int TestRunner::Finish() const
 							  m_result->GetFailureCount(), 
 							  secondsElapsed);
     
-	 return m_result->GetFailureCount();
+	return m_result->GetFailureCount();
 }
 
 bool TestRunner::IsTestInSuite(Test* const curTest, char const* suiteName) const
