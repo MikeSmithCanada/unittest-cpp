@@ -40,7 +40,7 @@ struct MockTest : public Test
 struct TestRunnerFixture
 {
 	TestRunnerFixture()
-		: runner(&reporter)
+		: runner(reporter)
 	{
 	}
 
@@ -215,7 +215,7 @@ struct TestSuiteFixture
         : test1("TestInDefaultSuite")
         , test2("TestInOtherSuite", "OtherSuite")
         , test3("SecondTestInDefaultSuite")
-		, runner(&reporter)
+		, runner(reporter)
     {
         list.Add(&test1);
         list.Add(&test2);

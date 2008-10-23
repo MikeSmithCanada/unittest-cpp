@@ -12,24 +12,16 @@ namespace UnitTest {
 
 int RunAllTests()
 {
-	TestRunner runner;
+	TestReporterStdout reporter;
+	TestRunner runner(reporter);
 	return runner.RunAllTestsIf(Test::GetTestList(), NULL, True(), 0);
 }
 
-TestRunner::TestRunner()
-	: m_reporter(new TestReporterStdout)
-	, m_result(new TestResults(m_reporter))
-	, m_timer(new Timer)
-	, m_ownReporter(true)
-{
-	m_timer->Start();
-}
 
-TestRunner::TestRunner(TestReporter* reporter)
-	: m_reporter(reporter)
-	, m_result(new TestResults(reporter))
+TestRunner::TestRunner(TestReporter& reporter)
+	: m_reporter(&reporter)
+	, m_result(new TestResults(&reporter))
 	, m_timer(new Timer)
-	, m_ownReporter(false)
 {
 	m_timer->Start();
 }
@@ -38,9 +30,6 @@ TestRunner::~TestRunner()
 {
 	delete m_result;
 	delete m_timer;
-
-	if (m_ownReporter)
-		delete m_reporter;
 }
 
 int TestRunner::Finish() const

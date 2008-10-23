@@ -23,8 +23,7 @@ struct True
 class TestRunner
 {
 public:
-	TestRunner();
-	explicit TestRunner(TestReporter* reporter);
+	explicit TestRunner(TestReporter& reporter);
 	~TestRunner();
 
 	template <class Predicate>
@@ -44,6 +43,7 @@ public:
 	    return Finish();
 	}	
 
+	
 private:
 	TestReporter* m_reporter;
 	TestResults* m_result;
