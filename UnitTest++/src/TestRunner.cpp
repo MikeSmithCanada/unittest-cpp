@@ -43,7 +43,7 @@ int TestRunner::Finish() const
 	return m_result->GetFailureCount();
 }
 
-bool TestRunner::IsTestInSuite(Test* const curTest, char const* suiteName) const
+bool TestRunner::IsTestInSuite(const Test* const curTest, char const* suiteName) const
 {
 	return (suiteName == NULL) || !std::strcmp(curTest->m_details.suiteName, suiteName);
 }

@@ -47,10 +47,9 @@ private:
 	TestReporter* m_reporter;
 	TestResults* m_result;
 	Timer* m_timer;
-	bool m_ownReporter;
 
 	int Finish() const;
-	bool IsTestInSuite(Test* const curTest, char const* suiteName) const;
+	bool IsTestInSuite(const Test* const curTest, char const* suiteName) const;
 	void RunTest(TestResults* const result, Test* const curTest, int const maxTestTimeInMs) const;
 };
 
