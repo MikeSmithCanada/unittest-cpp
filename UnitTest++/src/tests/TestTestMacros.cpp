@@ -3,6 +3,7 @@
 #include "../TestList.h"
 #include "../TestResults.h"
 #include "../TestReporter.h"
+#include "../ReportAssert.h"
 #include "RecordingReporter.h"
 
 using namespace UnitTest;
@@ -154,6 +155,33 @@ TEST(FixturesWithThrowingDtorsAreFailures)
 	int const failureCount = result.GetFailedTestCount();
 	CHECK_EQUAL(1, failureCount);
 	CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
+}
+
+struct FixtureCtorAsserts
+{
+	enum { FailingLine = 123 };
+	FixtureCtorAsserts()
+	{
+		UnitTest::ReportAssert("assert failure", "file", FailingLine);
+	}
+};
+
+TestList ctorAssertFixtureTestList;
+TEST_FIXTURE_EX(FixtureCtorAsserts, CorrectlyReportsAssertFailureInCtor, ctorAssertFixtureTestList)
+{
+	(void)testResults_;
+}
+
+TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
+{
+	RecordingReporter reporter;
+	TestResults result(&reporter);
+	ctorAssertFixtureTestList.GetHead()->Run(result);
+
+	const int failureCount = result.GetFailedTestCount();
+	CHECK_EQUAL(1, failureCount);
+	CHECK_EQUAL(FixtureCtorAsserts::FailingLine, reporter.lastFailedLine);
+	CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
 }
 
 }
