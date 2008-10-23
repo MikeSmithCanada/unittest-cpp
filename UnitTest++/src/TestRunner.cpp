@@ -4,96 +4,59 @@
 #include "TestReporterStdout.h"
 #include "TimeHelpers.h"
 #include "MemoryOutStream.h"
+
 #include <cstring>
 
 
 namespace UnitTest {
 
-struct True
-{
-	bool operator()(const Test* const /*test*/) const
-	{
-		return true;	
-	}
-};
-
 int RunAllTests()
 {
-    TestReporterStdout reporter;
-    return RunAllTests(reporter);
+	TestRunner runner;
+	return runner.RunAllTestsIf(Test::GetTestList(), NULL, True(), 0);
 }
 
-int RunAllTests(TestReporter& reporter)
+TestRunner::TestRunner()
+	: m_reporter(new TestReporterStdout)
+	, m_result(new TestResults(m_reporter))
+	, m_timer(new Timer)
+	, m_ownReporter(true)
 {
-	return RunAllTests(reporter, Test::GetTestList(), 0);
+	m_timer->Start();
 }
 
-int RunAllTests(TestReporter& reporter, TestList const& list, char const* suiteName, int maxTestTimeInMs)
+TestRunner::TestRunner(TestReporter* reporter)
+	: m_reporter(reporter)
+	, m_result(new TestResults(reporter))
+	, m_timer(new Timer)
+	, m_ownReporter(false)
 {
-    return RunAllTestsIf(reporter, list, suiteName, True(), maxTestTimeInMs);
+	m_timer->Start();
 }
 
-TestRunner::TestContext::TestContext()
-: reporter(new TestReporterStdout())
-, result(new TestResults(reporter))
-, timer(new Timer())
-, ownReporter(true)
+TestRunner::~TestRunner()
 {
-	timer->Start();
+	delete m_result;
+	delete m_timer;
+
+	if (m_ownReporter)
+		delete m_reporter;
 }
 
-TestRunner::TestContext::TestContext(TestReporter* reporter_)
-: reporter(reporter_)
-, result(new TestResults(reporter_))
-, timer(new Timer())
-, ownReporter(false)
+int TestRunner::Finish() const
 {
-	timer->Start();
-}
-	
-TestRunner::TestContext::~TestContext()
-{
-	delete result;
-	result = 0;
-	
-	delete timer;
-	timer = 0;
-	
-	if (ownReporter)
-	{
-		delete reporter;
-		reporter = 0;	
-	}
-}
-
-TestReporter* TestRunner::TestContext::GetReporter() const
-{
-	return reporter;
-}
-
-TestResults* TestRunner::TestContext::GetResult() const
-{
-	return result;
-}
-	
-Timer* TestRunner::TestContext::GetTimer() const
-{
-	return timer;
-}	
-
-int TestRunner::Finish(TestContext& context) const
-{
-    TestResults* result = context.GetResult();
-
-    float const secondsElapsed = context.GetTimer()->GetTimeInMs() / 1000.0f;
-    context.GetReporter()->ReportSummary(result->GetTotalTestCount(), result->GetFailedTestCount(), result->GetFailureCount(), secondsElapsed);
+    float const secondsElapsed = m_timer->GetTimeInMs() / 1000.0f;
+    m_reporter->ReportSummary(m_result->GetTotalTestCount(), 
+							  m_result->GetFailedTestCount(), 
+							  m_result->GetFailureCount(), 
+							  secondsElapsed);
     
-	 return result->GetFailureCount();
+	 return m_result->GetFailureCount();
 }
 
 bool TestRunner::IsTestInSuite(Test* const curTest, char const* suiteName) const
 {
-	return (suiteName == 0) || !std::strcmp(curTest->m_details.suiteName, suiteName);
+	return (suiteName == NULL) || !std::strcmp(curTest->m_details.suiteName, suiteName);
 }
 
 void TestRunner::RunTest(TestResults* const result, Test* const curTest, int const maxTestTimeInMs) const
@@ -110,8 +73,10 @@ void TestRunner::RunTest(TestResults* const result, Test* const curTest, int con
 	    MemoryOutStream stream;
 	    stream << "Global time constraint failed. Expected under " << maxTestTimeInMs <<
 	            "ms but took " << testTimeInMs << "ms.";
+
 	    result->OnTestFailure(curTest->m_details, stream.GetText());
 	}
+
 	result->OnTestFinish(curTest->m_details, testTimeInMs/1000.0f);
 }
 
