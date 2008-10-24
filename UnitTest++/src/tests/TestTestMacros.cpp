@@ -157,9 +157,10 @@ TEST(FixturesWithThrowingDtorsAreFailures)
 	CHECK(strstr(reporter.lastFailedMessage, "while destroying fixture"));
 }
 
+const int FailingLine = 123;
+
 struct FixtureCtorAsserts
 {
-	enum { FailingLine = 123 };
 	FixtureCtorAsserts()
 	{
 		UnitTest::ReportAssert("assert failure", "file", FailingLine);
@@ -180,7 +181,7 @@ TEST(CorrectlyReportsFixturesWithCtorsThatAssert)
 
 	const int failureCount = result.GetFailedTestCount();
 	CHECK_EQUAL(1, failureCount);
-	CHECK_EQUAL(FixtureCtorAsserts::FailingLine, reporter.lastFailedLine);
+	CHECK_EQUAL(FailingLine, reporter.lastFailedLine);
 	CHECK(strstr(reporter.lastFailedMessage, "assert failure"));
 }
 
