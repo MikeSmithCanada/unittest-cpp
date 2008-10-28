@@ -1,7 +1,7 @@
 #include "../UnitTest++.h"
 #include "../DeferredTestReporter.h"
+#include <cstring>
 
-#include <string>
 
 namespace UnitTest
 {
