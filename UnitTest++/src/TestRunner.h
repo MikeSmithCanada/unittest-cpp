@@ -3,6 +3,7 @@
 
 #include "Test.h"
 #include "TestList.h"
+#include "CurrentTest.h"
 
 namespace UnitTest {
 
@@ -35,7 +36,9 @@ public:
 	    while (curTest != 0)
 	    {
 		    if (IsTestInSuite(curTest,suiteName) && predicate(curTest))
+			{
 				RunTest(m_result, curTest, maxTestTimeInMs);
+			}
 
 			curTest = curTest->next;
 	    }

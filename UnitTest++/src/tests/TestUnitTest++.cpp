@@ -1,5 +1,6 @@
 #include "../UnitTest++.h"
 #include "../ReportAssert.h"
+#include "ScopedCurrentTest.h"
 
 #include <vector>
 
@@ -76,17 +77,21 @@ TEST(CheckThrowMacroFailsOnMissingException)
         {
         }
 
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const
+        virtual void RunImpl() const
         {
             CHECK_THROW(DontThrow(), int);
         }
     };
 
     UnitTest::TestResults results;
+	{
+		ScopedCurrentTest scopedResults(results);
 
-    NoThrowTest test;
-    test.Run(results);
-    CHECK_EQUAL(1, results.GetFailureCount());
+		NoThrowTest test;
+		test.Run();
+	}
+
+	CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 TEST(CheckThrowMacroFailsOnWrongException)
@@ -95,17 +100,21 @@ TEST(CheckThrowMacroFailsOnWrongException)
     {
     public:
         WrongThrowTest() : Test("wrongthrow") {}
-        virtual void RunImpl(UnitTest::TestResults& testResults_) const
+        virtual void RunImpl() const
         {
             CHECK_THROW(throw "oops", int);
         }
     };
 
     UnitTest::TestResults results;
+	{
+		ScopedCurrentTest scopedResults(results);
 
-    WrongThrowTest test;
-    test.Run(results);
-    CHECK_EQUAL(1, results.GetFailureCount());
+		WrongThrowTest test;
+		test.Run();
+	}
+
+	CHECK_EQUAL(1, results.GetFailureCount());
 }
 
 struct SimpleFixture
@@ -142,6 +151,16 @@ TEST_UTILITY(UtilityTest, (int x))
 TEST(CanCallUtilityTests)
 {
 	TEST_UTILITY_FUNC(UtilityTest)(3);
+}
+
+void CheckBool(const bool b)
+{
+	CHECK(b);
+}
+
+TEST(CanCallCHECKOutsideOfTestFunction)
+{
+	CheckBool(true);
 }
 
 }

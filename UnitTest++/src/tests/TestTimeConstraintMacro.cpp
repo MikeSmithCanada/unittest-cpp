@@ -2,6 +2,7 @@
 #include "../TimeHelpers.h"
 
 #include "RecordingReporter.h"
+#include "ScopedCurrentTest.h"
 
 namespace {
 
@@ -16,7 +17,9 @@ TEST (TimeConstraintMacroUsesCorrectInfo)
     int testLine = 0;
     RecordingReporter reporter;
     {
-        UnitTest::TestResults testResults_(&reporter);
+        UnitTest::TestResults testResults(&reporter);
+		ScopedCurrentTest scopedResults(testResults);
+
         UNITTEST_TIME_CONSTRAINT(10);                    testLine = __LINE__;
         UnitTest::TimeHelpers::SleepMs(20);
     }

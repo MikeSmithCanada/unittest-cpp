@@ -12,7 +12,7 @@ See src/tests/TestUnitTest++.cpp for usage.
 
 Authors:
 Noel Llopis (llopis@convexhull.com) 
-Charles Nicholson (cn@cnicholson.net)
+Charles Nicholson (charles.nicholson@gmail.com)
 
 Contributors:
 Jim Tilander (jim.tilander@gmail.com)
@@ -55,7 +55,6 @@ Version 1.1 (2006-04-18)
 - Improved Posix signal to exception translator
 - Failing tests are added to Visual Studio's error list
 - Fixed Visual Studio projects to work with spaces in directories
-
 
 Version 1.0 (2006-03-15)
 - Initial release

@@ -24,7 +24,8 @@ src = src/AssertException.cpp \
 	src/MemoryOutStream.cpp \
 	src/DeferredTestReporter.cpp \
 	src/DeferredTestResult.cpp \
-	src/XmlTestReporter.cpp
+	src/XmlTestReporter.cpp \
+	src/CurrentTest.cpp
 	
 ifeq ($(MSYSTEM), MINGW32)
   src += src/Win32/TimeHelpers.cpp
@@ -47,7 +48,8 @@ test_src = src/tests/Main.cpp \
 	src/tests/TestTimeConstraintMacro.cpp \
 	src/tests/TestMemoryOutStream.cpp \
 	src/tests/TestDeferredTestReporter.cpp \
-	src/tests/TestXmlTestReporter.cpp
+	src/tests/TestXmlTestReporter.cpp \
+	src/tests/TestCurrentTest.cpp
 
 objects = $(patsubst %.cpp, %.o, $(src))
 test_objects = $(patsubst %.cpp, %.o, $(test_src))

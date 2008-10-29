@@ -13,7 +13,7 @@ class Test
 public:
     explicit Test(char const* testName, char const* suiteName = "DefaultSuite", char const* filename = "", int lineNumber = 0);
     virtual ~Test();
-    void Run(TestResults& testResults);
+    void Run();
 
     TestDetails const m_details;
     Test* next;
@@ -21,7 +21,7 @@ public:
 
     static TestList& GetTestList();
 
-    virtual void RunImpl(TestResults& testResults_) const;
+    virtual void RunImpl() const;
 
 private:
 	Test(Test const&);

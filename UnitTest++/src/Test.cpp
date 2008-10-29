@@ -29,12 +29,12 @@ Test::~Test()
 {
 }
 
-void Test::Run(TestResults& testResults)
+void Test::Run()
 {
-	ExecuteTest(*this, testResults, m_details);
+	ExecuteTest(*this, m_details);
 }
 
-void Test::RunImpl(TestResults&) const
+void Test::RunImpl() const
 {
 }
 
