@@ -3,25 +3,23 @@
 
 // Standard defines documented here: http://predef.sourceforge.net
 
-#if defined _MSC_VER
+#if defined(_MSC_VER)
     #pragma warning(disable:4127) // conditional expression is constant
 	#pragma warning(disable:4702) // unreachable code
 	#pragma warning(disable:4722) // destructor never returns, potential memory leak
 
-	#if _MSC_VER == 1200  // VC6
+	#if (_MSC_VER == 1200)  // VC6
 		#pragma warning(disable:4786)
 		#pragma warning(disable:4290)
-
-		typedef unsigned long DWORD_PTR;
 	#endif
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
-    defined(__APPLE__) || defined (__NetBSD__) || defined (__OpenBSD__) || defined (__FreeBSD__)        
+    defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)        
     #define UNITTEST_POSIX
 #endif
 
-#if defined (__MINGW32__)
+#if defined(__MINGW32__)
     #define UNITTEST_MINGW
 #endif
 
