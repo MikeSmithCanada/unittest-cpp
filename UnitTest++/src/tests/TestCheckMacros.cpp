@@ -3,6 +3,8 @@
 #include "RecordingReporter.h"
 #include "ScopedCurrentTest.h"
 
+using namespace std;
+
 namespace {
 
 TEST(CheckSucceedsOnTrue)
@@ -13,12 +15,12 @@ TEST(CheckSucceedsOnTrue)
         UnitTest::TestResults testResults(&reporter);
 
 		ScopedCurrentTest scopedResults(testResults);
-		CHECK (true);
+		CHECK(true);
 
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckFailsOnFalse)
@@ -28,11 +30,11 @@ TEST(CheckFailsOnFalse)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK (false);
+        CHECK(false);
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(FailureReportsCorrectTestName)
@@ -41,10 +43,10 @@ TEST(FailureReportsCorrectTestName)
     {
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK (false);
+        CHECK(false);
     }
 
-    CHECK_EQUAL (m_details.testName, reporter.lastFailedTest);
+    CHECK_EQUAL(m_details.testName, reporter.lastFailedTest);
 }
 
 TEST(CheckFailureIncludesCheckContents)
@@ -54,10 +56,10 @@ TEST(CheckFailureIncludesCheckContents)
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
         const bool yaddayadda = false;
-        CHECK (yaddayadda);
+        CHECK(yaddayadda);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "yaddayadda"));
+    CHECK(strstr(reporter.lastFailedMessage, "yaddayadda"));
 }
 
 int ThrowingFunction()
@@ -72,11 +74,11 @@ TEST(CheckFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK (ThrowingFunction() == 1);
+        CHECK(ThrowingFunction() == 1);
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
@@ -85,10 +87,10 @@ TEST(CheckFailureBecauseOfExceptionIncludesCheckContents)
     {
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK (ThrowingFunction() == 1);
+        CHECK(ThrowingFunction() == 1);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction() == 1"));
 }
 
 TEST(CheckEqualSucceedsOnEqual)
@@ -98,11 +100,11 @@ TEST(CheckEqualSucceedsOnEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (1, 1);
+        CHECK_EQUAL(1, 1);
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckEqualFailsOnNotEqual)
@@ -112,11 +114,11 @@ TEST(CheckEqualFailsOnNotEqual)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (1, 2);
+        CHECK_EQUAL(1, 2);
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckEqualFailsOnException)
@@ -126,11 +128,11 @@ TEST(CheckEqualFailsOnException)
         RecordingReporter reporter;
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (ThrowingFunction(), 1);
+        CHECK_EQUAL(ThrowingFunction(), 1);
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckEqualFailureContainsCorrectDetails)
@@ -142,13 +144,13 @@ TEST(CheckEqualFailureContainsCorrectDetails)
 		UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
-		CHECK_EQUAL (1, 123);    line = __LINE__;
+		CHECK_EQUAL(1, 123);    line = __LINE__;
     }
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
@@ -160,13 +162,13 @@ TEST(CheckEqualFailureBecauseOfExceptionContainsCorrectDetails)
 		UnitTest::TestDetails const testDetails("testName", "suiteName", "filename", -1);
 		ScopedCurrentTest scopedResults(testResults, &testDetails);
 
-		CHECK_EQUAL (ThrowingFunction(), 123);    line = __LINE__;
+		CHECK_EQUAL(ThrowingFunction(), 123);    line = __LINE__;
     }
 
     CHECK_EQUAL("testName", reporter.lastFailedTest);
     CHECK_EQUAL("suiteName", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
@@ -175,11 +177,11 @@ TEST(CheckEqualFailureBecauseOfExceptionIncludesCheckContents)
     {
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (ThrowingFunction(), 123);
+        CHECK_EQUAL(ThrowingFunction(), 123);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "123"));
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingFunction()"));
+    CHECK(strstr(reporter.lastFailedMessage, "123"));
 }
 
 int g_sideEffect = 0;
@@ -195,9 +197,9 @@ TEST(CheckEqualDoesNotHaveSideEffectsWhenPassing)
     {
         UnitTest::TestResults testResults;
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (1, FunctionWithSideEffects());
+        CHECK_EQUAL(1, FunctionWithSideEffects());
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 TEST(CheckEqualDoesNotHaveSideEffectsWhenFailing)
@@ -206,9 +208,9 @@ TEST(CheckEqualDoesNotHaveSideEffectsWhenFailing)
     {
         UnitTest::TestResults testResults;
 		ScopedCurrentTest scopedResults(testResults);
-        CHECK_EQUAL (2, FunctionWithSideEffects());
+        CHECK_EQUAL(2, FunctionWithSideEffects());
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 
@@ -223,7 +225,7 @@ TEST(CheckCloseSucceedsOnEqual)
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckCloseFailsOnNotEqual)
@@ -237,7 +239,7 @@ TEST(CheckCloseFailsOnNotEqual)
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckCloseFailsOnException)
@@ -251,7 +253,7 @@ TEST(CheckCloseFailsOnException)
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckCloseFailureContainsCorrectDetails)
@@ -268,8 +270,8 @@ TEST(CheckCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("test", reporter.lastFailedTest);
     CHECK_EQUAL("suite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
@@ -285,8 +287,8 @@ TEST(CheckCloseFailureBecauseOfExceptionContainsCorrectDetails)
 
     CHECK_EQUAL("closeTest", reporter.lastFailedTest);
     CHECK_EQUAL("closeSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
@@ -298,8 +300,8 @@ TEST(CheckCloseFailureBecauseOfExceptionIncludesCheckContents)
         CHECK_CLOSE ((float)ThrowingFunction(), 1.0001f, 0.1f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "1.0001f"));
+    CHECK(strstr(reporter.lastFailedMessage, "(float)ThrowingFunction()"));
+    CHECK(strstr(reporter.lastFailedMessage, "1.0001f"));
 }
 
 TEST(CheckCloseDoesNotHaveSideEffectsWhenPassing)
@@ -310,7 +312,7 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenPassing)
 		ScopedCurrentTest scopedResults(testResults);
         CHECK_CLOSE (1, FunctionWithSideEffects(), 0.1f);
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
@@ -321,7 +323,7 @@ TEST(CheckCloseDoesNotHaveSideEffectsWhenFailing)
 		ScopedCurrentTest scopedResults(testResults);
         CHECK_CLOSE (2, FunctionWithSideEffects(), 0.1f);
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 
@@ -347,7 +349,7 @@ TEST(CheckArrayCloseSucceedsOnEqual)
         failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckArrayCloseFailsOnNotEqual)
@@ -365,7 +367,7 @@ TEST(CheckArrayCloseFailsOnNotEqual)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
@@ -380,8 +382,8 @@ TEST(CheckArrayCloseFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 TEST(CheckArrayCloseFailureContainsCorrectDetails)
@@ -400,8 +402,8 @@ TEST(CheckArrayCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckArrayCloseFailureBecauseOfExceptionContainsCorrectDetails)
@@ -419,8 +421,8 @@ TEST(CheckArrayCloseFailureBecauseOfExceptionContainsCorrectDetails)
 
     CHECK_EQUAL("arrayCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("arrayCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckArrayCloseFailureIncludesTolerance)
@@ -435,7 +437,7 @@ TEST(CheckArrayCloseFailureIncludesTolerance)
         CHECK_ARRAY_CLOSE (data1, data2, 4, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
+    CHECK(strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 
@@ -454,7 +456,7 @@ TEST(CheckArrayCloseFailsOnException)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
@@ -469,8 +471,8 @@ TEST(CheckArrayCloseFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_CLOSE (data, obj, 3, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
+    CHECK(strstr(reporter.lastFailedMessage, "data"));
+    CHECK(strstr(reporter.lastFailedMessage, "obj"));
 }
 
 
@@ -488,7 +490,7 @@ TEST(CheckArrayEqualSuceedsOnEqual)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckArrayEqualFailsOnNotEqual)
@@ -506,7 +508,7 @@ TEST(CheckArrayEqualFailsOnNotEqual)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
@@ -521,8 +523,8 @@ TEST(CheckArrayEqualFailureIncludesCheckExpectedAndActual)
         CHECK_ARRAY_EQUAL (data1, data2, 4);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected [ 0 1 2 3 ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "was [ 0 1 3 3 ]"));
 }
 
 TEST(CheckArrayEqualFailureContainsCorrectInfo)
@@ -538,9 +540,9 @@ TEST(CheckArrayEqualFailureContainsCorrectInfo)
         CHECK_ARRAY_EQUAL (data1, data2, 4);     line = __LINE__;
     }
 
-    CHECK_EQUAL ("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
-    CHECK_EQUAL (__FILE__, reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("CheckArrayEqualFailureContainsCorrectInfo", reporter.lastFailedTest);
+    CHECK_EQUAL(__FILE__, reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckArrayEqualFailsOnException)
@@ -558,7 +560,7 @@ TEST(CheckArrayEqualFailsOnException)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
@@ -573,8 +575,8 @@ TEST(CheckArrayEqualFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY_EQUAL (data, obj, 3);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
+    CHECK(strstr(reporter.lastFailedMessage, "data"));
+    CHECK(strstr(reporter.lastFailedMessage, "obj"));
 }
 
 float const* FunctionWithSideEffects2()
@@ -594,7 +596,7 @@ TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenPassing)
 		const float data[] = { 0, 1, 2, 3 };
         CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
@@ -608,7 +610,7 @@ TEST(CheckArrayCloseDoesNotHaveSideEffectsWhenFailing)
         CHECK_ARRAY_CLOSE (data, FunctionWithSideEffects2(), 4, 0.01f);
     }
 
-	CHECK_EQUAL (1, g_sideEffect);
+	CHECK_EQUAL(1, g_sideEffect);
 }
 
 class ThrowingObject2D
@@ -635,7 +637,7 @@ TEST(CheckArray2DCloseSucceedsOnEqual)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (!failure);
+    CHECK(!failure);
 }
 
 TEST(CheckArray2DCloseFailsOnNotEqual)
@@ -653,7 +655,7 @@ TEST(CheckArray2DCloseFailsOnNotEqual)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArray2DCloseFailureIncludesCheckExpectedAndActual)
@@ -669,8 +671,8 @@ TEST(CheckArray2DCloseFailureIncludesCheckExpectedAndActual)
 		CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "xpected [ [ 0 1 ] [ 2 3 ] ]"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "was [ [ 0 1 ] [ 3 3 ] ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "xpected [ [ 0 1 ] [ 2 3 ] ]"));
+    CHECK(strstr(reporter.lastFailedMessage, "was [ [ 0 1 ] [ 3 3 ] ]"));
 }
 
 TEST(CheckArray2DCloseFailureContainsCorrectDetails)
@@ -689,8 +691,8 @@ TEST(CheckArray2DCloseFailureContainsCorrectDetails)
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckArray2DCloseFailureBecauseOfExceptionContainsCorrectDetails)
@@ -708,8 +710,8 @@ TEST(CheckArray2DCloseFailureBecauseOfExceptionContainsCorrectDetails)
 
     CHECK_EQUAL("array2DCloseTest", reporter.lastFailedTest);
     CHECK_EQUAL("array2DCloseSuite", reporter.lastFailedSuite);
-    CHECK_EQUAL ("filename", reporter.lastFailedFile);
-    CHECK_EQUAL (line, reporter.lastFailedLine);
+    CHECK_EQUAL("filename", reporter.lastFailedFile);
+    CHECK_EQUAL(line, reporter.lastFailedLine);
 }
 
 TEST(CheckArray2DCloseFailureIncludesTolerance)
@@ -724,7 +726,7 @@ TEST(CheckArray2DCloseFailureIncludesTolerance)
         CHECK_ARRAY2D_CLOSE (data1, data2, 2, 2, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "0.01"));
+    CHECK(strstr(reporter.lastFailedMessage, "0.01"));
 }
 
 TEST(CheckArray2DCloseFailsOnException)
@@ -742,7 +744,7 @@ TEST(CheckArray2DCloseFailsOnException)
 		failure = (testResults.GetFailureCount() > 0);
     }
 
-    CHECK (failure);
+    CHECK(failure);
 }
 
 TEST(CheckArray2DCloseFailureOnExceptionIncludesCheckContents)
@@ -757,8 +759,8 @@ TEST(CheckArray2DCloseFailureOnExceptionIncludesCheckContents)
         CHECK_ARRAY2D_CLOSE (data, obj, 2, 2, 0.01f);
     }
 
-    CHECK (std::strstr(reporter.lastFailedMessage, "data"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "obj"));
+    CHECK(strstr(reporter.lastFailedMessage, "data"));
+    CHECK(strstr(reporter.lastFailedMessage, "obj"));
 }
 
 float const* const* FunctionWithSideEffects3()
@@ -780,7 +782,7 @@ TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenPassing)
 		const float data[2][2] = { {0, 1}, {2, 3} };
         CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
@@ -793,7 +795,7 @@ TEST(CheckArray2DCloseDoesNotHaveSideEffectsWhenFailing)
 		const float data[2][2] = { {0, 1}, {3, 3} };
         CHECK_ARRAY2D_CLOSE (data, FunctionWithSideEffects3(), 2, 2, 0.01f);
     }
-    CHECK_EQUAL (1, g_sideEffect);
+    CHECK_EQUAL(1, g_sideEffect);
 }
 
 }

@@ -20,13 +20,16 @@ TEST (TimeConstraintMacroUsesCorrectInfo)
         UnitTest::TestResults testResults(&reporter);
 		ScopedCurrentTest scopedResults(testResults);
 
-        UNITTEST_TIME_CONSTRAINT(10);                    testLine = __LINE__;
+        UNITTEST_TIME_CONSTRAINT(10); testLine = __LINE__;
         UnitTest::TimeHelpers::SleepMs(20);
     }
-    CHECK_EQUAL (1, reporter.testFailedCount);
-    CHECK (std::strstr(reporter.lastFailedFile, __FILE__));
-    CHECK_EQUAL (testLine, reporter.lastFailedLine);
-    CHECK (std::strstr(reporter.lastFailedTest, "TimeConstraintMacroUsesCorrectInfo"));
+
+	using namespace std;
+
+    CHECK_EQUAL(1, reporter.testFailedCount);
+    CHECK(strstr(reporter.lastFailedFile, __FILE__));
+    CHECK_EQUAL(testLine, reporter.lastFailedLine);
+    CHECK(strstr(reporter.lastFailedTest, "TimeConstraintMacroUsesCorrectInfo"));
 }
 
 }

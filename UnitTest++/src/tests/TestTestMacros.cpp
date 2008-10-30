@@ -18,8 +18,8 @@ TEST_EX(DummyTest, list1)
 
 TEST (TestsAreAddedToTheListThroughMacro)
 {
-    CHECK (list1.GetHead() != 0);
-    CHECK (list1.GetHead()->next == 0);
+    CHECK(list1.GetHead() != 0);
+    CHECK(list1.GetHead()->next == 0);
 }
 
 struct ThrowingThingie
@@ -28,7 +28,8 @@ struct ThrowingThingie
     {
         if (!dummy)
             throw "Oops";
-    } 
+    }
+
     bool dummy;
 };
 
@@ -46,9 +47,9 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
 		list2.GetHead()->Run();
 	}
 
-    CHECK (strstr(reporter.lastFailedMessage, "xception"));
-    CHECK (strstr(reporter.lastFailedMessage, "fixture"));
-    CHECK (strstr(reporter.lastFailedMessage, "ThrowingThingie"));
+    CHECK(strstr(reporter.lastFailedMessage, "xception"));
+    CHECK(strstr(reporter.lastFailedMessage, "fixture"));
+    CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
 }
 
 struct DummyFixture

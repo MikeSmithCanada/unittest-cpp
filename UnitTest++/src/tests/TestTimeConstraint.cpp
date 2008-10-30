@@ -43,9 +43,11 @@ TEST(TimeConstraintFailureIncludesCorrectData)
         TimeHelpers::SleepMs(20);
     }
 
-	CHECK(std::strstr(reporter.lastFailedFile, "filename"));
+	using namespace std;
+
+	CHECK(strstr(reporter.lastFailedFile, "filename"));
     CHECK_EQUAL(10, reporter.lastFailedLine);
-    CHECK(std::strstr(reporter.lastFailedTest, "testname"));
+    CHECK(strstr(reporter.lastFailedTest, "testname"));
 }
 
 TEST(TimeConstraintFailureIncludesTimeoutInformation)
@@ -58,8 +60,10 @@ TEST(TimeConstraintFailureIncludesTimeoutInformation)
         TimeHelpers::SleepMs(20);
     }
 
-	CHECK(std::strstr(reporter.lastFailedMessage, "ime constraint"));
-    CHECK(std::strstr(reporter.lastFailedMessage, "under 10ms"));
+	using namespace std;
+
+	CHECK(strstr(reporter.lastFailedMessage, "ime constraint"));
+    CHECK(strstr(reporter.lastFailedMessage, "under 10ms"));
 }
 
 }

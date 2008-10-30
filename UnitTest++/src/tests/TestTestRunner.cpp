@@ -85,7 +85,7 @@ TEST_FIXTURE(TestRunnerFixture, TestFinishIsCalledWithCorrectTime)
     list.Add(&test);
 
 	runner.RunTestsIf(list, NULL, True(), 0);
-    CHECK (reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
+    CHECK(reporter.lastFinishedTestTime >= 0.005f && reporter.lastFinishedTestTime <= 0.050f);
 }
 
 TEST_FIXTURE(TestRunnerFixture, FailureCountIsZeroWhenNoTestsAreRun)
@@ -172,7 +172,7 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestFailsForLowTimeThreshold)
     list.Add(&test);
 
 	runner.RunTestsIf(list, NULL, True(), 3);
-    CHECK_EQUAL (1, reporter.testFailedCount);
+    CHECK_EQUAL(1, reporter.testFailedCount);
 }
 
 TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
@@ -182,11 +182,14 @@ TEST_FIXTURE(TestRunnerFixture, SlowTestHasCorrectFailureInformation)
 
 	runner.RunTestsIf(list, NULL, True(), 3);
 
-    CHECK_EQUAL (test.m_details.testName, reporter.lastFailedTest);
-    CHECK (std::strstr(test.m_details.filename, reporter.lastFailedFile));
-    CHECK_EQUAL (test.m_details.lineNumber, reporter.lastFailedLine);
-    CHECK (std::strstr(reporter.lastFailedMessage, "Global time constraint failed"));
-    CHECK (std::strstr(reporter.lastFailedMessage, "3ms"));
+	using namespace std;
+
+    CHECK_EQUAL(test.m_details.testName, reporter.lastFailedTest);
+    CHECK(strstr(test.m_details.filename, reporter.lastFailedFile));
+    CHECK_EQUAL(test.m_details.lineNumber, reporter.lastFailedLine);
+
+	CHECK(strstr(reporter.lastFailedMessage, "Global time constraint failed"));
+    CHECK(strstr(reporter.lastFailedMessage, "3ms"));
 }
 
 TEST_FIXTURE(TestRunnerFixture, SlowTestWithTimeExemptionPasses)
@@ -251,7 +254,8 @@ struct RunTestIfNameIs
 	
 	bool operator()(const Test* const test) const
 	{
-		return (0 == std::strcmp(test->m_details.testName, name));
+		using namespace std;
+		return (0 == strcmp(test->m_details.testName, name));
 	}
 	
 	char const* name;

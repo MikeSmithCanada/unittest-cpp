@@ -80,7 +80,7 @@
 		try {																		 \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
 			ctorOk = true;															 \
-			ExecuteTest(fixtureHelper, m_details);					 \
+			UnitTest::ExecuteTest(fixtureHelper, m_details);					 \
 		}																			 \
 		catch (UnitTest::AssertException const& e)											 \
 		{																			 \
