@@ -1,6 +1,5 @@
 #include "DeferredTestResult.h"
-
-#include <cstdlib>
+#include "Config.h"
 
 namespace UnitTest
 {

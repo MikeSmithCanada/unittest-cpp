@@ -1,4 +1,5 @@
 #include "XmlTestReporter.h"
+#include "Config.h"
 
 #include <iostream>
 #include <sstream>
