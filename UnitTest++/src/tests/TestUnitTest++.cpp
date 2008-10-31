@@ -31,7 +31,7 @@ TEST(ValidCheckEqualSucceeds)
 TEST(CheckEqualWorksWithPointers)
 {
     void* p = (void *)0;
-    CHECK_EQUAL ((void*)0, p);
+    CHECK_EQUAL((void*)0, p);
 }
 
 TEST(ValidCheckCloseSucceeds)
@@ -141,16 +141,6 @@ TEST_FIXTURE(SimpleFixture, DefaultFixtureCtorIsCalled)
 TEST_FIXTURE(SimpleFixture, OnlyOneFixtureAliveAtATime)
 {
     CHECK_EQUAL(1, SimpleFixture::instanceCount);
-}
-
-TEST_UTILITY(UtilityTest, (int x))
-{
-	CHECK(x > 0);
-}
-
-TEST(CanCallUtilityTests)
-{
-	TEST_UTILITY_FUNC(UtilityTest)(3);
 }
 
 void CheckBool(const bool b)
