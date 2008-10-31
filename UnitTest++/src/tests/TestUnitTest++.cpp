@@ -44,7 +44,7 @@ TEST(ArrayCloseSucceeds)
 {
     float const a1[] = {1, 2, 3};
     float const a2[] = {1, 2.01f, 3};
-    CHECK_ARRAY_CLOSE (a1, a2, 3, 0.1f);
+    CHECK_ARRAY_CLOSE(a1, a2, 3, 0.1f);
 }
 
 TEST (CheckArrayCloseWorksWithVectors)
@@ -53,7 +53,7 @@ TEST (CheckArrayCloseWorksWithVectors)
     for (int i = 0; i < 4; ++i)
         a[i] = (float)i;
 
-    CHECK_ARRAY_CLOSE (a, a, (int)a.size(), 0.0001f);
+    CHECK_ARRAY_CLOSE(a, a, (int)a.size(), 0.0001f);
 }
 
 TEST(CheckThrowMacroSucceedsOnCorrectException)

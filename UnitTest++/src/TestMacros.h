@@ -26,14 +26,14 @@
 #endif
 
 #define SUITE(Name)                                                         \
-    namespace Name {                                                        \
+	namespace Suite##Name {                                                        \
         namespace UnitTestSuite {                                           \
             inline char const* GetSuiteName () {                            \
                 return #Name ;                                              \
             }                                                               \
         }                                                                   \
     }                                                                       \
-    namespace Name
+	namespace Suite##Name
 
 #define TEST_EX(Name, List)                                                \
     class Test##Name : public UnitTest::Test                               \
