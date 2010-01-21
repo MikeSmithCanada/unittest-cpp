@@ -6,6 +6,7 @@
 #include "AssertException.h"
 #include "TestDetails.h"
 #include "MemoryOutStream.h"
+#include "LeakDetector.h"
 
 #ifndef UNITTEST_POSIX
 	#define UNITTEST_THROW_SIGNALS
@@ -29,7 +30,7 @@
 	namespace Suite##Name {                                                        \
         namespace UnitTestSuite {                                           \
             inline char const* GetSuiteName () {                            \
-                return #Name ;                                              \
+                return #Name;                                               \
             }                                                               \
         }                                                                   \
     }                                                                       \
@@ -76,6 +77,8 @@
 																					 \
     void Test##Fixture##Name::RunImpl() const	 \
 	{																				 \
+		UnitTest::LeakDetector memoryLeakChecker;                                    \
+																					 \
 		bool ctorOk = false;														 \
 		try {																		 \
 			Fixture##Name##Helper fixtureHelper(m_details);							 \
@@ -104,6 +107,9 @@
 					"Unhandled exception while constructing fixture " #Fixture);         \
 			}																		 \
 		}																			 \
+																					 \
+		if(memoryLeakChecker.IsLeakDetected())										 \
+			UnitTest::CurrentTest::Results()->OnTestFailure(m_details, "Memory Leak Detected!"); \
     }                                                                                \
     void Fixture##Name##Helper::RunImpl()
 

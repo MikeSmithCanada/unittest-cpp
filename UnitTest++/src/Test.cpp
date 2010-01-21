@@ -5,6 +5,7 @@
 #include "AssertException.h"
 #include "MemoryOutStream.h"
 #include "ExecuteTest.h"
+#include "LeakDetector.h"
 
 #ifdef UNITTEST_POSIX
     #include "Posix/SignalTranslator.h"
@@ -31,7 +32,14 @@ Test::~Test()
 
 void Test::Run()
 {
-	ExecuteTest(*this, m_details);
+	CurrentTest::Details() = &m_details;
+
+	LeakDetector memoryLeakChecker;
+
+ 	ExecuteTest(*this, m_details);
+
+	if(memoryLeakChecker.IsLeakDetected())
+		CurrentTest::Results()->OnTestFailure(m_details, "Memory Leak Detected!");
 }
 
 void Test::RunImpl() const

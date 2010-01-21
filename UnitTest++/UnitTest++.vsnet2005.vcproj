@@ -312,6 +312,14 @@
 			RelativePath=".\src\XmlTestReporter.h"
 			>
 		</File>
+		<File
+			RelativePath=".\src\LeakDetector.h"
+			>
+		</File>
+		<File
+			RelativePath=".\src\LeakDetector.cpp"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

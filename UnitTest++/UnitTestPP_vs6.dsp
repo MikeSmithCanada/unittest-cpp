@@ -255,6 +255,14 @@ SOURCE=.\src\Win32\TimeHelpers.cpp
 
 SOURCE=.\src\Win32\TimeHelpers.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\LeakDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\LeakDetector.cpp
+# End Source File
 # End Group
 # End Target
 # End Project
