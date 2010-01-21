@@ -1,4 +1,3 @@
-
 *.lib
 *.exe
 *.pdb
@@ -13,3 +12,6 @@
 *.obj
 *.manifest
 *.idb
+*.ilk
+*.res
+*.dep
