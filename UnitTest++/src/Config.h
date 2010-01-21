@@ -1,6 +1,14 @@
 #ifndef UNITTEST_CONFIG_H
 #define UNITTEST_CONFIG_H
 
+#if defined(_MSC_VER)
+	#define UNITTEST_WINDOWS
+#endif
+
+#if defined(__INTEL_COMPILER)
+	#define UNITTEST_INTEL
+#endif
+
 // Standard defines documented here: http://predef.sourceforge.net
 
 #if defined(_MSC_VER)
@@ -15,7 +23,7 @@
 #endif
 
 #if defined(unix) || defined(__unix__) || defined(__unix) || defined(linux) || \
-    defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)        
+    defined(__APPLE__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
     #define UNITTEST_POSIX
 #endif
 

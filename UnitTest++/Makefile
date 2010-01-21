@@ -25,7 +25,8 @@ src = src/AssertException.cpp \
 	src/DeferredTestReporter.cpp \
 	src/DeferredTestResult.cpp \
 	src/XmlTestReporter.cpp \
-	src/CurrentTest.cpp
+	src/CurrentTest.cpp \
+	src/LeakDetector.cpp
 	
 ifeq ($(MSYSTEM), MINGW32)
   src += src/Win32/TimeHelpers.cpp
