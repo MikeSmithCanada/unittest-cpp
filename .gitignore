@@ -1,0 +1,15 @@
+
+*.lib
+*.exe
+*.pdb
+*.user
+*.ncb
+*.suo
+*.XML
+*.css
+*.xslt
+*.gif
+*.htm
+*.obj
+*.manifest
+*.idb
