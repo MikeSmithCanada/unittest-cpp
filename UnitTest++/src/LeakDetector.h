@@ -9,28 +9,18 @@
 
 namespace UnitTest
 {
-#if defined(UNITTEST_WINDOWS) || defined(UNITTEST_INTEL)
 	class LeakDetector
 	{
 	private:
+        #if defined(UNITTEST_WINDOWS) || defined(UNITTEST_INTEL)
 		_CrtMemState originalMemoryState;
+        #endif
 
 	public:
 		LeakDetector();
 		bool IsLeakDetected();
 		~LeakDetector();
 	};
-
-	// Add elifs to implement leak checking for other platforms.
-#else
-	class LeakDetector
-	{
-	public:
-		inline LeakDetector() {}
-		inline bool IsLeakDetected() { return false; }
-		inline ~LeakDetector() {}
-	};
-#endif
 }
 
 #endif
