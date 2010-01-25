@@ -52,10 +52,7 @@ TEST (ExceptionsInFixtureAreReportedAsHappeningInTheFixture)
     CHECK(strstr(reporter.lastFailedMessage, "ThrowingThingie"));
 }
 
-struct DummyFixture
-{
-    int x;
-};
+struct DummyFixture {};
 
 // We're really testing the macros so we just want them to compile and link
 SUITE(TestSuite1)
