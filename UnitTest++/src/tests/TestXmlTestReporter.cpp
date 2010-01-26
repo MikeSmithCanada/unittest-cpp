@@ -41,13 +41,12 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleCharactersAreEscaped)
     reporter.ReportSummary(1, 2, 3, 0.1f);
 
     char const* expected =
-        "<?xml version=\"1.0\"?>"
-        "<unittest-results tests=\"1\" failedtests=\"2\" failures=\"3\" time=\"0.1\">"
-        "<test suite=\"suite\" name=\"TestName\" time=\"0.1\">"
-        "<failure message=\"filename.h(4321) : "
-        "&quot;&quot;&apos;&apos;&amp;&amp;&lt;&lt;&gt;&gt;\"/>"
-        "</test>"
-        "</unittest-results>";
+        "<?xml version=\"1.0\"?>\n"
+		"<unittest-results tests=\"1\" failedtests=\"2\" failures=\"3\" time=\"0.1\">\n"
+			"\t<test suite=\"suite\" name=\"TestName\" time=\"0.1\">\n"
+				"\t\t<failure message=\"filename.h(4321) : &quot;&quot;&apos;&apos;&amp;&amp;&lt;&lt;&gt;&gt;\"/>\n"
+			"\t</test>\n"
+		"</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
 }
@@ -70,9 +69,9 @@ TEST_FIXTURE(XmlTestReporterFixture, EmptyReportSummaryFormat)
     reporter.ReportSummary(0, 0, 0, 0.1f);
 
     const char *expected =
-"<?xml version=\"1.0\"?>"
-"<unittest-results tests=\"0\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
-"</unittest-results>";
+		"<?xml version=\"1.0\"?>\n"
+		"<unittest-results tests=\"0\" failedtests=\"0\" failures=\"0\" time=\"0.1\">\n"
+		"</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
 }
@@ -85,10 +84,10 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleSuccessfulTestReportSummaryFormat)
     reporter.ReportSummary(1, 0, 0, 0.1f);
 
     const char *expected =
-"<?xml version=\"1.0\"?>"
-"<unittest-results tests=\"1\" failedtests=\"0\" failures=\"0\" time=\"0.1\">"
-"<test suite=\"DefaultSuite\" name=\"TestName\" time=\"0\"/>"
-"</unittest-results>";
+		"<?xml version=\"1.0\"?>\n"
+		"<unittest-results tests=\"1\" failedtests=\"0\" failures=\"0\" time=\"0.1\">\n"
+			"\t<test suite=\"DefaultSuite\" name=\"TestName\" time=\"0\"/>\n"
+		"</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
 }
@@ -102,11 +101,11 @@ TEST_FIXTURE(XmlTestReporterFixture, SingleFailedTestReportSummaryFormat)
     reporter.ReportSummary(1, 1, 1, 0.1f);
 
     const char *expected =
-        "<?xml version=\"1.0\"?>"
-        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"1\" time=\"0.1\">"
-        "<test suite=\"suite\" name=\"A Test\" time=\"0\">"
-        "<failure message=\"A File(4321) : A Failure\"/>"
-        "</test>"
+        "<?xml version=\"1.0\"?>\n"
+        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"1\" time=\"0.1\">\n"
+			"\t<test suite=\"suite\" name=\"A Test\" time=\"0\">\n"
+				"\t\t<failure message=\"A File(4321) : A Failure\"/>\n"
+			"\t</test>\n"
         "</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
@@ -122,11 +121,11 @@ TEST_FIXTURE(XmlTestReporterFixture, FailureMessageIsXMLEscaped)
     reporter.ReportSummary(1, 1, 1, 0.1f);
 
     char const* expected =
-        "<?xml version=\"1.0\"?>"
-        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"1\" time=\"0.1\">"
-        "<test suite=\"suite\" name=\"TestName\" time=\"0.1\">"
-        "<failure message=\"filename.h(4321) : &quot;&apos;&amp;&lt;&gt;\"/>"
-        "</test>"
+        "<?xml version=\"1.0\"?>\n"
+        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"1\" time=\"0.1\">\n"
+			"\t<test suite=\"suite\" name=\"TestName\" time=\"0.1\">\n"
+				"\t\t<failure message=\"filename.h(4321) : &quot;&apos;&amp;&lt;&gt;\"/>\n"
+			"\t</test>\n"
         "</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
@@ -145,12 +144,12 @@ TEST_FIXTURE(XmlTestReporterFixture, OneFailureAndOneSuccess)
     reporter.ReportSummary(2, 1, 1, 1.1f);
 
     char const* expected =
-        "<?xml version=\"1.0\"?>"
-        "<unittest-results tests=\"2\" failedtests=\"1\" failures=\"1\" time=\"1.1\">"
-        "<test suite=\"suite\" name=\"FailedTest\" time=\"0.1\">"
-        "<failure message=\"fail.h(1) : expected 1 but was 2\"/>"
-        "</test>"
-        "<test suite=\"suite\" name=\"SucceededTest\" time=\"1\"/>"
+        "<?xml version=\"1.0\"?>\n"
+        "<unittest-results tests=\"2\" failedtests=\"1\" failures=\"1\" time=\"1.1\">\n"
+			"\t<test suite=\"suite\" name=\"FailedTest\" time=\"0.1\">\n"
+				"\t\t<failure message=\"fail.h(1) : expected 1 but was 2\"/>\n"
+			"\t</test>\n"
+			"\t<test suite=\"suite\" name=\"SucceededTest\" time=\"1\"/>\n"
         "</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
@@ -169,12 +168,12 @@ TEST_FIXTURE(XmlTestReporterFixture, MultipleFailures)
     reporter.ReportSummary(1, 1, 2, 1.1f);
 
     char const* expected =
-        "<?xml version=\"1.0\"?>"
-        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"2\" time=\"1.1\">"
-        "<test suite=\"suite\" name=\"FailedTest\" time=\"0.1\">"
-        "<failure message=\"fail.h(1) : expected 1 but was 2\"/>"
-        "<failure message=\"fail.h(31) : expected one but was two\"/>"
-        "</test>"
+        "<?xml version=\"1.0\"?>\n"
+        "<unittest-results tests=\"1\" failedtests=\"1\" failures=\"2\" time=\"1.1\">\n"
+			"\t<test suite=\"suite\" name=\"FailedTest\" time=\"0.1\">\n"
+				"\t\t<failure message=\"fail.h(1) : expected 1 but was 2\"/>\n"
+				"\t\t<failure message=\"fail.h(31) : expected one but was two\"/>\n"
+			"\t</test>\n"
         "</unittest-results>";
 
     CHECK_EQUAL(expected, output.str());
