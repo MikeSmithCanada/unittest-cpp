@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="TestUnitTest++.vsnet2005"
+	Name="TestUnitTest++"
 	ProjectGUID="{9CCC3439-309E-4E85-B3B8-CE704D385D48}"
 	RootNamespace="TestUnitTestvsnet2005"
 	Keyword="Win32Proj"
