@@ -168,6 +168,12 @@
 		<File
 			RelativePath=".\src\tests\TestXmlTestReporter.cpp">
 		</File>
+        <File
+			RelativePath=".\src\tests\TestUtility.cpp">
+		</File>
+        <File
+			RelativePath=".\src\tests\TestExtendedStdioReporter.cpp">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

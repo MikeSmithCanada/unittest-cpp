@@ -9,14 +9,14 @@ public:
     TestDetails(char const* testName, char const* suiteName, char const* filename, int lineNumber);
     TestDetails(const TestDetails& details, int lineNumber);
 
-    char const* const suiteName;
-    char const* const testName;
-    char const* const filename;
-    int const lineNumber;
+    const char* suiteName;
+    const char* testName;
+    const char* filename;
+    int lineNumber;
 
-    TestDetails(TestDetails const&); // Why is it public? --> http://gcc.gnu.org/bugs.html#cxx_rvalbind
+    //TestDetails(TestDetails const&); // Why is it public? --> http://gcc.gnu.org/bugs.html#cxx_rvalbind
 private:
-    TestDetails& operator=(TestDetails const&);
+    //TestDetails& operator=(TestDetails const&);
 };
 
 }

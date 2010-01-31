@@ -320,6 +320,22 @@
 			RelativePath=".\src\LeakDetector.cpp"
 			>
 		</File>
+        <File
+			RelativePath=".\src\Utility.h"
+			>
+        </File>
+        <File
+			RelativePath=".\src\Utility.cpp"
+			>
+        </File>
+        <File
+			RelativePath=".\src\ExtendedStdioReporter.h"
+			>
+        </File>
+        <File
+			RelativePath=".\src\ExtendedStdioReporter.cpp"
+			>
+        </File>
 	</Files>
 	<Globals>
 	</Globals>
